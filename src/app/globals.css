@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
+/* AIQTrader theme — Swift light default (CLAUDE.md #12). CSS variables so dark/handoff can retheme. */
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+	--background: #f6f7f9;
+	--surface: #ffffff;
+	--surface-2: #f1f3f5;
+	--border: #e3e6ea;
+	--foreground: #1b2733;
+	--muted: #6b7684;
+	--brand: #2f6df6;
+	--take: #16a34a;
+	--watch: #d97706;
+	--arm: #2563eb;
+	--avoid: #64748b;
+	--long: #16a34a;
+	--short: #dc2626;
+	--bull: #16a34a;
+	--bear: #dc2626;
+}
+
+[data-theme="dark"] {
+	--background: #0e1116;
+	--surface: #161b22;
+	--surface-2: #1c232d;
+	--border: #2a323d;
+	--foreground: #e6edf3;
+	--muted: #8b949e;
+	--brand: #4c8dff;
 }
 
 @theme inline {
 	--color-background: var(--background);
+	--color-surface: var(--surface);
+	--color-surface-2: var(--surface-2);
+	--color-border: var(--border);
 	--color-foreground: var(--foreground);
+	--color-muted: var(--muted);
+	--color-brand: var(--brand);
+	--color-take: var(--take);
+	--color-watch: var(--watch);
+	--color-arm: var(--arm);
+	--color-avoid: var(--avoid);
+	--color-long: var(--long);
+	--color-short: var(--short);
+	--color-bull: var(--bull);
+	--color-bear: var(--bear);
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
 }
 
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-sans), -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.mono {
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: "tnum";
 }

@@ -13,9 +13,11 @@
 	},
 	"dependencies": {
 		"@opennextjs/cloudflare": "1.14.0",
+		"lightweight-charts": "^5.2.0",
 		"next": "16.0.7",
 		"react": "19.2.1",
-		"react-dom": "19.2.1"
+		"react-dom": "19.2.1",
+		"recharts": "^3.9.2"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "3",
@@ -27,10 +29,13 @@
 		"eslint-config-next": "16.0.7",
 		"tailwindcss": "4.1.17",
 		"typescript": "5.9.3",
-		"wrangler": "4.88.0"
+		"wrangler": "^4.88.0"
 	},
 	"private": true,
 	"scripts": {
+		"sync-reports": "node scripts/sync-reports.mjs",
+		"predev": "node scripts/sync-reports.mjs",
+		"prebuild": "node scripts/sync-reports.mjs",
 		"build": "next build",
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts",
 		"check": "npm run build && tsc",

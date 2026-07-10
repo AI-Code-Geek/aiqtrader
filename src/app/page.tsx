@@ -1,88 +1,78 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { setUser } from "@/lib/client-user";
+import { redeemCode } from "@/lib/api-client";
+
+const ERRORS: Record<string, string> = {
+	missing_code: "Enter your subscription code.",
+	invalid_code: "That code isn’t recognised.",
+	inactive: "This subscription is not active.",
+	bad_request: "Something went wrong — try again.",
+};
+
+function LandingForm() {
+	const router = useRouter();
+	const params = useSearchParams();
+	const next = params.get("next") || "/app";
+	const [code, setCode] = useState("AIQ-DEMO-2026");
+	const [error, setError] = useState("");
+	const [busy, setBusy] = useState(false);
+
+	async function redeem() {
+		const c = code.trim();
+		if (!c) return setError(ERRORS.missing_code);
+		setBusy(true);
+		setError("");
+		// Real redeem (DEVPLAN §4): code → KV user → signed httpOnly cookie set by the server.
+		const r = await redeemCode(c);
+		setBusy(false);
+		if (!r.ok || !r.user) {
+			const msg = r.reason === "suspended" ? "This subscription is suspended." : r.reason === "expired" ? "This subscription has expired." : ERRORS[r.error ?? ""] ?? "Unable to sign in.";
+			return setError(msg);
+		}
+		setUser(r.user); // localStorage mirror for instant paint (reconciled from /api/me later)
+		router.push(next.startsWith("/app") ? next : "/app");
+	}
+
 	return (
-		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-			<main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-				<Image
-					className="dark:invert"
-					src="/next.svg"
-					alt="Next.js logo"
-					width={180}
-					height={38}
-					priority
-				/>
-				<ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-					<li className="mb-2 tracking-[-.01em]">
-						Get started by editing{" "}
-						<code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-							src/app/page.tsx
-						</code>
-						.
-					</li>
-					<li className="tracking-[-.01em]">
-						Save and see your changes instantly.
-					</li>
-				</ol>
+		<div className="flex min-h-screen items-center justify-center px-4">
+			<div className="w-full max-w-md rounded-2xl border border-border bg-surface p-6 shadow-sm">
+				<h1 className="text-2xl font-bold">
+					AIQ<span className="text-brand">Trader</span>
+				</h1>
+				<p className="mt-1 mb-6 text-sm text-muted">Enter your subscription code to view watchlist reports.</p>
 
-				<div className="flex gap-4 items-center flex-col sm:flex-row">
-					<a
-						className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-						href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Read our docs
-					</a>
-				</div>
-			</main>
-			<footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
+				<label className="mb-1 block text-sm text-muted">Access code</label>
+				<input
+					value={code}
+					onChange={(e) => setCode(e.target.value)}
+					onKeyDown={(e) => e.key === "Enter" && redeem()}
+					placeholder="AIQ-XXXX-XXXX"
+					autoComplete="off"
+					className="mono mb-3 w-full rounded-lg border border-border bg-surface px-3 py-2 text-lg"
+				/>
+				{error ? <p className="mb-3 rounded-lg border border-short/30 bg-short/10 p-2 text-sm text-short">{error}</p> : null}
+				<button
+					onClick={redeem}
+					disabled={busy}
+					className="w-full rounded-lg bg-brand py-2 font-medium text-white disabled:opacity-60"
 				>
-					<Image
-						aria-hidden
-						src="/file.svg"
-						alt="File icon"
-						width={16}
-						height={16}
-					/>
-					Learn
-				</a>
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image
-						aria-hidden
-						src="/window.svg"
-						alt="Window icon"
-						width={16}
-						height={16}
-					/>
-					Examples
-				</a>
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image
-						aria-hidden
-						src="/globe.svg"
-						alt="Globe icon"
-						width={16}
-						height={16}
-					/>
-					Go to nextjs.org →
-				</a>
-			</footer>
+					{busy ? "Checking…" : "Unlock dashboard →"}
+				</button>
+				<p className="mt-3 text-xs text-muted">
+					Demo codes: <span className="mono">AIQ-DEMO-2026</span> (pro) · <span className="mono">AIQ-FREE-0001</span> (free).
+				</p>
+			</div>
 		</div>
+	);
+}
+
+export default function Landing() {
+	return (
+		<Suspense fallback={null}>
+			<LandingForm />
+		</Suspense>
 	);
 }

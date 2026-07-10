@@ -15,5 +15,21 @@
 	"observability": {
 		"enabled": true
 	},
-	"upload_source_maps": true
+	"upload_source_maps": true,
+	// User identity / subscription state (DEVPLAN §3). Reports stay as static files; KV holds only
+	// small user records: `<userid>` -> UserRecord JSON, and `idx:code:<CODE>` -> "<userid>".
+	"kv_namespaces": [
+		{
+			"binding": "KV",
+			"id": "5b81fa9d10704592b90455817f4a9fd0",
+			// Replace with a real preview namespace id for `wrangler dev`; local `next dev` uses miniflare's
+			// local KV (auto-seeded with demo users in non-production — see src/lib/user-store.ts).
+			"preview_id": "5b81fa9d10704592b90455817f4a9fd0"
+		}
+	],
+	// Session-cookie signing key. DO NOT ship a real secret here — set it per-env:
+	//   prod:  wrangler secret put SECRET
+	//   dev:   put SECRET=... in .dev.vars (gitignored)
+	// A weak dev fallback is used if unset (see src/lib/session.ts).
+	"vars": {}
 }

@@ -4,6 +4,8 @@
 declare namespace Cloudflare {
 	interface Env {
 		ASSETS: Fetcher;
+		KV: KVNamespace;
+		SECRET: string;
 	}
 }
 interface CloudflareEnv extends Cloudflare.Env {}
