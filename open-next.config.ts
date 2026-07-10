@@ -1,9 +1,10 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import staticAssetsIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/static-assets-incremental-cache";
 
 export default defineCloudflareConfig({
-	// Uncomment to enable R2 cache,
-	// It should be imported as:
-	// `import r2IncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/r2-incremental-cache";`
-	// See https://opennext.js.org/cloudflare/caching for more details
-	// incrementalCache: r2IncrementalCache,
+	// Serve prerendered SSG pages (/app/[scheduleId], /app/[scheduleId]/[symbol]) from the deployed
+	// static ASSETS binding. Without an incrementalCache, those pages 404 with `NoFallbackError` at
+	// runtime. This override is the free-tier choice — no R2/KV — and is correct here because the app
+	// is purely prerendered (reports are baked at build; no ISR/revalidation).
+	incrementalCache: staticAssetsIncrementalCache,
 });
