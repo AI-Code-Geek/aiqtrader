@@ -4,9 +4,10 @@
  * fs at runtime, so pages that call these must be statically generated. Client-side run-switching
  * fetches the same files as static assets from /reports/** instead.
  */
-import { readFile, readdir } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { Report, ReportIndex } from "./report-types";
+import { SCHEDULE_IDS } from "./reports-manifest";
 
 const REPORTS_DIR = join(process.cwd(), "data", "reports");
 
@@ -23,10 +24,13 @@ async function readJson<T>(path: string): Promise<T> {
 	return JSON.parse(await readFile(path, "utf-8")) as T;
 }
 
-/** Every schedule folder under data/reports (e.g. "001-watchlist-1"). */
+/**
+ * Every schedule folder under data/reports (e.g. "001-watchlist-1").
+ * Reads the BUILD-GENERATED manifest (scripts/sync-reports.mjs) rather than the filesystem, so this
+ * is safe to call at runtime on the Worker (which has no fs) — e.g. the `/app` redirect.
+ */
 export async function listScheduleIds(): Promise<string[]> {
-	const entries = await readdir(REPORTS_DIR, { withFileTypes: true });
-	return entries.filter((e) => e.isDirectory()).map((e) => e.name).sort();
+	return SCHEDULE_IDS;
 }
 
 export async function getIndex(scheduleId: string): Promise<ReportIndex> {
