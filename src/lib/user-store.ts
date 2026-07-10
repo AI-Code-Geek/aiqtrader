@@ -95,6 +95,17 @@ const DEMO_USERS: UserRecord[] = [
 		schedules: [1],
 		myList: [],
 	},
+	{
+		userid: "u_eca14b",
+		name: "Nagul",
+		email: "nagul@aiqtrader.app",
+		code: "AIQ-9K5U-EXH6",
+		status: "active",
+		validity: null,
+		tier: "pro",
+		schedules: [1],
+		myList: [],
+	},
 ];
 
 function getKV(): KVNamespace | undefined {
