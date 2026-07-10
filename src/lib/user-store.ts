@@ -60,6 +60,41 @@ const DEMO_USERS: UserRecord[] = [
 		schedules: [1],
 		myList: [],
 	},
+	// Real subscribers — mirror of scripts/users.seed.json (that file provisions production KV via
+	// `node scripts/seed-users.mjs`; these entries make them usable in local `next dev` too).
+	{
+		userid: "u_c95d00",
+		name: "Venkat",
+		email: "venkat@aiqtrader.app",
+		code: "AIQ-6VHZ-ZAEJ",
+		status: "active",
+		validity: null,
+		tier: "pro",
+		schedules: [1],
+		myList: [],
+	},
+	{
+		userid: "u_90c3dc",
+		name: "Sai",
+		email: "sai@aiqtrader.app",
+		code: "AIQ-59D4-7776",
+		status: "active",
+		validity: null,
+		tier: "pro",
+		schedules: [1],
+		myList: [],
+	},
+	{
+		userid: "u_12920a",
+		name: "Hari",
+		email: "hari@aiqtrader.app",
+		code: "AIQ-9DQY-PQHF",
+		status: "active",
+		validity: null,
+		tier: "pro",
+		schedules: [1],
+		myList: [],
+	},
 ];
 
 function getKV(): KVNamespace | undefined {
