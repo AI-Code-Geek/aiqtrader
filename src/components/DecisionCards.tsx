@@ -1,0 +1,246 @@
+/**
+ * Symbol-detail decision cards. Pure rendering of server-computed fields (CLAUDE.md #2).
+ *
+ * Reconciliation (CLAUDE.md §2 #5–6, DEVPLAN §6): Confluence = direction + size (weight of evidence);
+ * Strategy/Setup = the executable plan. They are shown as two distinct axes. When alignment=conflict
+ * we surface it: continuation-vs-tape → discount/avoid; reversal-vs-tape → needs turn confirmation
+ * (we show confirmation.missing[]).
+ */
+import type { SymbolDecision } from "@/lib/report-types";
+import { money, num } from "@/lib/format";
+import { VerdictBadge, QualityGrade, ConvictionMeter, DirectionLabel, RegimeChip } from "./badges";
+
+function Card({ title, children, extra }: { title: string; children: React.ReactNode; extra?: React.ReactNode }) {
+	return (
+		<div className="rounded-2xl border border-border bg-surface p-4">
+			<div className="mb-2 flex items-center justify-between">
+				<h3 className="text-xs font-semibold uppercase tracking-wide text-muted">{title}</h3>
+				{extra}
+			</div>
+			{children}
+		</div>
+	);
+}
+
+const READ_COLOR: Record<string, string> = {
+	bull: "text-bull",
+	bear: "text-bear",
+	bullish: "text-bull",
+	bearish: "text-bear",
+};
+
+export function DecisionCard({ d }: { d: SymbolDecision }) {
+	const dec = d.decision;
+	const conflict = dec.alignment === "conflict";
+	return (
+		<Card
+			title="Decision"
+			extra={<VerdictBadge verdict={dec.verdict} alignment={dec.alignment} />}
+		>
+			<div className="mb-2 flex items-center justify-between text-sm">
+				<span className="text-muted">Conviction</span>
+				<span className="mono">
+					{dec.conviction}
+					{dec.raw_conviction !== dec.conviction ? <span className="text-muted"> (raw {dec.raw_conviction})</span> : null}
+				</span>
+			</div>
+			<ConvictionMeter value={dec.conviction} />
+			<dl className="mt-3 grid grid-cols-2 gap-y-1.5 text-sm">
+				<Row k="Alignment" v={<span className={conflict ? "font-semibold text-short" : "text-long"}>{dec.alignment}</span>} />
+				<Row k="Class" v={dec.klass} />
+				<Row k="Context" v={dec.context_label || dec.context} />
+				<Row k="HTF lean" v={<span className={READ_COLOR[dec.htf_lean] ?? ""}>{dec.htf_lean}</span>} />
+				<Row k="Size factor" v={`${num(dec.size_factor)}×`} />
+				<Row k="Rank" v={num(dec.rank_score, 1)} />
+			</dl>
+			{dec.reason ? <p className="mt-3 rounded-lg bg-surface-2 p-2 text-sm text-muted">{dec.reason}</p> : null}
+			{conflict ? (
+				<p className="mt-2 rounded-lg border border-short/30 bg-short/10 p-2 text-xs text-short">
+					Strategy fights the tape ({dec.klass}). {dec.klass === "reversal" ? "Reversal — valid only with turn confirmation (see missing evidence below)." : "Continuation vs. tape — premature; discount / avoid."}
+				</p>
+			) : null}
+		</Card>
+	);
+}
+
+export function ConfluencePanel({ d }: { d: SymbolDecision }) {
+	const c = d.confluence;
+	const dims = ["trend", "momentum", "volatility", "volume", "structure"];
+	return (
+		<Card
+			title="Confluence — direction & size"
+			extra={<span className={`text-sm font-semibold ${READ_COLOR[c.lean] ?? "text-muted"}`}>{c.lean} · {c.strength}</span>}
+		>
+			<div className="mb-2 flex items-center gap-2 text-sm text-muted">
+				<span>score <b className="mono text-foreground">{num(c.score, 2)}</b></span>
+				<span>· regime {c.regime}</span>
+			</div>
+			<ul className="space-y-1.5">
+				{dims.filter((k) => c.dimensions[k]).map((k) => {
+					const dim = c.dimensions[k];
+					return (
+						<li key={k} className="flex items-start gap-2 text-sm">
+							<span className={`w-24 shrink-0 font-medium ${READ_COLOR[dim.read] ?? "text-muted"}`}>
+								{k} · {dim.read}
+							</span>
+							<span className="text-muted">{dim.detail}</span>
+							<span className="ml-auto mono text-xs text-muted">w{num(dim.weight, 1)}</span>
+						</li>
+					);
+				})}
+			</ul>
+		</Card>
+	);
+}
+
+export function SetupCard({ d }: { d: SymbolDecision }) {
+	const s = d.best.setup;
+	const plan = d.decision.entry_plan?.entry_now;
+	const ladder = plan?.ladder?.targets ?? [];
+	return (
+		<Card title="Setup — the executable plan" extra={<DirectionLabel direction={s.direction} />}>
+			<div className="grid grid-cols-4 gap-2 text-center text-sm">
+				<Stat label="Entry" value={`$${money(plan?.price ?? s.entry)}`} />
+				<Stat label="Stop" value={`$${money(plan?.stop ?? s.stop)}`} tone="short" />
+				<Stat label="Target" value={`$${money(plan?.target ?? s.target)}`} tone="long" />
+				<Stat label="R:R" value={num(plan?.rr ?? s.rr)} />
+			</div>
+			{plan?.chase_risk ? (
+				<p className="mt-2 text-xs text-muted">Chase risk: <b>{plan.chase_risk.label}</b> ({num(plan.chase_risk.atr_from_value)} ATR from value)</p>
+			) : null}
+			{ladder.length ? (
+				<div className="mt-3">
+					<div className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">Exit ladder</div>
+					<ul className="space-y-1">
+						{ladder.map((t, i) => (
+							<li key={i} className="flex items-center justify-between rounded-lg bg-surface-2 px-2 py-1 text-sm">
+								<span className="font-medium">{t.milestone}</span>
+								<span className="mono">${money(t.level)}</span>
+								<span className="text-muted">R {num(t.rr)}</span>
+								<span className="text-muted">{t.pct}%</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			) : null}
+		</Card>
+	);
+}
+
+export function QualityCard({ d }: { d: SymbolDecision }) {
+	const q = d.best.quality;
+	return (
+		<Card title="Signal quality" extra={<QualityGrade grade={q.grade} />}>
+			<div className="mb-2 flex items-center gap-3 text-sm text-muted">
+				<span>trap risk <b className="mono text-foreground">{num(q.trap_risk, 2)}</b></span>
+				{q.verdict ? <span>· {q.verdict}</span> : null}
+			</div>
+			{q.confirmations?.length ? (
+				<ul className="mb-2 space-y-1 text-sm">
+					{q.confirmations.map((f, i) => (
+						<li key={i} className="text-long">✓ <span className="text-foreground">{f.factor}</span> <span className="text-muted">{f.detail}</span></li>
+					))}
+				</ul>
+			) : null}
+			{q.warnings?.length ? (
+				<ul className="space-y-1 text-sm">
+					{q.warnings.map((f, i) => (
+						<li key={i} className="text-short">! <span className="text-foreground">{f.factor}</span> <span className="text-muted">{f.detail}</span></li>
+					))}
+				</ul>
+			) : null}
+		</Card>
+	);
+}
+
+export function ConfirmationCard({ d }: { d: SymbolDecision }) {
+	const cf = d.decision.confirmation;
+	if (!cf) return null;
+	return (
+		<Card title="Turn confirmation" extra={<span className="mono text-sm text-muted">{cf.score} · {cf.state}</span>}>
+			{cf.evidence?.length ? (
+				<ul className="mb-2 space-y-1 text-sm">
+					{cf.evidence.map((e, i) => (
+						<li key={i} className="text-long">✓ <span className="text-muted">{e.axis}:</span> {e.detail}</li>
+					))}
+				</ul>
+			) : null}
+			{cf.missing?.length ? (
+				<ul className="space-y-1 text-sm">
+					{cf.missing.map((e, i) => (
+						<li key={i} className="text-muted">○ <span>{e.axis}:</span> {e.detail}</li>
+					))}
+				</ul>
+			) : null}
+		</Card>
+	);
+}
+
+export function ConditionsChecklist({ d }: { d: SymbolDecision }) {
+	const conds = d.best.conditions ?? [];
+	if (!conds.length) return null;
+	const met = conds.filter((c) => c.met).length;
+	return (
+		<Card title="Strategy conditions" extra={<span className="mono text-sm text-muted">{met}/{conds.length}</span>}>
+			<ul className="space-y-1 text-sm">
+				{conds.map((c, i) => (
+					<li key={i} className={c.met ? "text-foreground" : "text-muted"}>
+						<span className={c.met ? "text-long" : "text-muted"}>{c.met ? "✓" : "○"}</span> {c.name}
+					</li>
+				))}
+			</ul>
+		</Card>
+	);
+}
+
+export function StructureCard({ d }: { d: SymbolDecision }) {
+	const htf = d.structure?.htf;
+	if (!htf) return null;
+	const rows = (arr: { price: number; dist_entry_atr: number }[] | undefined, label: string, tone: string) =>
+		(arr ?? []).map((lvl, i) => (
+			<li key={label + i} className="flex items-center justify-between text-sm">
+				<span className={tone}>{label}</span>
+				<span className="mono">${money(lvl.price)}</span>
+				<span className="text-muted">{num(lvl.dist_entry_atr)} ATR</span>
+			</li>
+		));
+	return (
+		<Card title={`HTF structure · ${htf.htf_tf}`}>
+			<ul className="space-y-1">
+				{rows(htf.resistances, "Resistance", "text-short")}
+				{rows(htf.supports, "Support", "text-long")}
+			</ul>
+		</Card>
+	);
+}
+
+function Row({ k, v }: { k: string; v: React.ReactNode }) {
+	return (
+		<>
+			<dt className="text-muted">{k}</dt>
+			<dd className="text-right font-medium">{v}</dd>
+		</>
+	);
+}
+
+function Stat({ label, value, tone }: { label: string; value: string; tone?: "long" | "short" }) {
+	return (
+		<div className="rounded-lg bg-surface-2 p-2">
+			<div className="text-xs text-muted">{label}</div>
+			<div className={`mono font-semibold ${tone === "long" ? "text-long" : tone === "short" ? "text-short" : ""}`}>{value}</div>
+		</div>
+	);
+}
+
+/** Small header stat row for the detail page hero. */
+export function SymbolHero({ d }: { d: SymbolDecision }) {
+	return (
+		<div className="flex flex-wrap items-center gap-3">
+			<h1 className="text-2xl font-bold">{d.symbol}</h1>
+			<span className="mono text-lg">${money(d.price)}</span>
+			<RegimeChip label={d.regime} />
+			<span className="text-sm text-muted">{d.best.label}</span>
+			<span className="ml-auto text-sm text-muted">as of {new Date(d.computed_at).toLocaleString()}</span>
+		</div>
+	);
+}

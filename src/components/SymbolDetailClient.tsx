@@ -1,0 +1,156 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import type { Report, ReportIndex, Timeframe } from "@/lib/report-types";
+import { time } from "@/lib/format";
+import { PriceChart, type PriceLine } from "./PriceChart";
+import { IndicatorPanels } from "./IndicatorPanels";
+import {
+	ConditionsChecklist,
+	ConfirmationCard,
+	ConfluencePanel,
+	DecisionCard,
+	QualityCard,
+	SetupCard,
+	StructureCard,
+	SymbolHero,
+} from "./DecisionCards";
+
+const INTRADAY: Record<string, boolean> = { "1Hour": true, "1Day": false, "1Week": false };
+
+export function SymbolDetailClient({
+	scheduleId,
+	symbol,
+	index,
+	initialReport,
+}: {
+	scheduleId: string;
+	symbol: string;
+	index: ReportIndex;
+	initialReport: Report;
+}) {
+	const [report, setReport] = useState(initialReport);
+	const [version, setVersion] = useState("latest");
+	const [tf, setTf] = useState<Timeframe>(initialReport.timeframes?.[0] ?? "1Hour");
+	const [loading, setLoading] = useState(false);
+
+	// Run-switching: fetch the chosen version as a static asset (DEVPLAN §3, mirrors the dashboard).
+	useEffect(() => {
+		let cancelled = false;
+		if (version === "latest") {
+			setReport(initialReport);
+			return;
+		}
+		setLoading(true);
+		fetch(`/reports/${scheduleId}/${version}.json`)
+			.then((r) => r.json() as Promise<Report>)
+			.then((data) => !cancelled && setReport(data))
+			.finally(() => !cancelled && setLoading(false));
+		return () => {
+			cancelled = true;
+		};
+	}, [version, scheduleId, initialReport]);
+
+	const decision = report.decisions?.[symbol];
+	const bars = report.charts?.[symbol]?.[tf] ?? [];
+	const intraday = INTRADAY[tf] ?? false;
+	const timeframes = report.timeframes ?? Object.keys(report.charts?.[symbol] ?? {});
+
+	// Plan + HTF levels → chart price lines. Read straight from the report; nothing computed here.
+	const lines = useMemo<PriceLine[]>(() => {
+		if (!decision) return [];
+		const out: PriceLine[] = [];
+		const plan = decision.decision.entry_plan?.entry_now;
+		const setup = decision.best.setup;
+		const entry = plan?.price ?? setup?.entry;
+		const stop = plan?.stop ?? setup?.stop;
+		const target = plan?.target ?? setup?.target;
+		if (entry != null) out.push({ price: entry, color: "var(--brand)", title: "Entry" });
+		if (stop != null) out.push({ price: stop, color: "var(--short)", title: "Stop", dashed: true });
+		if (target != null) out.push({ price: target, color: "var(--long)", title: "Target", dashed: true });
+		const htf = decision.structure?.htf;
+		(htf?.support_levels ?? []).forEach((p) => out.push({ price: p, color: "var(--long)", title: "S", dashed: true }));
+		(htf?.resistance_levels ?? []).forEach((p) => out.push({ price: p, color: "var(--short)", title: "R", dashed: true }));
+		return out;
+	}, [decision]);
+
+	if (!decision) {
+		return (
+			<div className="mx-auto max-w-7xl px-4 py-8">
+				<Link href={`/app/${scheduleId}`} className="text-sm text-brand">← Back to dashboard</Link>
+				<p className="mt-4 text-muted">No decision detail for {symbol} in this run.</p>
+			</div>
+		);
+	}
+
+	return (
+		<div className="mx-auto max-w-7xl px-4 py-4">
+			<div className="mb-3 flex items-center justify-between gap-2">
+				<Link href={`/app/${scheduleId}`} className="text-sm text-brand">← Dashboard</Link>
+				<div className="flex items-center gap-2">
+					<label className="text-sm text-muted">Run</label>
+					<select
+						value={version}
+						onChange={(e) => setVersion(e.target.value)}
+						className="rounded-md border border-border bg-surface px-2 py-1 text-sm"
+					>
+						{index.versions.map((v, i) => (
+							<option key={v.version} value={i === 0 ? "latest" : v.version}>
+								{i === 0 ? "Latest · " : ""}{time(v.generated_at)}
+							</option>
+						))}
+					</select>
+				</div>
+			</div>
+
+			<SymbolHero d={decision} />
+
+			<div className="mt-4 grid gap-4 lg:grid-cols-12">
+				{/* Chart column */}
+				<div className="lg:col-span-8">
+					<div className="rounded-2xl border border-border bg-surface p-3">
+						<div className="mb-2 flex items-center gap-1">
+							{timeframes.map((t) => (
+								<button
+									key={t}
+									onClick={() => setTf(t)}
+									className={`rounded-md px-3 py-1 text-sm ${t === tf ? "bg-brand text-white" : "text-muted hover:bg-surface-2"}`}
+								>
+									{t}
+								</button>
+							))}
+							{loading ? <span className="ml-2 text-xs text-muted">loading…</span> : null}
+							<span className="ml-auto text-xs text-muted">{bars.length} bars</span>
+						</div>
+						{bars.length ? (
+							<PriceChart bars={bars} lines={lines} intraday={intraday} />
+						) : (
+							<p className="py-16 text-center text-sm text-muted">No chart bars for {tf}.</p>
+						)}
+					</div>
+					{bars.length ? (
+						<div className="mt-3">
+							<IndicatorPanels bars={bars} intraday={intraday} />
+						</div>
+					) : null}
+				</div>
+
+				{/* Decision column */}
+				<div className="space-y-4 lg:col-span-4">
+					<DecisionCard d={decision} />
+					<SetupCard d={decision} />
+				</div>
+			</div>
+
+			{/* Lower detail grid */}
+			<div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+				<ConfluencePanel d={decision} />
+				<QualityCard d={decision} />
+				<ConditionsChecklist d={decision} />
+				<ConfirmationCard d={decision} />
+				<StructureCard d={decision} />
+			</div>
+		</div>
+	);
+}
