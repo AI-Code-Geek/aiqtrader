@@ -61,9 +61,6 @@ function LandingForm() {
 				>
 					{busy ? "Checking…" : "Unlock dashboard →"}
 				</button>
-				<p className="mt-3 text-xs text-muted">
-					Demo codes: <span className="mono">AIQ-DEMO-2026</span> (pro) · <span className="mono">AIQ-FREE-0001</span> (free).
-				</p>
 			</div>
 		</div>
 	);

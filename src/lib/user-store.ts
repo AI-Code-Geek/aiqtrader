@@ -6,107 +6,44 @@
  *   `idx:code:<CODE>`     -> "<userid>"       (secondary index for redeem-by-code)
  *
  * Reports are NOT stored here (they stay as committed static files); KV holds only small user records.
- * For zero-config local dev, if the KV namespace is empty we auto-seed a few demo users so the login
- * flow is testable without `wrangler kv key put`. Seeding is skipped in production.
+ *
+ * Seeding: if the KV namespace hasn't been seeded (no `idx:seeded:<ver>` marker) we lazily write the
+ * seed users on first access. Real SUBSCRIBERS are seeded in EVERY environment (including production)
+ * so the deployed app works without a manual `wrangler kv key put`. The DEV_USERS (demo/test accounts,
+ * whose codes are public in this repo) are seeded ONLY outside production — otherwise anyone could log
+ * in with a well-known demo code. Bump SEED_VERSION to force a re-seed after editing the sets.
  */
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import type { UserRecord } from "./user-types";
 
 export const codeIndexKey = (code: string) => `idx:code:${code.trim().toUpperCase()}`;
 
-/** Demo users seeded into a fresh/empty KV in non-production. Codes are case-insensitive on redeem. */
-const DEMO_USERS: UserRecord[] = [
-	{
-		userid: "u_demo",
-		name: "Demo Trader",
-		email: "demo@aiqtrader.app",
-		code: "AIQ-DEMO-2026",
-		status: "active",
-		validity: null,
-		tier: "pro",
-		schedules: [1],
-		myList: [],
-	},
-	{
-		userid: "u_free",
-		name: "Free Tier",
-		email: "free@aiqtrader.app",
-		code: "AIQ-FREE-0001",
-		status: "active",
-		validity: null,
-		tier: "free",
-		schedules: [1],
-		myList: [],
-	},
-	{
-		userid: "u_expired",
-		name: "Lapsed Sub",
-		email: "expired@aiqtrader.app",
-		code: "AIQ-EXP-0002",
-		status: "active",
-		validity: "2020-01-01T00:00:00Z", // past validity → rejected on redeem
-		tier: "pro",
-		schedules: [1],
-		myList: [],
-	},
-	{
-		userid: "u_suspended",
-		name: "Suspended",
-		email: "suspended@aiqtrader.app",
-		code: "AIQ-SUSP-0003",
-		status: "suspended", // → rejected on redeem
-		validity: null,
-		tier: "pro",
-		schedules: [1],
-		myList: [],
-	},
-	// Real subscribers — mirror of scripts/users.seed.json (that file provisions production KV via
-	// `node scripts/seed-users.mjs`; these entries make them usable in local `next dev` too).
-	{
-		userid: "u_c95d00",
-		name: "Venkat",
-		email: "venkat@aiqtrader.app",
-		code: "AIQ-6VHZ-ZAEJ",
-		status: "active",
-		validity: null,
-		tier: "pro",
-		schedules: [1],
-		myList: [],
-	},
-	{
-		userid: "u_90c3dc",
-		name: "Sai",
-		email: "sai@aiqtrader.app",
-		code: "AIQ-59D4-7776",
-		status: "active",
-		validity: null,
-		tier: "pro",
-		schedules: [1],
-		myList: [],
-	},
-	{
-		userid: "u_12920a",
-		name: "Hari",
-		email: "hari@aiqtrader.app",
-		code: "AIQ-9DQY-PQHF",
-		status: "active",
-		validity: null,
-		tier: "pro",
-		schedules: [1],
-		myList: [],
-	},
-	{
-		userid: "u_eca14b",
-		name: "Nagul",
-		email: "nagul@aiqtrader.app",
-		code: "AIQ-9K5U-EXH6",
-		status: "active",
-		validity: null,
-		tier: "pro",
-		schedules: [1],
-		myList: [],
-	},
+/** Bump when SUBSCRIBERS/DEV_USERS change so an already-seeded namespace re-seeds once. */
+const SEED_VERSION = "v2";
+
+/** Real subscribers — mirror of scripts/users.seed.json. Seeded in ALL environments. */
+const SUBSCRIBERS: UserRecord[] = [
+	{ userid: "u_c95d00", name: "Venkat", email: "venkat@aiqtrader.app", code: "AIQ-6VHZ-ZAEJ", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
+	{ userid: "u_90c3dc", name: "Sai", email: "sai@aiqtrader.app", code: "AIQ-59D4-7776", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
+	{ userid: "u_12920a", name: "Hari", email: "hari@aiqtrader.app", code: "AIQ-9DQY-PQHF", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
+	{ userid: "u_eca14b", name: "Nagul", email: "nagul@aiqtrader.app", code: "AIQ-9K5U-EXH6", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
 ];
+
+/** Demo/test accounts. Codes are public in the repo → seeded ONLY outside production. */
+const DEV_USERS: UserRecord[] = [
+	{ userid: "u_demo", name: "Demo Trader", email: "demo@aiqtrader.app", code: "AIQ-DEMO-2026", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
+	{ userid: "u_free", name: "Free Tier", email: "free@aiqtrader.app", code: "AIQ-FREE-0001", status: "active", validity: null, tier: "free", schedules: [1], myList: [] },
+	{ userid: "u_expired", name: "Lapsed Sub", email: "expired@aiqtrader.app", code: "AIQ-EXP-0002", status: "active", validity: "2020-01-01T00:00:00Z", tier: "pro", schedules: [1], myList: [] },
+	{ userid: "u_suspended", name: "Suspended", email: "suspended@aiqtrader.app", code: "AIQ-SUSP-0003", status: "suspended", validity: null, tier: "pro", schedules: [1], myList: [] },
+];
+
+const isProd = () => process.env.NODE_ENV === "production";
+
+/** Users seeded for the current environment. */
+const seedUsers = (): UserRecord[] => (isProd() ? SUBSCRIBERS : [...SUBSCRIBERS, ...DEV_USERS]);
+
+/** In-memory fallback set when no KV binding is present (local `next dev` without miniflare KV). */
+const memoryUsers: UserRecord[] = [...SUBSCRIBERS, ...DEV_USERS];
 
 function getKV(): KVNamespace | undefined {
 	try {
@@ -116,42 +53,40 @@ function getKV(): KVNamespace | undefined {
 	}
 }
 
-/** Seed demo users into an empty KV, once, outside production. No-op if KV missing or already seeded. */
+/** Seed the environment's users into KV once (guarded by a versioned marker). Idempotent. */
 async function ensureSeed(kv: KVNamespace): Promise<void> {
-	if (process.env.NODE_ENV === "production") return;
-	const seeded = await kv.get("idx:seeded");
-	if (seeded) return;
+	const marker = `idx:seeded:${SEED_VERSION}`;
+	if (await kv.get(marker)) return;
 	await Promise.all(
-		DEMO_USERS.flatMap((u) => [
-			kv.put(u.userid, JSON.stringify(u)),
-			kv.put(codeIndexKey(u.code), u.userid),
-		]),
+		seedUsers().flatMap((u) => [kv.put(u.userid, JSON.stringify(u)), kv.put(codeIndexKey(u.code), u.userid)]),
 	);
-	await kv.put("idx:seeded", new Date().toISOString());
+	await kv.put(marker, new Date().toISOString());
 }
 
 export async function getUserById(userid: string): Promise<UserRecord | null> {
 	const kv = getKV();
-	if (!kv) return DEMO_USERS.find((u) => u.userid === userid) ?? null;
+	if (!kv) return memoryUsers.find((u) => u.userid === userid) ?? null;
 	await ensureSeed(kv);
-	return kv.get<UserRecord>(userid, "json");
+	// KV is eventually consistent — right after a seed the read can miss; fall back to the seed set.
+	return (await kv.get<UserRecord>(userid, "json")) ?? seedUsers().find((u) => u.userid === userid) ?? null;
 }
 
 export async function getUserByCode(code: string): Promise<UserRecord | null> {
 	const kv = getKV();
-	if (!kv) return DEMO_USERS.find((u) => u.code.toUpperCase() === code.trim().toUpperCase()) ?? null;
+	const bySeed = () => seedUsers().find((u) => u.code.toUpperCase() === code.trim().toUpperCase()) ?? null;
+	if (!kv) return memoryUsers.find((u) => u.code.toUpperCase() === code.trim().toUpperCase()) ?? null;
 	await ensureSeed(kv);
 	const userid = await kv.get(codeIndexKey(code));
-	if (!userid) return null;
-	return kv.get<UserRecord>(userid, "json");
+	if (!userid) return bySeed(); // index not yet propagated after seeding
+	return (await kv.get<UserRecord>(userid, "json")) ?? bySeed();
 }
 
 /** Persist a mutated user record. Rewrites the small object (My List updates, status changes, …). */
 export async function putUser(user: UserRecord): Promise<void> {
 	const kv = getKV();
 	if (!kv) {
-		const i = DEMO_USERS.findIndex((u) => u.userid === user.userid);
-		if (i >= 0) DEMO_USERS[i] = user; // in-memory only (no KV binding present)
+		const i = memoryUsers.findIndex((u) => u.userid === user.userid);
+		if (i >= 0) memoryUsers[i] = user; // in-memory only (no KV binding present)
 		return;
 	}
 	await kv.put(user.userid, JSON.stringify(user));
