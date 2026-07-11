@@ -20,6 +20,23 @@ export async function redeemCode(code: string): Promise<RedeemResult> {
 	return { ok: res.ok, ...body };
 }
 
+export interface AccessRequestResult {
+	ok: boolean;
+	status?: string;
+	error?: string;
+}
+
+/** Submit a request for an access code. Admin mints the code offline — this grants no access. */
+export async function requestAccess(input: { name: string; email: string; plan: "free" | "pro"; persona?: string; note?: string }): Promise<AccessRequestResult> {
+	const res = await fetch("/api/access-requests", {
+		method: "POST",
+		headers: { "content-type": "application/json" },
+		body: JSON.stringify(input),
+	});
+	const body = (await res.json().catch(() => ({}))) as { status?: string; error?: string };
+	return { ok: res.ok, ...body };
+}
+
 export async function logout(): Promise<void> {
 	await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
 }

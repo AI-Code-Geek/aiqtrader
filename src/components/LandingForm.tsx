@@ -1,9 +1,11 @@
 "use client";
 
 import { Suspense, useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setUser } from "@/lib/client-user";
 import { redeemCode } from "@/lib/api-client";
+import { Brand } from "./Brand";
 
 const ERRORS: Record<string, string> = {
 	missing_code: "Enter your subscription code.",
@@ -39,9 +41,7 @@ function Form() {
 	return (
 		<div className="flex min-h-screen items-center justify-center px-4">
 			<div className="w-full max-w-md rounded-2xl border border-border bg-surface p-6 shadow-sm">
-				<h1 className="text-2xl font-bold">
-					AIQ<span className="text-brand">Trader</span>
-				</h1>
+				<Brand size="lg" tagline />
 				<p className="mt-1 mb-6 text-sm text-muted">Enter your subscription code to view watchlist reports.</p>
 
 				<label className="mb-1 block text-sm text-muted">Access code</label>
@@ -61,6 +61,13 @@ function Form() {
 				>
 					{busy ? "Checking…" : "Unlock dashboard →"}
 				</button>
+
+				<p className="mt-4 text-center text-sm text-muted">
+					Need a code?{" "}
+					<Link href="/request-access" className="text-brand">
+						Request access
+					</Link>
+				</p>
 			</div>
 		</div>
 	);

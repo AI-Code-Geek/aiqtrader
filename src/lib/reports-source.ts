@@ -6,8 +6,9 @@
  */
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { Report, ReportIndex } from "./report-types";
-import { SCHEDULE_IDS } from "./reports-manifest";
+import type { AiReport, Report, ReportIndex } from "./report-types";
+import type { ScheduleMeta, WatchlistMeta } from "./manifest-types";
+import { SCHEDULE_IDS, SCHEDULES, WATCHLISTS } from "./reports-manifest";
 
 const REPORTS_DIR = join(process.cwd(), "data", "reports");
 
@@ -62,4 +63,97 @@ export async function listSchedules(): Promise<ScheduleSummary[]> {
 export async function getReport(scheduleId: string, version = "latest"): Promise<Report> {
 	const file = version === "latest" ? "latest.json" : `${version}.json`;
 	return readJson<Report>(join(REPORTS_DIR, scheduleId, file));
+}
+
+/**
+ * Load the AI Brain extension for a run, or `null` if that run has none. The AI file is a sibling
+ * named `<report_version>.ai.json` (there is no `latest.ai.json`), so pass the run's *report_version*
+ * — resolve "latest" to its report_version first. Build-time fs read; client run-switching fetches the
+ * same file as a static asset from `/reports/<slug>/<version>.ai.json`.
+ */
+export async function getAiReport(scheduleId: string, reportVersion: string): Promise<AiReport | null> {
+	try {
+		return await readJson<AiReport>(join(REPORTS_DIR, scheduleId, `${reportVersion}.ai.json`));
+	} catch {
+		return null; // most runs have no AI extension yet
+	}
+}
+
+// ── Watchlist layer ──────────────────────────────────────────────────────────────────────────────
+// The dashboard is organized by WATCHLIST (universe.watchlist_id), not by the scheduler that produced
+// the reports. A watchlist is fed by one or more schedules (usually one per persona). These helpers
+// resolve a watchlist slug → the underlying schedule(s) + runs, reusing the schedule-level loaders.
+
+/** All watchlists (build manifest). Safe at runtime — no fs. */
+export function listWatchlists(): WatchlistMeta[] {
+	return WATCHLISTS;
+}
+
+export function getWatchlist(slug: string): WatchlistMeta | undefined {
+	return WATCHLISTS.find((w) => w.slug === slug);
+}
+
+/** Schedule metadata for every schedule feeding a watchlist. */
+export function watchlistSchedules(slug: string): ScheduleMeta[] {
+	const w = getWatchlist(slug);
+	if (!w) return [];
+	return SCHEDULES.filter((s) => w.schedules.includes(s.id));
+}
+
+/**
+ * Pick the schedule to load for a watchlist. With one persona this is the only schedule; with several
+ * it defaults to the newest-updated (optionally filtered by `persona`).
+ */
+export function resolveSchedule(slug: string, persona?: string): ScheduleMeta | undefined {
+	const scheds = watchlistSchedules(slug).filter((s) => !persona || s.persona === persona);
+	if (scheds.length === 0) return undefined;
+	return [...scheds].sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? ""))[0];
+}
+
+export interface WatchlistReportRow {
+	version: string;
+	scheduleId: string;
+	persona: string;
+	generated_at: string;
+	candidate_count: number;
+	status: string;
+	hasAi: boolean;
+}
+
+/** The full report history for a watchlist, aggregated across its schedules, newest-first. Build-time. */
+export async function getWatchlistReports(slug: string): Promise<WatchlistReportRow[]> {
+	const scheds = watchlistSchedules(slug);
+	const rows: WatchlistReportRow[] = [];
+	for (const s of scheds) {
+		const idx = await getIndex(s.id);
+		for (const v of idx.versions) {
+			rows.push({
+				version: v.version,
+				scheduleId: s.id,
+				persona: s.persona,
+				generated_at: v.generated_at,
+				candidate_count: v.candidate_count,
+				status: v.status,
+				hasAi: s.ai_versions.includes(v.version),
+			});
+		}
+	}
+	return rows.sort((a, b) => b.generated_at.localeCompare(a.generated_at));
+}
+
+/**
+ * Load one watchlist run (technical + AI, if present) plus the resolved scheduleId (needed for
+ * client-side run-switching, which fetches /reports/<scheduleId>/<version>.json). `version` defaults
+ * to the watchlist's latest run.
+ */
+export async function getWatchlistReport(
+	slug: string,
+	version = "latest",
+	persona?: string,
+): Promise<{ scheduleId: string; report: Report; ai: AiReport | null; index: ReportIndex }> {
+	const sched = resolveSchedule(slug, persona);
+	if (!sched) throw new Error(`no schedule for watchlist ${slug}`);
+	const [index, report] = await Promise.all([getIndex(sched.id), getReport(sched.id, version)]);
+	const ai = await getAiReport(sched.id, report.report_version);
+	return { scheduleId: sched.id, report, ai, index };
 }

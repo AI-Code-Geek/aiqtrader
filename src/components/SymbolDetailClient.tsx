@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import type { Report, ReportIndex, Timeframe } from "@/lib/report-types";
+import type { AiReport, AiSymbol, Report, ReportIndex, Timeframe } from "@/lib/report-types";
 import { time } from "@/lib/format";
 import { PriceChart, type PriceLine } from "./PriceChart";
 import { IndicatorPanels } from "./IndicatorPanels";
@@ -11,11 +11,14 @@ import {
 	ConfirmationCard,
 	ConfluencePanel,
 	DecisionCard,
+	MarketContextCard,
 	QualityCard,
 	SetupCard,
 	StructureCard,
 	SymbolHero,
 } from "./DecisionCards";
+import { AnalysisTabs } from "./AnalysisTabs";
+import { AiPanel } from "./AiPanel";
 
 const INTRADAY: Record<string, boolean> = { "1Hour": true, "1Day": false, "1Week": false };
 
@@ -24,15 +27,24 @@ export function SymbolDetailClient({
 	symbol,
 	index,
 	initialReport,
+	initialAi,
 }: {
 	scheduleId: string;
 	symbol: string;
 	index: ReportIndex;
 	initialReport: Report;
+	initialAi?: AiSymbol;
 }) {
 	const [report, setReport] = useState(initialReport);
 	const [version, setVersion] = useState("latest");
-	const [tf, setTf] = useState<Timeframe>(initialReport.timeframes?.[0] ?? "1Hour");
+	const [aiSym, setAiSym] = useState<AiSymbol | undefined>(initialAi);
+	// Default to the persona's entry timeframe (1Day for swing), NOT timeframes[0] (1Hour). Switchable.
+	const defaultTf =
+		initialReport.schedule?.timeframe ??
+		initialReport.decisions?.[symbol]?.timeframe ??
+		initialReport.timeframes?.[0] ??
+		"1Day";
+	const [tf, setTf] = useState<Timeframe>(defaultTf);
 	const [loading, setLoading] = useState(false);
 
 	// Run-switching: fetch the chosen version as a static asset (DEVPLAN §3, mirrors the dashboard).
@@ -40,17 +52,27 @@ export function SymbolDetailClient({
 		let cancelled = false;
 		if (version === "latest") {
 			setReport(initialReport);
+			setAiSym(initialAi);
 			return;
 		}
 		setLoading(true);
-		fetch(`/reports/${scheduleId}/${version}.json`)
-			.then((r) => r.json() as Promise<Report>)
-			.then((data) => !cancelled && setReport(data))
+		// The AI extension is a sibling `<version>.ai.json`; absent runs simply clear the AI panel.
+		Promise.all([
+			fetch(`/reports/${scheduleId}/${version}.json`).then((r) => r.json() as Promise<Report>),
+			fetch(`/reports/${scheduleId}/${version}.ai.json`)
+				.then((r) => (r.ok ? (r.json() as Promise<AiReport>) : null))
+				.catch(() => null),
+		])
+			.then(([rep, ai]) => {
+				if (cancelled) return;
+				setReport(rep);
+				setAiSym(ai?.symbols?.[symbol]);
+			})
 			.finally(() => !cancelled && setLoading(false));
 		return () => {
 			cancelled = true;
 		};
-	}, [version, scheduleId, initialReport]);
+	}, [version, scheduleId, initialReport, initialAi, symbol]);
 
 	const decision = report.decisions?.[symbol];
 	const bars = report.charts?.[symbol]?.[tf] ?? [];
@@ -69,6 +91,13 @@ export function SymbolDetailClient({
 		if (entry != null) out.push({ price: entry, color: "var(--brand)", title: "Entry" });
 		if (stop != null) out.push({ price: stop, color: "var(--short)", title: "Stop", dashed: true });
 		if (target != null) out.push({ price: target, color: "var(--long)", title: "Target", dashed: true });
+		// Staged (breakout/pullback) entry: trigger line + zone bounds.
+		const pull = decision.decision.entry_plan?.entry_pullback;
+		if (pull?.trigger != null) out.push({ price: pull.trigger, color: "var(--watch)", title: "Trigger", dashed: true });
+		if (pull?.zone) {
+			out.push({ price: pull.zone.low, color: "var(--watch)", title: "Zone", dashed: true });
+			out.push({ price: pull.zone.high, color: "var(--watch)", title: "Zone", dashed: true });
+		}
 		const htf = decision.structure?.htf;
 		(htf?.support_levels ?? []).forEach((p) => out.push({ price: p, color: "var(--long)", title: "S", dashed: true }));
 		(htf?.resistance_levels ?? []).forEach((p) => out.push({ price: p, color: "var(--short)", title: "R", dashed: true }));
@@ -143,10 +172,17 @@ export function SymbolDetailClient({
 				</div>
 			</div>
 
+			{/* AI Brain view (report's <version>.ai.json; empty state when the run has no AI extension) */}
+			<AiPanel ai={aiSym} symbol={symbol} />
+
+			{/* Analysis tabs: MTF / Price-Volume / Price-Action (report.analysis; hidden on older runs) */}
+			<AnalysisTabs analysis={report.analysis?.[symbol]} />
+
 			{/* Lower detail grid */}
 			<div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 				<ConfluencePanel d={decision} />
 				<QualityCard d={decision} />
+				<MarketContextCard d={decision} />
 				<ConditionsChecklist d={decision} />
 				<ConfirmationCard d={decision} />
 				<StructureCard d={decision} />

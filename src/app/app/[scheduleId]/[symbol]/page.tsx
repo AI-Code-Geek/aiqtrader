@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getIndex, getReport, listScheduleIds } from "@/lib/reports-source";
+import { getAiReport, getIndex, getReport, listScheduleIds } from "@/lib/reports-source";
 import { TopNav } from "@/components/TopNav";
 import { SymbolDetailClient } from "@/components/SymbolDetailClient";
 
@@ -30,10 +30,17 @@ export default async function SymbolPage({
 	try {
 		const [index, report] = await Promise.all([getIndex(scheduleId), getReport(scheduleId, "latest")]);
 		if (!report.decisions?.[symbol]) notFound();
+		const ai = await getAiReport(scheduleId, report.report_version);
 		return (
 			<>
-				<TopNav active="dashboard" subtitle={`${report.persona} · ${symbol}`} />
-				<SymbolDetailClient scheduleId={scheduleId} symbol={symbol} index={index} initialReport={report} />
+				<TopNav active="dashboard" scheduleId={scheduleId} subtitle={`${report.persona} · ${symbol}`} />
+				<SymbolDetailClient
+					scheduleId={scheduleId}
+					symbol={symbol}
+					index={index}
+					initialReport={report}
+					initialAi={ai?.symbols?.[symbol]}
+				/>
 			</>
 		);
 	} catch {

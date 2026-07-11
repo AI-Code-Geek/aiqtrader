@@ -28,9 +28,10 @@ export async function middleware(req: NextRequest) {
 		return NextResponse.redirect(url);
 	}
 
-	// Symbol detail = /app/<scheduleId>/<symbol>. Pro-only (charts).
+	// Symbol detail = /app/<scheduleId>/<symbol>. Pro-only (charts). The market overview
+	// (/app/<scheduleId>/market) is macro context, not per-symbol charts → available to all tiers.
 	const parts = req.nextUrl.pathname.split("/").filter(Boolean); // ["app", scheduleId, symbol?]
-	const isSymbolDetail = parts.length === 3 && parts[0] === "app";
+	const isSymbolDetail = parts.length === 3 && parts[0] === "app" && parts[2] !== "market";
 	if (session.tier === "free" && isSymbolDetail) {
 		const url = req.nextUrl.clone();
 		url.pathname = `/app/${parts[1]}`;

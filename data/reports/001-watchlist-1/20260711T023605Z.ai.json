@@ -1,0 +1,999 @@
+{
+  "schema_version": 1,
+  "kind": "ai_extension",
+  "report_version": "20260711T023605Z",
+  "extends": "20260711T023605Z.json",
+  "persona": "swing",
+  "generated_at": "2026-07-11T04:15:00Z",
+  "model": "claude-opus-4-8",
+  "disclaimer": "Educational analysis, not financial advice.",
+  "market_overview": {
+    "tape": "S&P 500 sits ~0.5% below its June 2 record (~7,621 all-time high a month ago) after wild swings; leadership is narrow and concentrated in AI/semis (XLK leading, XLC lagging). The engine tags the tape neutral/range-bound — defensible, though it understates the melt-up.",
+    "risk_tone": "mixed — cautiously risk-on with a stretched-valuation tail (AI 'speculation at extreme levels')",
+    "earnings_cluster": "Heavy prints land right at/after these swing windows: GEV Jul 22 (pre-mkt), META + MSFT Jul 29 (post), AAPL Jul 30 (post), NVDA ~Aug 25, PLTR Aug 10. Event risk dominates late July for this watchlist.",
+    "handle_with_care": [
+      "META — Jul 28 print + Jul 29 FOMC sit at the edge of the 10-bar window; breakout into resistance.",
+      "MSFT — Jul 29 earnings AND FOMC on the SAME day; reversal setup still 'forming'.",
+      "AAPL — Jul 30 print (Tim Cook's last call as CEO) with engine grade D / trap 85 ('likely trap, skip').",
+      "GEV — counter-trend SHORT into a Strong-Buy name reporting Jul 22 with a ~163% avg beat; knife-catch.",
+      "DG — 2-bar short with a 0.1 R:R while analysts carry a ~$135 target ABOVE spot.",
+      "Jul 29 FOMC (hold at 3.5-3.75% expected) is a whole-market event inside several windows."
+    ],
+    "sources": [
+      {
+        "kind": "web",
+        "url": "https://fortune.com/2026/07/05/stock-market-outlook-sp500-target-7100-ai-boom-speculation-extreme-levels/"
+      },
+      {
+        "kind": "web",
+        "url": "https://www.advisorperspectives.com/dshort/updates/2026/07/10/s-p-500-snapshot-inches-away-from-record-high"
+      }
+    ],
+    "macro": "FOMC Jul 28-29; decision Jul 29 2pm ET — hold at 3.5-3.75% expected (4th straight, no SEP). Year-end S&P targets diverge widely: BofA 7,100 (below spot), JPMorgan 7,800, Yardeni 8,250."
+  },
+  "symbols": {
+    "NVDA": {
+      "status": "active",
+      "schema_version": 1,
+      "report_version": "20260711T023605Z",
+      "symbol": "NVDA",
+      "persona": "swing",
+      "stance": "supportive",
+      "alignment": "agree",
+      "score": 62,
+      "size_hint": "hold",
+      "confidence": "high",
+      "sentiment": {
+        "label": "bullish",
+        "score": 0.55,
+        "drivers": [
+          "Consensus Strong Buy (~38 analysts); average 12-mo target ~$284-303 vs report price 210.99 — well above entry",
+          "Q2 print consensus ~$2.12 EPS on ~$93.5B revenue; AI/data-center demand narrative intact",
+          "Leadership name in the AI/semis cohort driving the tape"
+        ]
+      },
+      "catalysts": [
+        {
+          "type": "earnings",
+          "date": "2026-08-25",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "Q2 report ~Aug 25 (after close) — OUTSIDE the ~15-bar swing window; a T2 runner would be closed before the print."
+        },
+        {
+          "type": "analyst",
+          "date": null,
+          "in_window": false,
+          "impact": "low",
+          "direction": "bullish",
+          "note": "Steady Strong-Buy reiterations; supports the bias, not a dated trigger."
+        }
+      ],
+      "market_read": {
+        "agrees_with_engine": true,
+        "note": "Engine tags the tape neutral with XLK leading; live tape is neutral-to-up but narrow and AI-concentrated. NVDA rides QQQ risk."
+      },
+      "edge_cases": [
+        {
+          "risk": "valuation_snapback",
+          "severity": "medium",
+          "note": "Broad tape stretched (BofA year-end 7,100 = ~5% below spot; AI 'speculation at extreme levels'). A high-beta unwind can skip the 204.57 stop."
+        },
+        {
+          "risk": "crowded_long",
+          "severity": "low",
+          "note": "Consensus long; positioning is one-sided — sharp shakeouts possible even in an uptrend."
+        }
+      ],
+      "narrative": "Engine read: S/R Breakout long, verdict TAKE (conviction 92, grade B, trap 31) — a clean, high-conviction continuation. Entry 210.99, stop 204.57, target 226.36 (R:R 2.4). The AI concurs: Strong-Buy consensus and a ~$284-303 average target sit well above entry, and — importantly — the Aug 25 print lands AFTER the ~15-bar window, so this trade should be flat before the binary event. The one caveat is a stretched broad tape.",
+      "reconciliation": "Technical TAKE and AI both bullish — no divergence. The AI adds that the earnings risk is OUT of the trade window (a plus), and the only live risk is a market-wide valuation snapback in the AI cohort.",
+      "provenance": {
+        "model": "claude-opus-4-8",
+        "generated_at": "2026-07-11T04:15:00Z",
+        "sources": [
+          {
+            "kind": "web",
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/NVDA/forecast/"
+          },
+          {
+            "kind": "web",
+            "url": "https://www.tipranks.com/stocks/nvda/earnings"
+          },
+          {
+            "kind": "web",
+            "url": "https://www.benzinga.com/quote/NVDA/analyst-ratings"
+          }
+        ],
+        "disclaimer": "Educational analysis, not financial advice."
+      },
+      "verification": {
+        "verdict": "pass",
+        "report_price": 210.99,
+        "cited": {
+          "entry": 210.99,
+          "stop": 204.5737,
+          "target": 226.3603
+        },
+        "sources_checked": [
+          {
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/NVDA/forecast/",
+            "published": "2026-07-10"
+          },
+          {
+            "url": "https://www.tipranks.com/stocks/nvda/earnings",
+            "published": null
+          },
+          {
+            "url": "https://www.benzinga.com/quote/NVDA/analyst-ratings",
+            "published": "2026-07-09"
+          }
+        ],
+        "checked_at": "2026-07-11T04:15:00Z"
+      },
+      "dimensions": {
+        "news_flow": {
+          "lean": "bullish",
+          "note": "Constructive AI/data-center coverage; no negative catalysts in-window."
+        },
+        "analyst": {
+          "lean": "bullish",
+          "note": "Strong Buy (~38); avg PT ~$284-303 vs 210.99."
+        },
+        "earnings": {
+          "lean": "neutral",
+          "note": "Q2 ~Aug 25 sits AFTER the swing window — not a live risk for this trade."
+        },
+        "macro_rates": {
+          "lean": "mildly_bearish",
+          "note": "FOMC Jul 29 hold expected (3.5-3.75%); high-beta name carries market risk."
+        },
+        "policy_regulatory": {
+          "lean": "mildly_bearish",
+          "note": "AI chip export-control overhang to China a standing tail risk."
+        },
+        "sector_peers": {
+          "lean": "bullish",
+          "note": "XLK leading; semis cohort strong — sector tailwind."
+        },
+        "social_retail": {
+          "lean": "bullish",
+          "note": "Heavy retail/AI-momentum crowding — euphoria = contrarian caution.",
+          "confidence": "medium"
+        },
+        "institutional": {
+          "lean": "bullish",
+          "note": "Smart money onside; options flow skews call-heavy into strength.",
+          "confidence": "medium"
+        }
+      }
+    },
+    "META": {
+      "status": "active",
+      "schema_version": 1,
+      "report_version": "20260711T023605Z",
+      "symbol": "META",
+      "persona": "swing",
+      "stance": "supportive",
+      "alignment": "agree",
+      "score": 60,
+      "size_hint": "hold",
+      "confidence": "high",
+      "sentiment": {
+        "label": "bullish",
+        "score": 0.6,
+        "drivers": [
+          "Consensus Strong Buy (~53 analysts, 42 Strong Buy); avg PT ~$823 (+~23% vs report 669.25)",
+          "Q2 consensus ~$7.32 EPS on ~$61.3B revenue; large post-earnings gap history",
+          "Product/AI momentum sustains the bid"
+        ]
+      },
+      "catalysts": [
+        {
+          "type": "earnings",
+          "date": "2026-07-28",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "Q2 print Jul 28 (after close) — ~12 business days out vs the 10-bar max, so JUST OUTSIDE the window; if it were held you'd carry a binary event."
+        },
+        {
+          "type": "macro",
+          "date": "2026-07-29",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "FOMC decision Jul 29 (2pm ET) — a whole-market risk event one day after the print."
+        },
+        {
+          "type": "analyst",
+          "date": null,
+          "in_window": false,
+          "impact": "low",
+          "direction": "bullish",
+          "note": "Steady target raises; supports the bias but not a dated trigger."
+        }
+      ],
+      "market_read": {
+        "agrees_with_engine": true,
+        "note": "Engine calls the tape neutral, XLC lagging; META trades on QQQ risk more than its own sector."
+      },
+      "edge_cases": [
+        {
+          "risk": "in_window_earnings",
+          "severity": "medium",
+          "note": "Jul 28 print is a hair outside the 10-bar max — if the breakout is slow to fill, the event risk creeps INTO the hold."
+        },
+        {
+          "risk": "breakout_into_resistance",
+          "severity": "medium",
+          "note": "Squeeze breakout into a stretched tape; a QQQ down-day or gap-and-fail can skip the 628.43 stop."
+        }
+      ],
+      "narrative": "Engine read: Squeeze Breakout long, verdict WATCH (conviction 85, grade C, trap 53) — a coiled continuation that hasn't triggered yet. Entry 669.25, stop 628.43, target 725.20 (R:R 1.37). The AI is bullish on the name (Strong Buy, ~$823 average target) but respects the WATCH: the Jul 28 print + Jul 29 FOMC sit right at the edge of the window, so a clean breakout should confirm BEFORE you take on that binary risk.",
+      "reconciliation": "Engine WATCH (wait for confirmation) and AI agree it's bullish-but-not-yet. The AI's added value is the calendar: entering late enough that the Jul 28/29 events land inside the hold turns a clean setup into a coin-flip — confirm early or stand aside.",
+      "provenance": {
+        "model": "claude-opus-4-8",
+        "generated_at": "2026-07-11T04:15:00Z",
+        "sources": [
+          {
+            "kind": "web",
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/META/earnings/"
+          },
+          {
+            "kind": "web",
+            "url": "https://stockanalysis.com/stocks/meta/forecast/"
+          },
+          {
+            "kind": "web",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+          }
+        ],
+        "disclaimer": "Educational analysis, not financial advice."
+      },
+      "verification": {
+        "verdict": "pass",
+        "report_price": 669.25,
+        "cited": {
+          "entry": 669.25,
+          "stop": 628.4313,
+          "target": 725.201
+        },
+        "sources_checked": [
+          {
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/META/earnings/",
+            "published": "2026-07-09"
+          },
+          {
+            "url": "https://stockanalysis.com/stocks/meta/forecast/",
+            "published": null
+          },
+          {
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+            "published": null
+          }
+        ],
+        "checked_at": "2026-07-11T04:15:00Z"
+      },
+      "dimensions": {
+        "news_flow": {
+          "lean": "bullish",
+          "note": "Constructive AI/product coverage; no negative in-window catalyst."
+        },
+        "analyst": {
+          "lean": "bullish",
+          "note": "Strong Buy (~53); avg PT ~$823 vs 669.25."
+        },
+        "earnings": {
+          "lean": "neutral",
+          "note": "Jul 28 print sits just past the 10-bar window — binary, but not carried if you respect the horizon."
+        },
+        "macro_rates": {
+          "lean": "mildly_bearish",
+          "note": "FOMC Jul 29 hold expected; rate-sensitive megacap."
+        },
+        "policy_regulatory": {
+          "lean": "neutral",
+          "note": "Antitrust a standing tail risk; nothing dated in-window."
+        },
+        "sector_peers": {
+          "lean": "mildly_bearish",
+          "note": "Comms (XLC) lagging vs XLK/XLV/XLF leadership — no sector tailwind."
+        },
+        "social_retail": {
+          "lean": "bullish",
+          "note": "AI-momentum crowd favorite; euphoria = contrarian caution.",
+          "confidence": "medium"
+        },
+        "institutional": {
+          "lean": "bullish",
+          "note": "Best-ideas lists carry META; smart money onside.",
+          "confidence": "medium"
+        }
+      }
+    },
+    "AAPL": {
+      "status": "active",
+      "schema_version": 1,
+      "report_version": "20260711T023605Z",
+      "symbol": "AAPL",
+      "persona": "swing",
+      "stance": "conflicting",
+      "alignment": "agree",
+      "score": 30,
+      "size_hint": "trim",
+      "confidence": "medium",
+      "sentiment": {
+        "label": "mildly_bullish",
+        "score": 0.25,
+        "drivers": [
+          "Buy consensus; Q3 (fiscal) EPS ~$1.88 (+~20% y/y), four straight beats",
+          "But the engine flags grade D / trap 85 — a likely trap",
+          "Tim Cook's final earnings call as CEO adds event uncertainty"
+        ]
+      },
+      "catalysts": [
+        {
+          "type": "earnings",
+          "date": "2026-07-30",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "Fiscal Q3 print Jul 30 (after close) — OUTSIDE the 10-bar window, and Cook's last call as CEO adds uncertainty."
+        },
+        {
+          "type": "macro",
+          "date": "2026-07-29",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "FOMC Jul 29 — market-wide risk near the setup."
+        }
+      ],
+      "market_read": {
+        "agrees_with_engine": true,
+        "note": "Engine tape neutral, XLK leading — but AAPL is the sector laggard, so it lacks the leadership bid."
+      },
+      "edge_cases": [
+        {
+          "risk": "likely_trap",
+          "severity": "high",
+          "note": "Engine quality is grade D, trap 85 — 'likely trap, skip.' A Squeeze Breakout with a low-quality grade often fails at the level."
+        },
+        {
+          "risk": "ceo_transition",
+          "severity": "medium",
+          "note": "Cook's last call as CEO (per Apple's Jul 30 setup) injects headline risk the math can't price."
+        }
+      ],
+      "narrative": "This is where the AI pushes back hardest. The engine lists a Squeeze Breakout long at entry 315.32, stop 302.52, target 333.48 (R:R 1.42), but verdict is only WATCH and quality is grade D with trap 85 — 'likely trap, skip.' The AI agrees: a laggard in a leading sector, a low-quality breakout, and a Jul 30 print (Cook's final call as CEO) just outside the window. Analyst tone is a mild Buy, but that isn't enough to override a trap-flagged setup.",
+      "reconciliation": "alignment 'agree': the engine did NOT say take (WATCH + trap 85), and the AI concurs it isn't a clean long. The size_hint is trim — treat any entry as low-conviction and demand confirmation.",
+      "provenance": {
+        "model": "claude-opus-4-8",
+        "generated_at": "2026-07-11T04:15:00Z",
+        "sources": [
+          {
+            "kind": "web",
+            "url": "https://9to5mac.com/2026/07/02/apple-sets-q3-2026-earnings-release-for-july-30/"
+          },
+          {
+            "kind": "web",
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/AAPL/earnings/"
+          },
+          {
+            "kind": "web",
+            "url": "https://www.tipranks.com/stocks/aapl/earnings"
+          }
+        ],
+        "disclaimer": "Educational analysis, not financial advice."
+      },
+      "verification": {
+        "verdict": "pass",
+        "report_price": 315.32,
+        "cited": {
+          "entry": 315.32,
+          "stop": 302.5169,
+          "target": 333.4828
+        },
+        "sources_checked": [
+          {
+            "url": "https://9to5mac.com/2026/07/02/apple-sets-q3-2026-earnings-release-for-july-30/",
+            "published": "2026-07-02"
+          },
+          {
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/AAPL/earnings/",
+            "published": null
+          },
+          {
+            "url": "https://www.tipranks.com/stocks/aapl/earnings",
+            "published": null
+          }
+        ],
+        "checked_at": "2026-07-11T04:15:00Z"
+      },
+      "dimensions": {
+        "news_flow": {
+          "lean": "neutral",
+          "note": "Steady coverage; CEO-transition headline is a wildcard."
+        },
+        "analyst": {
+          "lean": "mildly_bullish",
+          "note": "Buy consensus; EPS ~$1.88 expected, beat history."
+        },
+        "earnings": {
+          "lean": "mildly_bearish",
+          "note": "Jul 30 print outside the window; management-transition overhang."
+        },
+        "macro_rates": {
+          "lean": "mildly_bearish",
+          "note": "FOMC Jul 29 risk-event; rate-sensitive megacap."
+        },
+        "policy_regulatory": {
+          "lean": "neutral",
+          "note": "Standing regulatory/tariff noise; nothing dated in-window."
+        },
+        "sector_peers": {
+          "lean": "mildly_bearish",
+          "note": "XLK leads but AAPL is the mega-cap LAGGARD — no relative tailwind."
+        },
+        "social_retail": {
+          "lean": "neutral",
+          "note": "Muted retail energy vs the AI names.",
+          "confidence": "low"
+        },
+        "institutional": {
+          "lean": "mildly_bearish",
+          "note": "Positioning cautious into the CEO transition.",
+          "confidence": "medium"
+        }
+      }
+    },
+    "PLTR": {
+      "status": "active",
+      "schema_version": 1,
+      "report_version": "20260711T023605Z",
+      "symbol": "PLTR",
+      "persona": "swing",
+      "stance": "cautionary",
+      "alignment": "agree",
+      "score": 45,
+      "size_hint": "trim",
+      "confidence": "medium",
+      "sentiment": {
+        "label": "mildly_bullish",
+        "score": 0.35,
+        "drivers": [
+          "Buy consensus; avg PT ~$174-194 vs report 126.75; Q2 EPS ~$0.28 (+~115% y/y)",
+          "High-beta AI-momentum name — trades on risk appetite",
+          "Engine grade D / trap 69 tempers the long"
+        ]
+      },
+      "catalysts": [
+        {
+          "type": "earnings",
+          "date": "2026-08-10",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "Q2 print Aug 10 (after close) — well OUTSIDE the ~15-bar window; not a live risk for this trade."
+        },
+        {
+          "type": "analyst",
+          "date": null,
+          "in_window": false,
+          "impact": "medium",
+          "direction": "bullish",
+          "note": "DA Davidson and others reiterate; PT band ~$174-194 above spot."
+        }
+      ],
+      "market_read": {
+        "agrees_with_engine": true,
+        "note": "Tape neutral; PLTR trades on AI-momentum risk appetite more than any single sector read."
+      },
+      "edge_cases": [
+        {
+          "risk": "thin_trigger_volume",
+          "severity": "medium",
+          "note": "Engine notes thin volume on the trigger; a breakout on light tape is prone to failure."
+        },
+        {
+          "risk": "valuation_beta",
+          "severity": "medium",
+          "note": "Rich multiple + high beta; a tape wobble hits PLTR harder than most."
+        }
+      ],
+      "narrative": "Engine read: S/R Breakout long, verdict WATCH (conviction 86, grade D, trap 69). Entry 126.75, stop 122.59, target 149.79 — a wide R:R of 5.54 if it runs. The AI is constructive on the name (Buy, PT band ~$174-194) but cautionary on THIS entry: a grade-D breakout on thin trigger volume in a high-beta name. The Aug 10 print is safely outside the window, so the risk is tape/quality, not earnings.",
+      "reconciliation": "Engine WATCH and AI agree it isn't a clean go yet. The big 5.54 R:R is attractive, but the trim size_hint reflects grade-D quality and thin confirmation — wait for the breakout to prove itself.",
+      "provenance": {
+        "model": "claude-opus-4-8",
+        "generated_at": "2026-07-11T04:15:00Z",
+        "sources": [
+          {
+            "kind": "web",
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/PLTR/earnings/"
+          },
+          {
+            "kind": "web",
+            "url": "https://www.barchart.com/story/news/3223773/what-to-expect-from-palantirs-q2-2026-earnings-report"
+          },
+          {
+            "kind": "web",
+            "url": "https://public.com/stocks/pltr/forecast-price-target"
+          }
+        ],
+        "disclaimer": "Educational analysis, not financial advice."
+      },
+      "verification": {
+        "verdict": "pass",
+        "report_price": 126.75,
+        "cited": {
+          "entry": 126.75,
+          "stop": 122.5891,
+          "target": 149.7874
+        },
+        "sources_checked": [
+          {
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/PLTR/earnings/",
+            "published": "2026-07-08"
+          },
+          {
+            "url": "https://www.barchart.com/story/news/3223773/what-to-expect-from-palantirs-q2-2026-earnings-report",
+            "published": null
+          },
+          {
+            "url": "https://public.com/stocks/pltr/forecast-price-target",
+            "published": null
+          }
+        ],
+        "checked_at": "2026-07-11T04:15:00Z"
+      },
+      "dimensions": {
+        "news_flow": {
+          "lean": "mildly_bullish",
+          "note": "AI-adoption headlines constructive; momentum-driven."
+        },
+        "analyst": {
+          "lean": "bullish",
+          "note": "Buy; PT ~$174-194 vs 126.75 — analysts see upside."
+        },
+        "earnings": {
+          "lean": "neutral",
+          "note": "Aug 10 print outside the window — not carried."
+        },
+        "macro_rates": {
+          "lean": "mildly_bearish",
+          "note": "High-beta, risk-appetite sensitive into FOMC Jul 29."
+        },
+        "policy_regulatory": {
+          "lean": "mildly_bullish",
+          "note": "Government/defense contract flow a tailwind."
+        },
+        "sector_peers": {
+          "lean": "mildly_bullish",
+          "note": "AI/software cohort firm; XLK leadership helps."
+        },
+        "social_retail": {
+          "lean": "bullish",
+          "note": "Heavy retail crowding and gamma — a double-edged sword.",
+          "confidence": "medium"
+        },
+        "institutional": {
+          "lean": "neutral",
+          "note": "Mixed: high short interest vs momentum funds long.",
+          "confidence": "medium"
+        }
+      }
+    },
+    "MSFT": {
+      "status": "active",
+      "schema_version": 1,
+      "report_version": "20260711T023605Z",
+      "symbol": "MSFT",
+      "persona": "swing",
+      "stance": "supportive",
+      "alignment": "agree",
+      "score": 55,
+      "size_hint": "hold",
+      "confidence": "medium",
+      "sentiment": {
+        "label": "mildly_bullish",
+        "score": 0.45,
+        "drivers": [
+          "Consensus Strong Buy (~56 analysts); avg PT ~$560-577 vs report 385.09",
+          "FY Q4 print Jul 29 (after close); Azure/AI growth in focus",
+          "Engine setup is a counter-trend S/R Bounce (reversal) — needs turn confirmation"
+        ]
+      },
+      "catalysts": [
+        {
+          "type": "earnings",
+          "date": "2026-07-29",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "FY26 Q4 print Jul 29 (after close) — ~13 business days out vs the 12-bar max, so just OUTSIDE the window."
+        },
+        {
+          "type": "macro",
+          "date": "2026-07-29",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "FOMC decision the SAME day (Jul 29) — a compound risk event."
+        }
+      ],
+      "market_read": {
+        "agrees_with_engine": true,
+        "note": "Engine tape neutral with XLK LEADING — a genuine tailwind; MSFT is a quality reversal candidate."
+      },
+      "edge_cases": [
+        {
+          "risk": "reversal_needs_confirmation",
+          "severity": "medium",
+          "note": "This is a counter-trend S/R Bounce (reversal) — valid only with a rejection/reclaim candle; the engine confirmation is still 'forming'."
+        },
+        {
+          "risk": "compound_event_day",
+          "severity": "medium",
+          "note": "Earnings + FOMC on Jul 29 stack two binary events near the setup."
+        }
+      ],
+      "narrative": "Engine read: S/R Bounce long, verdict ARM (conviction 69, grade C, trap 53) — a counter-trend reversal that is armed but not triggered. Entry 385.09, stop 375.30, target 413.04 (R:R 2.86). The AI is constructive on MSFT (Strong Buy, ~$560-577 target, XLK leading) but flags that a reversal needs a turn signal, and the Jul 29 earnings+FOMC double-header sits at the window's edge.",
+      "reconciliation": "Engine ARM (not greenlit) and AI agree: a good name, but the bounce needs confirmation. The Strong-Buy backdrop supports patience for a proper trigger rather than anticipating the turn.",
+      "provenance": {
+        "model": "claude-opus-4-8",
+        "generated_at": "2026-07-11T04:15:00Z",
+        "sources": [
+          {
+            "kind": "web",
+            "url": "https://news.microsoft.com/source/2026/07/08/microsoft-announces-quarterly-earnings-release-date-68/"
+          },
+          {
+            "kind": "web",
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/MSFT/forecast/"
+          },
+          {
+            "kind": "web",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+          }
+        ],
+        "disclaimer": "Educational analysis, not financial advice."
+      },
+      "verification": {
+        "verdict": "pass",
+        "report_price": 385.09,
+        "cited": {
+          "entry": 385.09,
+          "stop": 375.3029,
+          "target": 413.035
+        },
+        "sources_checked": [
+          {
+            "url": "https://news.microsoft.com/source/2026/07/08/microsoft-announces-quarterly-earnings-release-date-68/",
+            "published": "2026-07-08"
+          },
+          {
+            "url": "https://www.marketbeat.com/stocks/NASDAQ/MSFT/forecast/",
+            "published": null
+          },
+          {
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+            "published": null
+          }
+        ],
+        "checked_at": "2026-07-11T04:15:00Z"
+      },
+      "dimensions": {
+        "news_flow": {
+          "lean": "mildly_bullish",
+          "note": "Azure/Copilot momentum coverage constructive."
+        },
+        "analyst": {
+          "lean": "bullish",
+          "note": "Strong Buy (~56); avg PT ~$560-577 vs 385.09."
+        },
+        "earnings": {
+          "lean": "neutral",
+          "note": "Jul 29 print just outside the window; Azure growth the swing factor."
+        },
+        "macro_rates": {
+          "lean": "mildly_bearish",
+          "note": "FOMC Jul 29 same day as the print — doubled event risk."
+        },
+        "policy_regulatory": {
+          "lean": "neutral",
+          "note": "Antitrust/AI-governance noise; nothing dated in-window."
+        },
+        "sector_peers": {
+          "lean": "bullish",
+          "note": "XLK LEADING — a genuine sector tailwind for MSFT."
+        },
+        "social_retail": {
+          "lean": "neutral",
+          "note": "Low retail volatility; institutional name.",
+          "confidence": "low"
+        },
+        "institutional": {
+          "lean": "bullish",
+          "note": "Core overweight; steady fund demand.",
+          "confidence": "medium"
+        }
+      }
+    },
+    "DG": {
+      "status": "active",
+      "schema_version": 1,
+      "report_version": "20260711T023605Z",
+      "symbol": "DG",
+      "persona": "swing",
+      "stance": "conflicting",
+      "alignment": "agree",
+      "score": 34,
+      "size_hint": "trim",
+      "confidence": "medium",
+      "sentiment": {
+        "label": "mildly_bullish",
+        "score": 0.2,
+        "drivers": [
+          "Analyst PT ~$135 sits ABOVE the report price 114.93 — a mild-bullish tilt that fights the SHORT",
+          "Mostly Hold-rated (56% hold); defensive discount retailer",
+          "Next print ~Aug 27 — well outside a 2-bar horizon"
+        ]
+      },
+      "catalysts": [
+        {
+          "type": "earnings",
+          "date": "2026-08-27",
+          "in_window": false,
+          "impact": "medium",
+          "direction": "unknown",
+          "note": "Next report ~Aug 27 — far OUTSIDE the 2-bar horizon; irrelevant to this short."
+        },
+        {
+          "type": "analyst",
+          "date": null,
+          "in_window": false,
+          "impact": "low",
+          "direction": "bullish",
+          "note": "Consensus PT ~$135 above spot — a headwind for a short."
+        }
+      ],
+      "market_read": {
+        "agrees_with_engine": true,
+        "note": "Tape neutral; DG is a defensive retailer, largely idiosyncratic and low-beta to the index."
+      },
+      "edge_cases": [
+        {
+          "risk": "analyst_conflict",
+          "severity": "medium",
+          "note": "A ~$135 average target above spot means the fundamental crowd leans the OTHER way from this short."
+        },
+        {
+          "risk": "tiny_edge",
+          "severity": "high",
+          "note": "Target 114.74 vs entry 114.93 is a 0.1 R:R, 2-bar scalp — almost no room; slippage/fees can erase it."
+        }
+      ],
+      "narrative": "Engine read: S/R Bounce SHORT, verdict WATCH (conviction 69, grade C, trap 62). Entry 114.93, stop 116.79, target 114.74 — a razor-thin R:R of 0.1 over a 2-bar horizon. The AI is cautionary/conflicting: analysts carry a ~$135 target ABOVE spot, so the fundamental lean is mildly bullish — the opposite of the short. With almost no reward and a hold-rated, defensive name, this is low-conviction.",
+      "reconciliation": "alignment 'agree': the engine says WATCH (not take), and the AI agrees this short has little edge — a tiny target, a 2-bar clock, and analysts leaning the other way. Trim/skip unless the level rejects hard.",
+      "provenance": {
+        "model": "claude-opus-4-8",
+        "generated_at": "2026-07-11T04:15:00Z",
+        "sources": [
+          {
+            "kind": "web",
+            "url": "https://www.marketbeat.com/stocks/NYSE/DG/earnings/"
+          },
+          {
+            "kind": "web",
+            "url": "https://public.com/stocks/dg/forecast-price-target"
+          }
+        ],
+        "disclaimer": "Educational analysis, not financial advice."
+      },
+      "verification": {
+        "verdict": "pass",
+        "report_price": 114.93,
+        "cited": {
+          "entry": 114.93,
+          "stop": 116.7947,
+          "target": 114.74
+        },
+        "sources_checked": [
+          {
+            "url": "https://www.marketbeat.com/stocks/NYSE/DG/earnings/",
+            "published": "2026-07-10"
+          },
+          {
+            "url": "https://public.com/stocks/dg/forecast-price-target",
+            "published": null
+          }
+        ],
+        "checked_at": "2026-07-11T04:15:00Z"
+      },
+      "dimensions": {
+        "news_flow": {
+          "lean": "neutral",
+          "note": "Quiet; idiosyncratic discount-retail story."
+        },
+        "analyst": {
+          "lean": "mildly_bullish",
+          "note": "Buy/Hold mix; PT ~$135 ABOVE 114.93 — leans against the short."
+        },
+        "earnings": {
+          "lean": "neutral",
+          "note": "No print inside a 2-bar horizon."
+        },
+        "macro_rates": {
+          "lean": "neutral",
+          "note": "Defensive; low direct rate sensitivity."
+        },
+        "policy_regulatory": {
+          "lean": "neutral",
+          "note": "Tariff/consumer-spend noise; nothing dated."
+        },
+        "sector_peers": {
+          "lean": "neutral",
+          "note": "Consumer-staples defensive; low beta to the tape."
+        },
+        "social_retail": {
+          "lean": "neutral",
+          "note": "Little retail interest.",
+          "confidence": "low"
+        },
+        "institutional": {
+          "lean": "neutral",
+          "note": "Value/defensive holders; no clear short thesis in flow.",
+          "confidence": "low"
+        }
+      }
+    },
+    "GEV": {
+      "status": "active",
+      "schema_version": 1,
+      "report_version": "20260711T023605Z",
+      "symbol": "GEV",
+      "persona": "swing",
+      "stance": "conflicting",
+      "alignment": "agree",
+      "score": 20,
+      "size_hint": "trim",
+      "confidence": "high",
+      "sentiment": {
+        "label": "bullish",
+        "score": 0.65,
+        "drivers": [
+          "Strong Buy (~32 analysts, 24 Strong Buy); Q2 EPS ~$3.16 expected (+~70% y/y)",
+          "Beat history: ~163% average surprise over the last two quarters",
+          "This is a SHORT into a Strong-Buy name reporting Jul 22 — a knife-catch"
+        ]
+      },
+      "catalysts": [
+        {
+          "type": "earnings",
+          "date": "2026-07-22",
+          "in_window": false,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "Q2 print Jul 22 (before open) — ~8 business days out vs the 5-bar max, so OUTSIDE the window, but the strong beat history makes a short into it dangerous."
+        },
+        {
+          "type": "analyst",
+          "date": null,
+          "in_window": false,
+          "impact": "medium",
+          "direction": "bullish",
+          "note": "Strong Buy (~24 of 32); the fundamental crowd is heavily long."
+        }
+      ],
+      "market_read": {
+        "agrees_with_engine": true,
+        "note": "Engine already tags the tape moderately against the short; GEV is a relative-strength leader — the tape does not support pressing a short here."
+      },
+      "edge_cases": [
+        {
+          "risk": "knife_catch",
+          "severity": "high",
+          "note": "Shorting a Strong-Buy name with a ~163% average earnings beat, reporting Jul 22, is a classic knife-catch — a beat can gap through the 1127.53 stop."
+        },
+        {
+          "risk": "counter_trend",
+          "severity": "high",
+          "note": "Engine itself tags alignment 'conflict' — this fights a strong uptrend; only a clear rejection at the level justifies it."
+        }
+      ],
+      "narrative": "Engine read: S/R Bounce SHORT, verdict ARM (conviction 41, grade C, trap 53) with alignment 'conflict' — a deliberately counter-trend short that the engine has NOT green-lit. Entry 1072.58, stop 1127.53, target 1048.55 (R:R 0.44). The AI pushes back hard: GEV is a Strong-Buy name (24 of 32 analysts) with a ~163% average earnings beat, reporting Jul 22. Shorting strength into that print is a knife-catch.",
+      "reconciliation": "alignment 'agree' (with the engine's caution): the engine itself did NOT greenlight this — ARM, not take, and it already flags conflict. The AI agrees the short is low-conviction and only playable on a hard rejection at the level with tight risk, ideally flat before the Jul 22 print.",
+      "provenance": {
+        "model": "claude-opus-4-8",
+        "generated_at": "2026-07-11T04:15:00Z",
+        "sources": [
+          {
+            "kind": "web",
+            "url": "https://www.gevernova.com/news/press-releases/ge-vernova-announce-second-quarter-2026-financial-results-july-22"
+          },
+          {
+            "kind": "web",
+            "url": "https://finance.yahoo.com/quote/GEV/analysis/"
+          },
+          {
+            "kind": "web",
+            "url": "https://tickernerd.com/stock/gev-forecast/"
+          }
+        ],
+        "disclaimer": "Educational analysis, not financial advice."
+      },
+      "verification": {
+        "verdict": "pass",
+        "report_price": 1072.58,
+        "cited": {
+          "entry": 1072.58,
+          "stop": 1127.5303,
+          "target": 1048.545
+        },
+        "sources_checked": [
+          {
+            "url": "https://www.gevernova.com/news/press-releases/ge-vernova-announce-second-quarter-2026-financial-results-july-22",
+            "published": "2026-07-01"
+          },
+          {
+            "url": "https://finance.yahoo.com/quote/GEV/analysis/",
+            "published": null
+          },
+          {
+            "url": "https://tickernerd.com/stock/gev-forecast/",
+            "published": null
+          }
+        ],
+        "checked_at": "2026-07-11T04:15:00Z"
+      },
+      "dimensions": {
+        "news_flow": {
+          "lean": "bullish",
+          "note": "Constructive energy/electrification coverage; positive momentum."
+        },
+        "analyst": {
+          "lean": "bullish",
+          "note": "Strong Buy (~32); heavy Strong-Buy skew — against the short."
+        },
+        "earnings": {
+          "lean": "bullish",
+          "note": "Jul 22 print with ~163% avg beat surprise — upside risk to a short."
+        },
+        "macro_rates": {
+          "lean": "neutral",
+          "note": "Low direct rate sensitivity; capex/energy story."
+        },
+        "policy_regulatory": {
+          "lean": "bullish",
+          "note": "Grid/electrification policy tailwinds."
+        },
+        "sector_peers": {
+          "lean": "bullish",
+          "note": "Energy/industrial strength; relative-strength leader."
+        },
+        "social_retail": {
+          "lean": "mildly_bullish",
+          "note": "Growing retail interest in the electrification theme.",
+          "confidence": "low"
+        },
+        "institutional": {
+          "lean": "bullish",
+          "note": "Momentum/quality funds long; short interest low.",
+          "confidence": "medium"
+        }
+      }
+    }
+  },
+  "coverage": {
+    "requested": 7,
+    "enriched": 7,
+    "basis": "non_avoid_candidates",
+    "excluded": {
+      "avoid": [
+        "AVGO",
+        "GLDM"
+      ]
+    }
+  }
+}

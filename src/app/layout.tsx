@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "AIQTrader",
+	title: "TradeAIQ",
 	description: "Watchlist reports dashboard — decisions, confluence and charts.",
 };
 

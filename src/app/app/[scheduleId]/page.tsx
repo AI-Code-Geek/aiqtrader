@@ -16,7 +16,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ sche
 		const [index, report] = await Promise.all([getIndex(scheduleId), getReport(scheduleId, "latest")]);
 		return (
 			<>
-				<TopNav active="dashboard" subtitle={`${report.persona} · ${report.schedule.name}`} />
+				<TopNav active="dashboard" scheduleId={scheduleId} subtitle={`${report.persona} · ${report.schedule.name}`} />
 				<DashboardClient scheduleId={scheduleId} index={index} initialReport={report} />
 			</>
 		);
