@@ -15,7 +15,7 @@ export function TopNav({
 	persona,
 }: {
 	subtitle?: string;
-	active?: "dashboard" | "mylist" | "market" | "guide";
+	active?: "dashboard" | "mylist" | "market" | "guide" | "admin";
 	/** When set, shows a Market link scoped to this schedule (persona-scoped market overview). */
 	scheduleId?: string;
 	/** Preferred over scheduleId: scopes links to the watchlist route (/app/w/<id>/<persona>/…). */
@@ -32,6 +32,7 @@ export function TopNav({
 	const router = useRouter();
 	const [name, setName] = useState("");
 	const [tier, setTier] = useState("");
+	const [isAdmin, setIsAdmin] = useState(false);
 
 	useEffect(() => {
 		// Instant paint from the localStorage mirror, then reconcile with server truth (/api/me).
@@ -46,6 +47,11 @@ export function TopNav({
 			setName(me.name ?? "");
 			setTier(me.tier ?? "");
 		});
+		// Reveal the Admin link only for admins (server decides; never trusted from the client).
+		fetch("/api/admin/whoami")
+			.then((r) => r.json() as Promise<{ admin?: boolean }>)
+			.then((d) => setIsAdmin(!!d.admin))
+			.catch(() => {});
 	}, []);
 
 	function toggleTheme() {
@@ -85,6 +91,7 @@ export function TopNav({
 				) : null}
 				<Link href="/app/my-list" className={linkCls("mylist")}>My List</Link>
 				<Link href="/app/guide" className={linkCls("guide")}>Guide</Link>
+				{isAdmin ? <Link href="/app/admin" className={linkCls("admin")}>Admin</Link> : null}
 			</div>
 			<div className="ml-auto flex items-center gap-2">
 				{subtitle ? <span className="rounded-full border border-border bg-surface-2 px-2 py-0.5 text-xs text-muted">{subtitle}</span> : null}

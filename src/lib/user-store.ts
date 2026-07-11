@@ -19,6 +19,7 @@ import type { UserRecord, AccessRequest } from "./user-types";
 export const codeIndexKey = (code: string) => `idx:code:${code.trim().toUpperCase()}`;
 const reqKey = (id: string) => `req:${id}`;
 const REQ_INDEX = "idx:reqs";
+const USER_INDEX = "idx:users"; // list of minted userids (seed users aren't listed here)
 
 /** Bump when SUBSCRIBERS/DEV_USERS change so an already-seeded namespace re-seeds once. */
 const SEED_VERSION = "v2";
@@ -166,4 +167,139 @@ export async function listAccessRequests(): Promise<AccessRequest[]> {
 	const ids = JSON.parse((await kv.get(REQ_INDEX)) ?? "[]") as string[];
 	const recs = await Promise.all(ids.map((id) => kv.get<AccessRequest>(reqKey(id), "json")));
 	return recs.filter((r): r is AccessRequest => !!r).reverse();
+}
+
+export async function getAccessRequest(id: string): Promise<AccessRequest | null> {
+	const kv = getKV();
+	if (!kv) return memoryRequests.find((r) => r.id === id) ?? null;
+	return (await kv.get<AccessRequest>(reqKey(id), "json")) ?? null;
+}
+
+/** Persist a mutated request (e.g. mark fulfilled with the issued code). */
+export async function putAccessRequest(rec: AccessRequest): Promise<void> {
+	const kv = getKV();
+	if (!kv) {
+		const i = memoryRequests.findIndex((r) => r.id === rec.id);
+		if (i >= 0) memoryRequests[i] = rec;
+		return;
+	}
+	await kv.put(reqKey(rec.id), JSON.stringify(rec));
+}
+
+// ── Admin: mint users + list ────────────────────────────────────────────────
+const CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // no I/L/O/0/1
+
+function randomBlock(n = 4): string {
+	const bytes = new Uint8Array(n);
+	crypto.getRandomValues(bytes);
+	let s = "";
+	for (let i = 0; i < n; i++) s += CODE_ALPHABET[bytes[i] % CODE_ALPHABET.length];
+	return s;
+}
+export const genCode = () => `AIQ-${randomBlock()}-${randomBlock()}`;
+export const genUserId = () => {
+	const b = new Uint8Array(3);
+	crypto.getRandomValues(b);
+	return "u_" + Array.from(b).map((x) => x.toString(16).padStart(2, "0")).join("");
+};
+
+/** validityDays → ISO end date. 0 / null / undefined = perpetual (null). */
+export function validityFromDays(days?: number | null): string | null {
+	if (!days || days <= 0) return null;
+	return new Date(Date.now() + days * 86400_000).toISOString();
+}
+
+/** Extend an existing validity by N days from the LATER of now / current expiry (a true renewal). */
+export function extendValidity(current: string | null | undefined, days: number): string | null {
+	if (!days || days <= 0) return null; // perpetual
+	const base = current ? Math.max(Date.now(), Date.parse(current)) : Date.now();
+	return new Date(base + days * 86400_000).toISOString();
+}
+
+export interface MintInput {
+	name: string;
+	email: string;
+	tier?: "free" | "pro";
+	persona?: string;
+	validityDays?: number | null;
+	schedules?: number[];
+}
+
+/** Create + persist a new user with a fresh code. Returns the record (including its plaintext code). */
+export async function createUser(input: MintInput): Promise<UserRecord> {
+	const user: UserRecord = {
+		userid: genUserId(),
+		name: input.name,
+		email: input.email,
+		code: genCode(),
+		status: "active",
+		validity: validityFromDays(input.validityDays),
+		tier: input.tier === "free" ? "free" : "pro",
+		schedules: input.schedules?.length ? input.schedules : [1],
+		myList: [],
+		createdAt: new Date().toISOString(),
+	};
+	if (input.persona) (user as Record<string, unknown>).defaultPersona = input.persona;
+
+	const kv = getKV();
+	if (!kv) {
+		// Local dev: keep in memory AND append to the seed file so it persists across restarts.
+		(await localUsers()).push(user);
+		try {
+			const { readFile, writeFile } = await import("node:fs/promises");
+			const { join } = await import("node:path");
+			const p = join(process.cwd(), "scripts", "users.seed.json");
+			const seed = JSON.parse(await readFile(p, "utf-8")) as UserRecord[];
+			seed.push(user);
+			await writeFile(p, JSON.stringify(seed, null, "\t") + "\n");
+		} catch {
+			// best-effort; memory copy still validates this session
+		}
+		return user;
+	}
+	await kv.put(user.userid, JSON.stringify(user));
+	await kv.put(codeIndexKey(user.code), user.userid);
+	const ids = JSON.parse((await kv.get(USER_INDEX)) ?? "[]") as string[];
+	ids.push(user.userid);
+	await kv.put(USER_INDEX, JSON.stringify(ids));
+	return user;
+}
+
+/** Delete a user: removes the record, its code index, and its idx:users entry. */
+export async function deleteUser(userid: string): Promise<void> {
+	const kv = getKV();
+	if (!kv) {
+		const list = await localUsers();
+		const i = list.findIndex((u) => u.userid === userid);
+		if (i >= 0) {
+			list.splice(i, 1);
+			try {
+				const { readFile, writeFile } = await import("node:fs/promises");
+				const { join } = await import("node:path");
+				const p = join(process.cwd(), "scripts", "users.seed.json");
+				const seed = (JSON.parse(await readFile(p, "utf-8")) as UserRecord[]).filter((u) => u.userid !== userid);
+				await writeFile(p, JSON.stringify(seed, null, "\t") + "\n");
+			} catch {
+				/* best-effort */
+			}
+		}
+		return;
+	}
+	const user = await kv.get<UserRecord>(userid, "json");
+	await kv.delete(userid);
+	if (user?.code) await kv.delete(codeIndexKey(user.code));
+	const ids = (JSON.parse((await kv.get(USER_INDEX)) ?? "[]") as string[]).filter((id) => id !== userid);
+	await kv.put(USER_INDEX, JSON.stringify(ids));
+}
+
+/** All users the admin can manage: seed subscribers + every minted user (idx:users), newest first. */
+export async function listUsers(): Promise<UserRecord[]> {
+	const kv = getKV();
+	if (!kv) return [...(await localUsers())].reverse();
+	const byId = new Map<string, UserRecord>();
+	for (const u of seedUsers()) byId.set(u.userid, u);
+	const ids = JSON.parse((await kv.get(USER_INDEX)) ?? "[]") as string[];
+	const recs = await Promise.all(ids.map((id) => kv.get<UserRecord>(id, "json")));
+	for (const r of recs) if (r) byId.set(r.userid, r);
+	return [...byId.values()].reverse();
 }
