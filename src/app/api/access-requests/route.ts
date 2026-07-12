@@ -1,4 +1,4 @@
-import { createAccessRequest, hasPendingRequest } from "@/lib/user-store";
+import { createAccessRequest, findReusableRequest } from "@/lib/user-store";
 import { PERSONAS, type Persona, type Tier } from "@/lib/user-types";
 
 export const dynamic = "force-dynamic";
@@ -28,9 +28,10 @@ export async function POST(req: Request): Promise<Response> {
 	if (!name) return json({ error: "missing_name" }, 400);
 	if (!EMAIL_RE.test(email)) return json({ error: "invalid_email" }, 400);
 
-	if (await hasPendingRequest(email)) {
-		// Idempotent-ish: don't stack duplicate pending requests for the same email.
-		return json({ ok: true, status: "pending", deduped: true }, 200);
+	// Dedupe: block a duplicate if this email is already pending OR already has a fulfilled code.
+	const existing = await findReusableRequest(email);
+	if (existing) {
+		return json({ ok: true, status: existing.status, deduped: true }, 200);
 	}
 
 	const rec = await createAccessRequest({ name, email, plan, persona, note: note || undefined });

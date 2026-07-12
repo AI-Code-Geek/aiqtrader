@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAiReport, getIndex, getReport, listScheduleIds } from "@/lib/reports-source";
+import { getAiReport, getIndex, getReport, listScheduleIds, sliceReportForSymbol } from "@/lib/reports-source";
 import { TopNav } from "@/components/TopNav";
 import { SymbolDetailClient } from "@/components/SymbolDetailClient";
 
@@ -38,7 +38,7 @@ export default async function SymbolPage({
 					scheduleId={scheduleId}
 					symbol={symbol}
 					index={index}
-					initialReport={report}
+					initialReport={sliceReportForSymbol(report, symbol)}
 					initialAi={ai?.symbols?.[symbol]}
 				/>
 			</>

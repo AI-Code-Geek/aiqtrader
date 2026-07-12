@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getWatchlistReport, listWatchlists } from "@/lib/reports-source";
+import { getWatchlistReport, listWatchlists, sliceReportForSymbol } from "@/lib/reports-source";
 import { TopNav } from "@/components/TopNav";
 import { SymbolDetailClient } from "@/components/SymbolDetailClient";
 
@@ -43,7 +43,7 @@ export default async function WatchlistSymbolPage({
 					scheduleId={scheduleId}
 					symbol={symbol}
 					index={index}
-					initialReport={report}
+					initialReport={sliceReportForSymbol(report, symbol)}
 					initialAi={ai?.symbols?.[symbol]}
 				/>
 			</>

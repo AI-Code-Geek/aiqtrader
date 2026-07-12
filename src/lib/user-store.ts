@@ -14,7 +14,7 @@
  * in with a well-known demo code. Bump SEED_VERSION to force a re-seed after editing the sets.
  */
 import { getCloudflareContext } from "@opennextjs/cloudflare";
-import type { UserRecord, AccessRequest } from "./user-types";
+import type { UserRecord, AccessRequest, Feedback } from "./user-types";
 
 export const codeIndexKey = (code: string) => `idx:code:${code.trim().toUpperCase()}`;
 const reqKey = (id: string) => `req:${id}`;
@@ -128,6 +128,59 @@ export function publicUser(u: UserRecord): UserRecord {
 	return u;
 }
 
+// ── Customer feedback ──────────────────────────────────────────────────────
+// Same KV pattern as access requests: one record at `fb:<id>`, ids tracked in `idx:feedback`.
+// In-memory fallback so `next dev` without a KV binding still works.
+const fbKey = (id: string) => `fb:${id}`;
+const FB_INDEX = "idx:feedback";
+const memoryFeedback: Feedback[] = [];
+
+/** Persist a new feedback item and append its id to the index list. */
+export async function createFeedback(
+	input: Omit<Feedback, "id" | "status" | "createdAt">,
+): Promise<Feedback> {
+	const rec: Feedback = {
+		id: `fb_${crypto.randomUUID().slice(0, 8)}`,
+		status: "new",
+		createdAt: new Date().toISOString(),
+		...input,
+	};
+	const kv = getKV();
+	if (!kv) {
+		memoryFeedback.push(rec);
+		return rec;
+	}
+	await kv.put(fbKey(rec.id), JSON.stringify(rec));
+	const ids = JSON.parse((await kv.get(FB_INDEX)) ?? "[]") as string[];
+	ids.push(rec.id);
+	await kv.put(FB_INDEX, JSON.stringify(ids));
+	return rec;
+}
+
+/** All feedback, newest-first. */
+export async function listFeedback(): Promise<Feedback[]> {
+	const kv = getKV();
+	if (!kv) return [...memoryFeedback].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+	const ids = JSON.parse((await kv.get(FB_INDEX)) ?? "[]") as string[];
+	const items = await Promise.all(ids.map((id) => kv.get<Feedback>(fbKey(id), "json")));
+	return items.filter((x): x is Feedback => !!x).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+/** Update a feedback item's status (admin triage: new → read → archived). */
+export async function setFeedbackStatus(id: string, status: Feedback["status"]): Promise<Feedback | null> {
+	const kv = getKV();
+	if (!kv) {
+		const rec = memoryFeedback.find((f) => f.id === id);
+		if (rec) rec.status = status;
+		return rec ?? null;
+	}
+	const rec = await kv.get<Feedback>(fbKey(id), "json");
+	if (!rec) return null;
+	rec.status = status;
+	await kv.put(fbKey(id), JSON.stringify(rec));
+	return rec;
+}
+
 // ── Access requests (offline-code intake) ──────────────────────────────────
 // Stored WITHOUT auto-issuing a code; an admin mints codes offline (scripts/mint-code.mjs).
 // In-memory fallback so `next dev` without a KV binding still works.
@@ -138,6 +191,29 @@ export async function hasPendingRequest(email: string): Promise<boolean> {
 	const e = email.trim().toLowerCase();
 	const all = await listAccessRequests();
 	return all.some((r) => r.email.toLowerCase() === e && r.status === "pending");
+}
+
+/**
+ * An existing request that should block a NEW submission for the same email: one still pending, or one
+ * already fulfilled (they have a code). A previously rejected request does NOT block a re-request.
+ */
+export async function findReusableRequest(email: string): Promise<AccessRequest | null> {
+	const e = email.trim().toLowerCase();
+	const all = await listAccessRequests();
+	return all.find((r) => r.email.toLowerCase() === e && (r.status === "pending" || r.status === "fulfilled")) ?? null;
+}
+
+/** Delete an access request: removes the record and its idx:reqs entry. */
+export async function deleteAccessRequest(id: string): Promise<void> {
+	const kv = getKV();
+	if (!kv) {
+		const i = memoryRequests.findIndex((r) => r.id === id);
+		if (i >= 0) memoryRequests.splice(i, 1);
+		return;
+	}
+	await kv.delete(reqKey(id));
+	const ids = (JSON.parse((await kv.get(REQ_INDEX)) ?? "[]") as string[]).filter((x) => x !== id);
+	await kv.put(REQ_INDEX, JSON.stringify(ids));
 }
 
 /** Persist a new pending access request and append its id to the index list. */

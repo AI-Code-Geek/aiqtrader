@@ -79,6 +79,24 @@ export async function getAiReport(scheduleId: string, reportVersion: string): Pr
 	}
 }
 
+/**
+ * Trim a full report down to a SINGLE symbol's slice for the symbol-detail page. The page only needs
+ * this symbol's decision, analysis and charts (plus the small shared blocks), so we drop every other
+ * symbol's decisions/analysis/OHLCV charts and the candidate list — the heavy parts. This shrinks the
+ * SSR/hydration payload dramatically (often ~80-90% for a multi-symbol watchlist). SymbolDetailClient
+ * indexes everything by symbol, so it works unchanged; run-switching still lazily fetches the full
+ * `<version>.json` on demand.
+ */
+export function sliceReportForSymbol(report: Report, symbol: string): Report {
+	return {
+		...report,
+		candidates: [],
+		decisions: report.decisions?.[symbol] ? { [symbol]: report.decisions[symbol] } : {},
+		analysis: report.analysis?.[symbol] ? { [symbol]: report.analysis[symbol] } : undefined,
+		charts: report.charts?.[symbol] ? { [symbol]: report.charts[symbol] } : {},
+	};
+}
+
 // ── Watchlist layer ──────────────────────────────────────────────────────────────────────────────
 // The dashboard is organized by WATCHLIST (universe.watchlist_id), not by the scheduler that produced
 // the reports. A watchlist is fed by one or more schedules (usually one per persona). These helpers

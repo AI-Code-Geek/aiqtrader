@@ -7,6 +7,7 @@
  */
 import { useCallback, useEffect, useState } from "react";
 import type { AccessRequest, Tier, UserRecord, UserStatus } from "@/lib/user-types";
+import { AdminFeedbackClient } from "./AdminFeedbackClient";
 
 const PERSONAS = ["swing", "day", "scalp"] as const;
 const VALIDITY_PRESETS: { label: string; days: number }[] = [
@@ -17,7 +18,7 @@ const VALIDITY_PRESETS: { label: string; days: number }[] = [
 	{ label: "Custom…", days: -1 },
 ];
 
-type Tab = "requests" | "users";
+type Tab = "requests" | "users" | "feedback";
 
 export function AdminClient({ adminName }: { adminName: string }) {
 	const [tab, setTab] = useState<Tab>("requests");
@@ -28,7 +29,7 @@ export function AdminClient({ adminName }: { adminName: string }) {
 				<span className="text-sm text-muted">signed in as {adminName}</span>
 			</div>
 			<div className="mb-4 flex gap-1 border-b border-border">
-				{(["requests", "users"] as Tab[]).map((t) => (
+				{(["requests", "users", "feedback"] as Tab[]).map((t) => (
 					<button
 						key={t}
 						onClick={() => setTab(t)}
@@ -38,7 +39,7 @@ export function AdminClient({ adminName }: { adminName: string }) {
 					</button>
 				))}
 			</div>
-			{tab === "requests" ? <RequestsTab /> : <UsersTab />}
+			{tab === "requests" ? <RequestsTab /> : tab === "users" ? <UsersTab /> : <AdminFeedbackClient />}
 		</div>
 	);
 }
@@ -85,6 +86,9 @@ function RequestsTab() {
 								<span className="rounded bg-surface-2 px-1.5 py-0.5 text-xs capitalize">{r.plan}</span>
 								<span className={`text-xs ${r.status === "fulfilled" ? "text-long" : "text-short"}`}>{r.status}</span>
 								{r.code ? <CodePill code={r.code} email={r.email} name={r.name} /> : null}
+								<span className="ml-auto">
+									<DeleteButton onConfirm={() => requestAction(r.id, "delete").then(load)} />
+								</span>
 							</div>
 						))}
 					</div>
@@ -94,9 +98,50 @@ function RequestsTab() {
 	);
 }
 
+/** A Delete control with an inline Confirm/Cancel step (avoids one-click accidents). */
+function DeleteButton({ onConfirm, label = "Delete" }: { onConfirm: () => void | Promise<void>; label?: string }) {
+	const [confirm, setConfirm] = useState(false);
+	const [busy, setBusy] = useState(false);
+	if (confirm) {
+		return (
+			<span className="inline-flex items-center gap-1">
+				<button
+					disabled={busy}
+					onClick={async () => { setBusy(true); await onConfirm(); }}
+					className="rounded-md bg-short px-2 py-1 text-xs font-medium text-white"
+				>
+					Confirm
+				</button>
+				<button onClick={() => setConfirm(false)} className="rounded-md border border-border px-2 py-1 text-xs">Cancel</button>
+			</span>
+		);
+	}
+	return (
+		<button onClick={() => setConfirm(true)} className="rounded-md border border-short/40 px-2 py-1 text-xs text-short">
+			{label}
+		</button>
+	);
+}
+
+async function requestAction(id: string, action: "deny" | "delete") {
+	await fetch("/api/admin/request-action", {
+		method: "POST",
+		headers: { "content-type": "application/json" },
+		body: JSON.stringify({ id, action }),
+	}).catch(() => {});
+}
+
 function RequestRow({ req, onDone }: { req: AccessRequest; onDone: () => void }) {
 	const [open, setOpen] = useState(false);
+	const [busy, setBusy] = useState(false);
 	const [minted, setMinted] = useState<{ code: string; name: string; email: string } | null>(null);
+
+	async function act(action: "deny" | "delete") {
+		setBusy(true);
+		await requestAction(req.id, action);
+		setBusy(false);
+		onDone();
+	}
 
 	if (minted) {
 		return (
@@ -118,12 +163,18 @@ function RequestRow({ req, onDone }: { req: AccessRequest; onDone: () => void })
 				<span className="rounded bg-surface-2 px-1.5 py-0.5 text-xs capitalize">{req.plan}</span>
 				{req.persona ? <span className="rounded bg-surface-2 px-1.5 py-0.5 text-xs capitalize">{req.persona}</span> : null}
 				<span className="text-xs text-muted">{new Date(req.createdAt).toLocaleDateString()}</span>
-				<button
-					onClick={() => setOpen((o) => !o)}
-					className="ml-auto rounded-md bg-brand px-3 py-1 text-xs font-medium text-white"
-				>
-					{open ? "Cancel" : "Generate code"}
-				</button>
+				<div className="ml-auto flex items-center gap-1.5">
+					<button
+						onClick={() => setOpen((o) => !o)}
+						className="rounded-md bg-brand px-3 py-1 text-xs font-medium text-white"
+					>
+						{open ? "Cancel" : "Generate code"}
+					</button>
+					<button disabled={busy} onClick={() => act("deny")} className="rounded-md border border-watch/40 px-2 py-1 text-xs text-watch">
+						Deny
+					</button>
+					<DeleteButton onConfirm={() => act("delete")} />
+				</div>
 			</div>
 			{req.note ? <p className="mt-1 text-xs text-muted">“{req.note}”</p> : null}
 			{open ? (

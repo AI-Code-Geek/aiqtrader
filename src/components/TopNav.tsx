@@ -15,7 +15,7 @@ export function TopNav({
 	persona,
 }: {
 	subtitle?: string;
-	active?: "dashboard" | "mylist" | "market" | "guide" | "admin";
+	active?: "dashboard" | "mylist" | "market" | "guide" | "feedback" | "admin";
 	/** When set, shows a Market link scoped to this schedule (persona-scoped market overview). */
 	scheduleId?: string;
 	/** Preferred over scheduleId: scopes links to the watchlist route (/app/w/<id>/<persona>/…). */
@@ -91,6 +91,7 @@ export function TopNav({
 				) : null}
 				<Link href="/app/my-list" className={linkCls("mylist")}>My List</Link>
 				<Link href="/app/guide" className={linkCls("guide")}>Guide</Link>
+				<Link href="/app/feedback" className={linkCls("feedback")}>Feedback</Link>
 				{isAdmin ? <Link href="/app/admin" className={linkCls("admin")}>Admin</Link> : null}
 			</div>
 			<div className="ml-auto flex items-center gap-2">

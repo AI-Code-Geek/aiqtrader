@@ -66,3 +66,24 @@ export function isActive(user: Pick<UserRecord, "status" | "validity">, now = Da
 	if (user.validity && Date.parse(user.validity) < now) return false;
 	return true;
 }
+
+// ── Customer feedback ──────────────────────────────────────────────────────
+export type FeedbackStatus = "new" | "read" | "archived";
+export type FeedbackCategory = "idea" | "bug" | "praise" | "question" | "other";
+export const FEEDBACK_CATEGORIES: FeedbackCategory[] = ["idea", "bug", "praise", "question", "other"];
+
+/** A piece of customer feedback. Stored in KV at `fb:<id>`; the id is appended to `idx:feedback`. */
+export interface Feedback {
+	id: string;
+	userid: string;
+	email: string;
+	name: string;
+	category: FeedbackCategory;
+	/** optional 1–5 satisfaction rating */
+	rating?: number;
+	message: string;
+	/** the app path they were on when they sent it (context for the admin) */
+	page?: string;
+	createdAt: string;
+	status: FeedbackStatus;
+}

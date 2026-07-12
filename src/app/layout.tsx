@@ -26,7 +26,9 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		// themeScript sets data-theme on <html> before hydration, so the server markup (no data-theme)
+		// intentionally differs from the client — suppress the expected attribute mismatch on <html>.
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<script dangerouslySetInnerHTML={{ __html: themeScript }} />
 			</head>
