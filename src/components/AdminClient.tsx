@@ -192,9 +192,35 @@ function RequestRow({ req, onDone }: { req: AccessRequest; onDone: () => void })
 }
 
 // ── Users ───────────────────────────────────────────────────────────────────
+type DeliveryStatus = "sent" | "not_sent";
+const deliveryOf = (u: UserRecord): DeliveryStatus =>
+	(u as { delivery?: string }).delivery === "sent" ? "sent" : "not_sent";
+
+/** Export a set of users as a downloaded JSON file (code-delivery fields included for your mailer). */
+function exportUsersJson(list: UserRecord[], filename: string) {
+	const rows = list.map((u) => ({
+		name: u.name,
+		email: u.email,
+		code: u.code,
+		tier: u.tier,
+		status: u.status,
+		validity: u.validity,
+		persona: (u as { defaultPersona?: string }).defaultPersona ?? null,
+		delivery: deliveryOf(u),
+	}));
+	const blob = new Blob([JSON.stringify(rows, null, 2)], { type: "application/json" });
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement("a");
+	a.href = url;
+	a.download = filename;
+	a.click();
+	URL.revokeObjectURL(url);
+}
+
 function UsersTab() {
 	const [users, setUsers] = useState<UserRecord[] | null>(null);
 	const [showCreate, setShowCreate] = useState(false);
+	const [sel, setSel] = useState<Set<string>>(new Set());
 	const load = useCallback(() => {
 		fetch("/api/admin/users")
 			.then((r) => r.json() as Promise<{ users?: UserRecord[] }>)
@@ -203,9 +229,41 @@ function UsersTab() {
 	}, []);
 	useEffect(load, [load]);
 
+	const toggle = (id: string) =>
+		setSel((s) => {
+			const n = new Set(s);
+			if (n.has(id)) n.delete(id);
+			else n.add(id);
+			return n;
+		});
+	const allChecked = !!users?.length && users.every((u) => sel.has(u.userid));
+	const toggleAll = () => setSel(allChecked ? new Set() : new Set((users ?? []).map((u) => u.userid)));
+
+	const notSent = (users ?? []).filter((u) => deliveryOf(u) === "not_sent");
+	const selected = (users ?? []).filter((u) => sel.has(u.userid));
+	const stamp = new Date().toISOString().slice(0, 10);
+
 	return (
 		<div>
-			<div className="mb-3 flex justify-end">
+			<div className="mb-3 flex flex-wrap items-center justify-end gap-2">
+				<button onClick={() => users && exportUsersJson(users, `users-all-${stamp}.json`)} className="rounded-md border border-border px-3 py-1.5 text-sm">
+					Export all ({users?.length ?? 0})
+				</button>
+				<button
+					disabled={!selected.length}
+					onClick={() => exportUsersJson(selected, `users-selected-${stamp}.json`)}
+					className="rounded-md border border-border px-3 py-1.5 text-sm disabled:opacity-50"
+				>
+					Export selected ({selected.length})
+				</button>
+				<button
+					disabled={!notSent.length}
+					onClick={() => exportUsersJson(notSent, `users-not-sent-${stamp}.json`)}
+					className="rounded-md border border-watch/50 px-3 py-1.5 text-sm text-watch disabled:opacity-50"
+					title="Users whose code hasn't been emailed yet — feed this into your local mailer"
+				>
+					Export not-sent ({notSent.length})
+				</button>
 				<button onClick={() => setShowCreate((s) => !s)} className="rounded-md bg-brand px-3 py-1.5 text-sm font-medium text-white">
 					{showCreate ? "Close" : "+ New code"}
 				</button>
@@ -225,18 +283,20 @@ function UsersTab() {
 					<table className="w-full text-sm">
 						<thead className="bg-surface-2 text-left text-xs uppercase tracking-wide text-muted">
 							<tr>
+								<th className="p-2"><input type="checkbox" checked={allChecked} onChange={toggleAll} aria-label="Select all" /></th>
 								<th className="p-2">Name</th>
 								<th className="p-2">Email</th>
 								<th className="p-2">Code</th>
 								<th className="p-2">Tier</th>
 								<th className="p-2">Status</th>
 								<th className="p-2">Validity</th>
+								<th className="p-2">Delivery</th>
 								<th className="p-2 text-right">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							{users.map((u) => (
-								<UserRow key={u.userid} user={u} onChange={load} />
+								<UserRow key={u.userid} user={u} onChange={load} selected={sel.has(u.userid)} onToggle={() => toggle(u.userid)} />
 							))}
 						</tbody>
 					</table>
@@ -253,7 +313,17 @@ const EXTEND_OPTIONS: { label: string; days: number }[] = [
 	{ label: "Perpetual", days: 0 },
 ];
 
-function UserRow({ user, onChange }: { user: UserRecord; onChange: () => void }) {
+function UserRow({
+	user,
+	onChange,
+	selected,
+	onToggle,
+}: {
+	user: UserRecord;
+	onChange: () => void;
+	selected: boolean;
+	onToggle: () => void;
+}) {
 	const [busy, setBusy] = useState(false);
 	const [confirmDel, setConfirmDel] = useState(false);
 
@@ -269,11 +339,14 @@ function UserRow({ user, onChange }: { user: UserRecord; onChange: () => void })
 	}
 	const setStatus = (status: UserStatus) => post("/api/admin/user-status", { status });
 	const extend = (days: number) => post("/api/admin/user-status", { extendDays: days });
+	const setDelivery = (delivery: DeliveryStatus) => post("/api/admin/user-status", { delivery });
 	const del = () => post("/api/admin/user-delete", {});
 
 	const expired = user.validity && Date.parse(user.validity) < Date.now();
+	const delivery = deliveryOf(user);
 	return (
 		<tr className="border-t border-border">
+			<td className="p-2"><input type="checkbox" checked={selected} onChange={onToggle} aria-label={`Select ${user.name}`} /></td>
 			<td className="p-2 font-medium">{user.name}</td>
 			<td className="p-2 text-muted">{user.email}</td>
 			<td className="p-2"><CodePill code={user.code} email={user.email} name={user.name} /></td>
@@ -282,6 +355,18 @@ function UserRow({ user, onChange }: { user: UserRecord; onChange: () => void })
 				{expired ? "expired" : user.status}
 			</td>
 			<td className="p-2 text-muted">{user.validity ? new Date(user.validity).toLocaleDateString() : "perpetual"}</td>
+			<td className="p-2">
+				<select
+					value={delivery}
+					disabled={busy}
+					onChange={(e) => setDelivery(e.target.value as DeliveryStatus)}
+					className={`rounded border border-border bg-surface px-1 py-1 text-xs ${delivery === "sent" ? "text-long" : "text-watch"}`}
+					title="Code-delivery status (you set this after emailing the code)"
+				>
+					<option value="not_sent">Not sent</option>
+					<option value="sent">Sent</option>
+				</select>
+			</td>
 			<td className="p-2">
 				<div className="flex items-center justify-end gap-1.5">
 					{user.status === "suspended" ? (

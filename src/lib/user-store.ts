@@ -314,6 +314,7 @@ export async function createUser(input: MintInput): Promise<UserRecord> {
 		schedules: input.schedules?.length ? input.schedules : [1],
 		myList: [],
 		createdAt: new Date().toISOString(),
+		delivery: "not_sent", // admin manually flips to "sent" after emailing the code
 	};
 	if (input.persona) (user as Record<string, unknown>).defaultPersona = input.persona;
 
