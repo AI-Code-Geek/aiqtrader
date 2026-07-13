@@ -21,16 +21,16 @@ const reqKey = (id: string) => `req:${id}`;
 const REQ_INDEX = "idx:reqs";
 const USER_INDEX = "idx:users"; // list of minted userids (seed users aren't listed here)
 
-/** Bump when SUBSCRIBERS/DEV_USERS change so an already-seeded namespace re-seeds once. */
+/** Bump when DEV_USERS change so an already-seeded namespace re-seeds once. */
 const SEED_VERSION = "v2";
 
-/** Real subscribers — mirror of scripts/users.seed.json. Seeded in ALL environments. */
-const SUBSCRIBERS: UserRecord[] = [
-	{ userid: "u_c95d00", name: "Venkat", email: "venkat@aiqtrader.app", code: "AIQ-6VHZ-ZAEJ", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
-	{ userid: "u_90c3dc", name: "Sai", email: "sai@aiqtrader.app", code: "AIQ-59D4-7776", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
-	{ userid: "u_12920a", name: "Hari", email: "hari@aiqtrader.app", code: "AIQ-9DQY-PQHF", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
-	{ userid: "u_eca14b", name: "Nagul", email: "nagul@aiqtrader.app", code: "AIQ-9K5U-EXH6", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
-];
+/**
+ * REAL SUBSCRIBERS ARE NOT IN SOURCE. They live only in Cloudflare KV (provisioned via the admin
+ * console `/app/admin` or scripts/mint-code.mjs). Hardcoding them here put live subscription codes —
+ * including the admin code — into a committed file, so the list is intentionally empty and KV is the
+ * single source of truth. Never re-add real codes/emails to this file.
+ */
+const SUBSCRIBERS: UserRecord[] = [];
 
 /** Demo/test accounts. Codes are public in the repo → seeded ONLY outside production. */
 const DEV_USERS: UserRecord[] = [
@@ -369,19 +369,25 @@ export async function deleteUser(userid: string): Promise<void> {
 	await kv.put(USER_INDEX, JSON.stringify(ids));
 }
 
-/** All users the admin can manage: seed subscribers + every minted user (idx:users), newest first. */
+/**
+ * All users the admin can manage — enumerated straight from KV, which is the single source of truth.
+ *
+ * Every user record is stored under a `u_…` key, so we LIST that prefix rather than relying on the
+ * `idx:users` index. That matters because the original subscribers were seeded directly into KV and were
+ * never added to `idx:users` — indexing alone would silently hide them from the admin console now that
+ * they're no longer hardcoded in source. `idx:users` is still merged in as a belt-and-braces fallback.
+ * Non-user keys (idx:*, req:*, fb:*, rl:*) don't share the `u_` prefix, so they can't leak in.
+ */
 export async function listUsers(): Promise<UserRecord[]> {
 	const kv = getKV();
 	if (!kv) return [...(await localUsers())].reverse();
-	const seed = seedUsers();
-	// Base = static seed (fallback for records KV hasn't persisted yet). Then overlay the KV record for
-	// BOTH seed users and minted users, so admin edits (delivery, status, validity) to a SEED user — which
-	// are saved to KV under its own key, NOT in idx:users — are reflected here too. (This was the bug: seed
-	// users were shown from the static set, ignoring their KV updates.)
-	const byId = new Map<string, UserRecord>(seed.map((u) => [u.userid, u]));
+
+	const byId = new Map<string, UserRecord>(seedUsers().map((u) => [u.userid, u])); // dev demo accounts only
+	const listed = await kv.list({ prefix: "u_" });
 	const mintedIds = JSON.parse((await kv.get(USER_INDEX)) ?? "[]") as string[];
-	const allIds = [...new Set([...seed.map((u) => u.userid), ...mintedIds])];
-	const recs = await Promise.all(allIds.map((id) => kv.get<UserRecord>(id, "json")));
-	for (const r of recs) if (r) byId.set(r.userid, r);
+	const ids = [...new Set([...listed.keys.map((k) => k.name), ...mintedIds])];
+
+	const recs = await Promise.all(ids.map((id) => kv.get<UserRecord>(id, "json")));
+	for (const r of recs) if (r?.userid) byId.set(r.userid, r);
 	return [...byId.values()].reverse();
 }

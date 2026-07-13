@@ -20,8 +20,12 @@ import type { UserRecord } from "./user-types";
 
 const isProd = () => process.env.NODE_ENV === "production";
 
-/** Local-dev fallback admins (used only outside prod when no ADMIN_* env is configured). */
-const DEV_ADMIN_CODES = ["AIQ-9K5U-EXH6", "AIQ-DEMO-2026"];
+/**
+ * Local-dev fallback admin (used ONLY outside production, and only when no ADMIN_* env is set).
+ * Deliberately just the public demo code — never a real subscriber/admin code, which must not live in a
+ * committed file. Your real admin code goes in `ADMIN_KEYS` (.env.local locally, Cloudflare env in prod).
+ */
+const DEV_ADMIN_CODES = ["AIQ-DEMO-2026"];
 
 function env(name: string): string | undefined {
 	let v: string | undefined;
