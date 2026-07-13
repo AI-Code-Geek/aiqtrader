@@ -1,9 +1,12 @@
 import { createAccessRequest, findReusableRequest } from "@/lib/user-store";
 import { PERSONAS, type Persona, type Tier } from "@/lib/user-types";
+import { clientIp, isRateLimited, recordAttempt } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_REQUESTS = 5; // per IP per window (anti-spam)
+const WINDOW_SEC = 600;
 
 /**
  * POST /api/access-requests { name, email, plan, persona, note? }
@@ -12,6 +15,11 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
  * carried onto the minted user as `defaultPersona` so we load that persona's reports.
  */
 export async function POST(req: Request): Promise<Response> {
+	const ip = clientIp(req);
+	if (await isRateLimited("access", ip, MAX_REQUESTS)) {
+		return json({ error: "too_many_attempts" }, 429);
+	}
+
 	let body: { name?: string; email?: string; plan?: string; persona?: string; note?: string };
 	try {
 		body = (await req.json()) as typeof body;
@@ -35,6 +43,7 @@ export async function POST(req: Request): Promise<Response> {
 	}
 
 	const rec = await createAccessRequest({ name, email, plan, persona, note: note || undefined });
+	await recordAttempt("access", ip, WINDOW_SEC); // count accepted submissions toward the per-IP cap
 	return json({ ok: true, status: rec.status, id: rec.id }, 201);
 }
 

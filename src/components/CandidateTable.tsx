@@ -17,13 +17,21 @@ export function CandidateTable({ candidates, scheduleId }: { candidates: Candida
 						<th className="p-3 text-right">Chg</th>
 						<th className="p-3 text-right">RVOL</th>
 						<th className="p-3 text-right">RR</th>
+						<th className="p-3 text-right">Entry</th>
+						<th className="p-3 text-right">Stop</th>
+						<th className="p-3 text-right">Target</th>
 						<th className="p-3">Grade</th>
 						<th className="p-3 w-32">Conviction</th>
 						<th className="p-3 text-right">Rank</th>
 					</tr>
 				</thead>
 				<tbody>
-					{candidates.map((c) => (
+					{candidates.map((c) => {
+						// Display-only: % distance to the engine's own stop/target. The levels come from the engine.
+						const entry = c.setup.entry;
+						const riskPct = entry ? Math.abs(((entry - c.setup.stop) / entry) * 100).toFixed(1) : null;
+						const rewardPct = entry ? Math.abs(((c.setup.target - entry) / entry) * 100).toFixed(1) : null;
+						return (
 						<tr key={c.symbol} className="border-b border-border last:border-0 hover:bg-surface-2">
 							<td className="p-3">
 								<Link href={`/app/${scheduleId}/${c.symbol}`} className="font-semibold text-brand">
@@ -37,6 +45,15 @@ export function CandidateTable({ candidates, scheduleId }: { candidates: Candida
 							<td className={`p-3 text-right ${c.change_pct >= 0 ? "text-long" : "text-short"}`}>{pct(c.change_pct)}</td>
 							<td className="p-3 text-right mono">{mult(c.rvol)}</td>
 							<td className="p-3 text-right mono">{num(c.setup.rr)}</td>
+							<td className="p-3 text-right mono">${money(c.setup.entry)}</td>
+							<td className="p-3 text-right mono text-short whitespace-nowrap">
+								${money(c.setup.stop)}
+								{riskPct ? <span className="ml-1 text-[10px] text-muted">−{riskPct}%</span> : null}
+							</td>
+							<td className="p-3 text-right mono text-long whitespace-nowrap">
+								${money(c.setup.target)}
+								{rewardPct ? <span className="ml-1 text-[10px] text-muted">+{rewardPct}%</span> : null}
+							</td>
 							<td className="p-3"><QualityGrade grade={c.quality.grade} /></td>
 							<td className="p-3">
 								<ConvictionMeter value={c.decision.conviction} />
@@ -44,7 +61,8 @@ export function CandidateTable({ candidates, scheduleId }: { candidates: Candida
 							</td>
 							<td className="p-3 text-right mono">{num(c.rank_score, 1)}</td>
 						</tr>
-					))}
+						);
+					})}
 				</tbody>
 			</table>
 		</div>

@@ -87,6 +87,22 @@ export async function getAiReport(scheduleId: string, reportVersion: string): Pr
  * indexes everything by symbol, so it works unchanged; run-switching still lazily fetches the full
  * `<version>.json` on demand.
  */
+/**
+ * Trim a full report for the DASHBOARD. The dashboard renders only the candidate list + data-health +
+ * tape/universe headers — it never reads `charts`, `decisions` or `analysis` (verified against
+ * DashboardClient). Those are the heavy parts (every symbol's OHLCV bars), so dropping them takes a
+ * multi-MB RSC payload down to a few hundred KB. Run-switching still lazily fetches the full
+ * `<version>.json` client-side when the user picks an archived run.
+ */
+export function sliceReportForDashboard(report: Report): Report {
+	return {
+		...report,
+		decisions: {},
+		analysis: undefined,
+		charts: {},
+	};
+}
+
 export function sliceReportForSymbol(report: Report, symbol: string): Report {
 	return {
 		...report,

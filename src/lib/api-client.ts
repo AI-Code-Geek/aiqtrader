@@ -83,6 +83,21 @@ export async function fetchMe(): Promise<UserRecord | null> {
 	return user;
 }
 
+/**
+ * Persist which report runs the user has seen (watchlist slug -> generated_at). Merged server-side into
+ * the KV record so notifications stay in sync across devices. Returns the updated user, or null.
+ */
+export async function saveSeenReports(seen: Record<string, string>): Promise<UserRecord | null> {
+	const res = await fetch("/api/seen-reports", {
+		method: "PATCH",
+		headers: { "content-type": "application/json" },
+		body: JSON.stringify({ seen }),
+	});
+	if (!res.ok) return null;
+	const { user } = (await res.json()) as { user: UserRecord };
+	return user;
+}
+
 /** Persist the My List subset to the KV record. Returns the updated user, or null on failure. */
 export async function saveMyList(myList: string[]): Promise<UserRecord | null> {
 	const res = await fetch("/api/my-list", {

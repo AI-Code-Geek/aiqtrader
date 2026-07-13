@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getWatchlist, getWatchlistReport } from "@/lib/reports-source";
+import { getWatchlist, getWatchlistReport, sliceReportForDashboard } from "@/lib/reports-source";
 import { TopNav } from "./TopNav";
 import { PersonaTabs } from "./PersonaTabs";
 import { DashboardClient } from "./DashboardClient";
@@ -30,7 +30,8 @@ export async function WatchlistDashboard({
 					subtitle={`${report.universe.name} · ${active}`}
 				/>
 				<PersonaTabs watchlistId={watchlistId} personas={w.personas} active={active} />
-				<DashboardClient scheduleId={scheduleId} index={index} initialReport={report} />
+				{/* Dashboard needs only candidates/health/universe — drop charts+decisions+analysis (multi-MB). */}
+				<DashboardClient scheduleId={scheduleId} index={index} initialReport={sliceReportForDashboard(report)} />
 			</>
 		);
 	} catch {

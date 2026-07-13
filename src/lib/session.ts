@@ -34,6 +34,8 @@ async function hmacKey(secret: string): Promise<CryptoKey> {
 
 /** Sign a session into a `<payload>.<sig>` token (both base64url). */
 export async function signSession(session: Session, secret: string): Promise<string> {
+	// Fail closed: never sign with an empty/missing secret (would otherwise be forgeable).
+	if (!secret) throw new Error("SECRET is not configured — refusing to sign a session");
 	const data = b64urlEncode(encoder.encode(JSON.stringify(session)));
 	const key = await hmacKey(secret);
 	const sig = new Uint8Array(await crypto.subtle.sign("HMAC", key, encoder.encode(data)));
@@ -46,6 +48,7 @@ export async function signSession(session: Session, secret: string): Promise<str
  */
 export async function verifySession(token: string | undefined | null, secret: string): Promise<Session | null> {
 	if (!token) return null;
+	if (!secret) return null; // fail closed: no secret configured → no valid session
 	const dot = token.indexOf(".");
 	if (dot < 0) return null;
 	const data = token.slice(0, dot);
@@ -63,9 +66,11 @@ export async function verifySession(token: string | undefined | null, secret: st
 }
 
 /**
- * Signing secret. Prefer the bound env var (Worker: env.SECRET → process.env.SECRET via OpenNext;
- * .dev.vars for local). Falls back to a well-known weak value for zero-config local dev only.
+ * Signing secret — the bound env var ONLY (Worker: env.SECRET → process.env.SECRET via OpenNext;
+ * `.dev.vars` / `.env.local` for local dev). There is deliberately NO fallback default: if SECRET is
+ * unset this returns "" and the app fails closed — signSession() throws and verifySession() returns null,
+ * so a session is NEVER signed or accepted with a public/known key. Set SECRET in every environment.
  */
 export function resolveSecret(envSecret?: string): string {
-	return envSecret || process.env.SECRET || "aiq-dev-insecure-secret-change-me";
+	return envSecret || process.env.SECRET || "";
 }

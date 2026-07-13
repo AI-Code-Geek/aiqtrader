@@ -373,10 +373,15 @@ export async function deleteUser(userid: string): Promise<void> {
 export async function listUsers(): Promise<UserRecord[]> {
 	const kv = getKV();
 	if (!kv) return [...(await localUsers())].reverse();
-	const byId = new Map<string, UserRecord>();
-	for (const u of seedUsers()) byId.set(u.userid, u);
-	const ids = JSON.parse((await kv.get(USER_INDEX)) ?? "[]") as string[];
-	const recs = await Promise.all(ids.map((id) => kv.get<UserRecord>(id, "json")));
+	const seed = seedUsers();
+	// Base = static seed (fallback for records KV hasn't persisted yet). Then overlay the KV record for
+	// BOTH seed users and minted users, so admin edits (delivery, status, validity) to a SEED user — which
+	// are saved to KV under its own key, NOT in idx:users — are reflected here too. (This was the bug: seed
+	// users were shown from the static set, ignoring their KV updates.)
+	const byId = new Map<string, UserRecord>(seed.map((u) => [u.userid, u]));
+	const mintedIds = JSON.parse((await kv.get(USER_INDEX)) ?? "[]") as string[];
+	const allIds = [...new Set([...seed.map((u) => u.userid), ...mintedIds])];
+	const recs = await Promise.all(allIds.map((id) => kv.get<UserRecord>(id, "json")));
 	for (const r of recs) if (r) byId.set(r.userid, r);
 	return [...byId.values()].reverse();
 }

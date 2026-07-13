@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getIndex, getReport, listScheduleIds } from "@/lib/reports-source";
+import { getIndex, getReport, listScheduleIds, sliceReportForDashboard } from "@/lib/reports-source";
 import { TopNav } from "@/components/TopNav";
 import { DashboardClient } from "@/components/DashboardClient";
 
@@ -17,7 +17,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ sche
 		return (
 			<>
 				<TopNav active="dashboard" scheduleId={scheduleId} subtitle={`${report.persona} · ${report.schedule.name}`} />
-				<DashboardClient scheduleId={scheduleId} index={index} initialReport={report} />
+				<DashboardClient scheduleId={scheduleId} index={index} initialReport={sliceReportForDashboard(report)} />
 			</>
 		);
 	} catch {

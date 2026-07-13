@@ -9,7 +9,7 @@
  */
 import { cp, rm, mkdir, stat, readdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { basename, dirname, join } from "node:path";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = join(root, "data", "reports");
@@ -98,11 +98,17 @@ async function main() {
 	}
 	await rm(dest, { recursive: true, force: true });
 	await mkdir(dest, { recursive: true });
-	await cp(src, dest, { recursive: true });
+	// Never mirror `_`-prefixed folders (e.g. _archive from scripts/publish/prune-reports.mjs) into
+	// public/ — archived runs are local history, not served assets, and must not reach the deploy repo.
+	await cp(src, dest, {
+		recursive: true,
+		filter: (from) => !basename(from).startsWith("_"),
+	});
 	console.log(`[sync-reports] copied ${src} -> ${dest}`);
 
 	const entries = await readdir(src, { withFileTypes: true });
-	const ids = entries.filter((e) => e.isDirectory()).map((e) => e.name).sort();
+	// Skip `_`-prefixed folders (e.g. _archive from scripts/prune-reports.mjs) — not schedules.
+	const ids = entries.filter((e) => e.isDirectory() && !e.name.startsWith("_")).map((e) => e.name).sort();
 
 	const schedules = [];
 	for (const id of ids) {
@@ -121,6 +127,27 @@ async function main() {
 	console.log(
 		`[sync-reports] wrote manifest (${ids.length} schedules, ${watchlists.length} watchlists) -> ${manifest}`,
 	);
+
+	// Also emit a small STATIC feed of the latest run per watchlist. The notification bell polls this
+	// (a cheap, edge-cached asset) to spot reports published after the page was loaded — the compiled
+	// manifest above is baked at build time and can't change in a live tab.
+	const feed = {
+		generated_at: new Date().toISOString(),
+		watchlists: watchlists
+			.filter((w) => w.latest)
+			.map((w) => ({
+				slug: w.slug,
+				name: w.name,
+				persona: w.latest.persona,
+				version: w.latest.version,
+				generated_at: w.latest.generated_at,
+				candidate_count: w.latest.candidate_count,
+				hasAi: w.latest.hasAi,
+			})),
+	};
+	const feedPath = join(dest, "manifest.json");
+	await writeFile(feedPath, JSON.stringify(feed, null, 2));
+	console.log(`[sync-reports] wrote notification feed (${feed.watchlists.length} watchlists) -> ${feedPath}`);
 }
 
 main().catch((err) => {

@@ -27,6 +27,12 @@ export interface UserRecord {
 	defaultPersona?: Persona;
 	/** personal subset of the universe — a field inside the record */
 	myList: string[];
+	/**
+	 * New-report notifications: watchlist slug -> the `generated_at` of the newest run this user has
+	 * seen. Lives on the record so read/unread follows the account across devices (localStorage is only
+	 * a mirror for instant paint).
+	 */
+	seenReports?: Record<string, string>;
 	createdAt?: string;
 	lastLoginAt?: string;
 	[key: string]: unknown;

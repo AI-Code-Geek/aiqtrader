@@ -17,7 +17,27 @@ import { verifySession, resolveSecret, SESSION_COOKIE } from "@/lib/session";
  *                                       redirected back to the dashboard with ?upgrade=1.
  * Never trusts anything from the client — tier comes from the signed payload.
  */
+/** CSRF defense-in-depth: a mutating API request carrying an Origin must be same-origin. */
+function csrfBlocked(req: NextRequest): boolean {
+	const method = req.method.toUpperCase();
+	if (method === "GET" || method === "HEAD" || method === "OPTIONS") return false;
+	const origin = req.headers.get("origin");
+	if (!origin) return false; // no Origin (non-browser / same-origin nav) → rely on sameSite=lax cookie
+	try {
+		return new URL(origin).host !== req.headers.get("host");
+	} catch {
+		return true; // malformed Origin → reject
+	}
+}
+
 export async function middleware(req: NextRequest) {
+	// API routes: no session-redirect (each handler self-gates), but enforce the CSRF Origin-check on
+	// state-changing methods. This centralizes CSRF for every current + future /api/** route.
+	if (req.nextUrl.pathname.startsWith("/api/")) {
+		if (csrfBlocked(req)) return NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 });
+		return NextResponse.next();
+	}
+
 	const token = req.cookies.get(SESSION_COOKIE)?.value;
 	const session = await verifySession(token, resolveSecret(process.env.SECRET));
 
@@ -43,5 +63,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-	matcher: ["/app/:path*"],
+	matcher: ["/app/:path*", "/api/:path*"],
 };
