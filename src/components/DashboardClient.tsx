@@ -92,10 +92,10 @@ export function DashboardClient({
 				<>
 					<div className="mb-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
 						{candidates.map((c) => (
-							<CandidateCard key={c.symbol} candidate={c} report={report} scheduleId={scheduleId} />
+							<CandidateCard key={c.symbol} candidate={c} report={report} scheduleId={scheduleId} version={version} />
 						))}
 					</div>
-					<CandidateTable candidates={candidates} scheduleId={scheduleId} />
+					<CandidateTable candidates={candidates} scheduleId={scheduleId} version={version} />
 				</>
 			)}
 		</div>

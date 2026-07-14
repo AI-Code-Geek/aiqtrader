@@ -47,6 +47,14 @@ export function SymbolDetailClient({
 	const [tf, setTf] = useState<Timeframe>(defaultTf);
 	const [loading, setLoading] = useState(false);
 
+	// Open on the SAME run the dashboard was showing: it passes the selected run as `?v=<version>`.
+	// Read it from the URL on mount (rather than useSearchParams, which would force a Suspense boundary
+	// on these statically-rendered pages). The run-switch effect below then loads that version.
+	useEffect(() => {
+		const v = new URLSearchParams(window.location.search).get("v");
+		if (v && index.versions.some((x) => x.version === v)) setVersion(v);
+	}, [index]);
+
 	// Run-switching: fetch the chosen version as a static asset (DEVPLAN §3, mirrors the dashboard).
 	useEffect(() => {
 		let cancelled = false;

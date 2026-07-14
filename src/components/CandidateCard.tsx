@@ -3,7 +3,19 @@ import type { Candidate, Report } from "@/lib/report-types";
 import { money, pct, num, mult } from "@/lib/format";
 import { VerdictBadge, QualityGrade, ConvictionMeter, DirectionLabel, RegimeChip, ConfluenceMini } from "./badges";
 
-export function CandidateCard({ candidate: c, report, scheduleId }: { candidate: Candidate; report: Report; scheduleId: string }) {
+export function CandidateCard({
+	candidate: c,
+	report,
+	scheduleId,
+	version = "latest",
+}: {
+	candidate: Candidate;
+	report: Report;
+	scheduleId: string;
+	/** The run the dashboard is currently showing — carried into the symbol page so it opens the SAME run. */
+	version?: string;
+}) {
+	const href = `/app/${scheduleId}/${c.symbol}${version && version !== "latest" ? `?v=${version}` : ""}`;
 	const d = c.decision;
 	const confluence = report.decisions[c.symbol]?.confluence;
 
@@ -13,9 +25,13 @@ export function CandidateCard({ candidate: c, report, scheduleId }: { candidate:
 	const riskPct = entry ? Math.abs(((entry - c.setup.stop) / entry) * 100).toFixed(1) : null;
 	const rewardPct = entry ? Math.abs(((c.setup.target - entry) / entry) * 100).toFixed(1) : null;
 	const ladder = d.entry_plan?.entry_now?.ladder?.targets ?? [];
+	// Trade horizon — engine-computed (decision.entry_plan.duration); shown next to the levels so a trader
+	// sees "how long" at a glance, not only on the detail page.
+	const dur = d.entry_plan?.duration;
+	const unit = (dur?.unit ?? "day").startsWith("h") ? "h" : "d";
 	return (
 		<Link
-			href={`/app/${scheduleId}/${c.symbol}`}
+			href={href}
 			className="block rounded-2xl border border-border bg-surface p-4 transition-colors hover:bg-surface-2"
 		>
 			<div className="flex items-start justify-between">
@@ -36,8 +52,8 @@ export function CandidateCard({ candidate: c, report, scheduleId }: { candidate:
 				<span className="text-sm text-muted">RR {num(c.setup.rr)} · RVOL {mult(c.rvol)}</span>
 			</div>
 
-			{/* The plan: entry / stop / target (+ the scale-out ladder when the engine gives one). */}
-			<div className="mt-2 grid grid-cols-3 gap-1 rounded-lg border border-border bg-surface-2 px-2 py-1.5">
+			{/* The plan: entry / stop / target / how long it's valid (+ the scale-out ladder below). */}
+			<div className={`mt-2 grid ${dur ? "grid-cols-4" : "grid-cols-3"} gap-1 rounded-lg border border-border bg-surface-2 px-2 py-1.5`}>
 				<div>
 					<div className="text-[10px] uppercase tracking-wide text-muted">Entry</div>
 					<div className="mono text-sm">${money(c.setup.entry)}</div>
@@ -56,6 +72,15 @@ export function CandidateCard({ candidate: c, report, scheduleId }: { candidate:
 						{rewardPct != null ? <span className="ml-1 text-[10px] text-muted">+{rewardPct}%</span> : null}
 					</div>
 				</div>
+				{dur ? (
+					<div title={dur.valid_until ?? undefined}>
+						<div className="text-[10px] uppercase tracking-wide text-muted">Hold</div>
+						<div className="mono text-sm">
+							~{dur.expected_bars}{unit}
+							{dur.max_bars != null ? <span className="ml-1 text-[10px] text-muted">max {dur.max_bars}{unit}</span> : null}
+						</div>
+					</div>
+				) : null}
 			</div>
 
 			{ladder.length > 0 ? (

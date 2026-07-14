@@ -128,11 +128,35 @@ export interface EntryStaged {
 	ladder?: Ladder;
 }
 
+/**
+ * How long the thesis is good for — the trade's clock. Computed by the engine (Module 2) and carried in
+ * the report; the UI only renders it. `max_bars` is also what the AI overlay's `in_window` catalyst check
+ * is recomputed against, so this is the authoritative horizon for the trade.
+ */
+export interface Duration {
+	expected_bars?: number;
+	max_bars?: number;
+	unit?: string; // "day" | "hour" | ...
+	duration_source?: string;
+	per_bar_atr_k?: number;
+	flat_by_close?: boolean;
+	/** Pre-formatted human string, e.g. "expected ~11 days, valid up to ~28 days". */
+	valid_until?: string;
+	/** What to do when the clock runs out. */
+	time_stop?: {
+		trigger?: string; // e.g. "max_bars_elapsed"
+		action?: string; // e.g. "exit_market"
+		note?: string;
+	};
+}
+
 export interface EntryPlan {
 	direction: Direction;
 	entry_now?: EntryNow;
 	/** "Breakout confirm" / pullback — present when the engine offers a staged trigger. */
 	entry_pullback?: EntryStaged;
+	/** Trade horizon + time-stop (how many bars/days the setup stays valid). */
+	duration?: Duration;
 }
 
 export interface MarketContext {

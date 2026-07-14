@@ -128,18 +128,55 @@ function Ladder({ ladder }: { ladder?: import("@/lib/report-types").Ladder }) {
 	if (!targets.length) return null;
 	return (
 		<div className="mt-2">
-			<div className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">Exit ladder</div>
+			<div className="mb-1 flex items-center justify-between">
+				<span className="text-xs font-semibold uppercase tracking-wide text-muted">Targets</span>
+				{ladder?.rr_blended != null ? (
+					<span className="text-xs text-muted">blended <b className="mono text-foreground">{num(ladder.rr_blended)}R</b></span>
+				) : null}
+			</div>
 			<ul className="space-y-1">
 				{targets.map((t, i) => (
 					<li key={i} className="flex items-center justify-between rounded-lg bg-surface-2 px-2 py-1 text-sm">
 						<span className="font-medium">{t.milestone}</span>
 						<span className="mono">${money(t.level)}</span>
-						<span className="text-muted">R {num(t.rr)}</span>
+						<span className="text-muted">{num(t.rr)}R</span>
+						<span className="text-xs text-muted">{t.basis?.replace(/_/g, " ")}</span>
 						<span className="text-muted">{t.pct}%</span>
 					</li>
 				))}
 			</ul>
 			{ladder?.scale_out ? <p className="mt-1 text-xs text-muted">{ladder.scale_out}</p> : null}
+		</div>
+	);
+}
+
+/**
+ * The trade's clock: how long the thesis is good for, and what to do when it expires.
+ * Straight from `decision.entry_plan.duration` (engine-computed) — the UI only formats it.
+ */
+function DurationBlock({ d }: { d: SymbolDecision }) {
+	const dur = d.decision.entry_plan?.duration;
+	if (!dur) return null;
+	const ts = dur.time_stop;
+	return (
+		<div className="mt-3 rounded-xl border border-border bg-surface-2/60 p-3">
+			<div className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">How long it&rsquo;s valid</div>
+			{dur.valid_until ? (
+				<p className="text-sm">{dur.valid_until}</p>
+			) : (
+				<p className="text-sm">
+					expected ~{dur.expected_bars} {dur.unit ?? "bar"}s, valid up to ~{dur.max_bars} {dur.unit ?? "bar"}s
+				</p>
+			)}
+			{ts ? (
+				<p className="mt-1 text-xs text-watch">
+					<b className="uppercase tracking-wide">Time-stop</b> · {ts.action?.replace(/_/g, " ") ?? "exit"}
+					{ts.note ? ` — ${ts.note}` : null}
+				</p>
+			) : null}
+			{dur.flat_by_close ? (
+				<p className="mt-1 text-xs text-short">Flat by the close — do not hold overnight.</p>
+			) : null}
 		</div>
 	);
 }
@@ -185,6 +222,9 @@ export function SetupCard({ d }: { d: SymbolDecision }) {
 					<Ladder ladder={pull.ladder} />
 				</div>
 			) : null}
+
+			{/* The clock: how long the thesis stays valid + the time-stop. Applies to the whole plan. */}
+			<DurationBlock d={d} />
 		</Card>
 	);
 }
