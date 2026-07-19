@@ -6,7 +6,7 @@
  */
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { AiReport, Report, ReportIndex } from "./report-types";
+import type { AiReport, JourneyNode, Report, ReportDiff, ReportIndex, ReportOutcome } from "./report-types";
 import type { ScheduleMeta, WatchlistMeta } from "./manifest-types";
 import { SCHEDULE_IDS, SCHEDULES, WATCHLISTS } from "./reports-manifest";
 
@@ -106,11 +106,30 @@ export function sliceReportForDashboard(report: Report): Report {
 export function sliceReportForSymbol(report: Report, symbol: string): Report {
 	return {
 		...report,
-		candidates: [],
+		// keep only THIS symbol's candidate (tiny) so the symbol page can render its P10-05 validation strip
+		candidates: report.candidates?.filter((c) => c.symbol === symbol) ?? [],
 		decisions: report.decisions?.[symbol] ? { [symbol]: report.decisions[symbol] } : {},
 		analysis: report.analysis?.[symbol] ? { [symbol]: report.analysis[symbol] } : undefined,
 		charts: report.charts?.[symbol] ? { [symbol]: report.charts[symbol] } : {},
 	};
+}
+
+/** Load the run-to-run diff for a run, or null if it has none. Sibling `<version>.diff.json` (P9). */
+export async function getReportDiff(scheduleId: string, reportVersion: string): Promise<ReportDiff | null> {
+	try {
+		return await readJson<ReportDiff>(join(REPORTS_DIR, scheduleId, `${reportVersion}.diff.json`));
+	} catch {
+		return null;
+	}
+}
+
+/** Load the report card for a run, or null if it has none. Sibling `<version>.outcome.json` (P11). */
+export async function getReportOutcome(scheduleId: string, reportVersion: string): Promise<ReportOutcome | null> {
+	try {
+		return await readJson<ReportOutcome>(join(REPORTS_DIR, scheduleId, `${reportVersion}.outcome.json`));
+	} catch {
+		return null;
+	}
 }
 
 // ── Watchlist layer ──────────────────────────────────────────────────────────────────────────────
@@ -190,4 +209,80 @@ export async function getWatchlistReport(
 	const [index, report] = await Promise.all([getIndex(sched.id), getReport(sched.id, version)]);
 	const ai = await getAiReport(sched.id, report.report_version);
 	return { scheduleId: sched.id, report, ai, index };
+}
+
+/**
+ * The History timeline for a watchlist: every run's diff (newest-first), for the resolved persona's
+ * schedule. Build-time fs read (like the reports); the client fetches individual diffs as static
+ * assets. Uses the manifest's `diff_versions` so it also finds diffs of runs whose report was pruned.
+ */
+export async function getWatchlistDiffs(
+	slug: string,
+	persona?: string,
+): Promise<{ scheduleId: string; diffs: ReportDiff[] }> {
+	const sched = resolveSchedule(slug, persona);
+	if (!sched) return { scheduleId: "", diffs: [] };
+	const versions = [...(sched.diff_versions ?? [])].sort().reverse(); // newest-first
+	const loaded = await Promise.all(versions.map((v) => getReportDiff(sched.id, v)));
+	const diffs = loaded.filter((d): d is ReportDiff => d != null);
+	return { scheduleId: sched.id, diffs };
+}
+
+/**
+ * The report cards for a watchlist, keyed by report_version (P11-05). Each card says how that run's
+ * calls resolved (target/stop/open + realized R). Uses the manifest's `outcome_versions` so it also
+ * finds cards of runs whose big report was pruned. Build-time fs read; empty when none exist yet.
+ */
+export async function getWatchlistOutcomes(
+	slug: string,
+	persona?: string,
+): Promise<Record<string, ReportOutcome>> {
+	const sched = resolveSchedule(slug, persona);
+	if (!sched) return {};
+	const versions = sched.outcome_versions ?? [];
+	const loaded = await Promise.all(versions.map((v) => getReportOutcome(sched.id, v)));
+	const map: Record<string, ReportOutcome> = {};
+	for (const o of loaded) if (o) map[o.report_version] = o;
+	return map;
+}
+
+/**
+ * One symbol's verdict path across every run (P9-05, oldest-first). Reconstructs ABSOLUTE state from
+ * the diff chain: "new"/baseline seeds the verdict, "changed" updates it, "unchanged" carries it
+ * forward, "dropped" ends the run. Diffs already encode the engine's transitions — we only replay them,
+ * never re-decide (CLAUDE.md §1-2). Runs where the symbol isn't a candidate are omitted.
+ */
+export async function getSymbolJourney(
+	slug: string,
+	symbol: string,
+	persona?: string,
+): Promise<JourneyNode[]> {
+	const { diffs } = await getWatchlistDiffs(slug, persona);
+	const chrono = [...diffs].reverse(); // oldest-first, so carry-forward flows the right way
+	let verdict: string | null = null;
+	let conviction: number | null = null;
+	const nodes: JourneyNode[] = [];
+	for (const d of chrono) {
+		const s = d.symbols?.[symbol];
+		if (!s) continue; // not in this run's universe — no node
+		if (s.status === "dropped") {
+			nodes.push({ version: d.report_version, generated_at: d.generated_at, verdict, conviction, changed: true, event: "dropped" });
+			verdict = null;
+			conviction = null;
+			continue;
+		}
+		let changed = false;
+		let event: JourneyNode["event"];
+		if (s.status === "new") {
+			verdict = s.snapshot?.verdict ?? s.verdict?.to ?? null;
+			conviction = s.snapshot?.conviction ?? s.conviction?.to ?? null;
+			changed = true;
+			event = "new";
+		} else {
+			if (s.verdict?.to != null) { verdict = s.verdict.to; changed = true; }
+			if (s.conviction?.to != null) { conviction = s.conviction.to; if (s.status === "changed") changed = true; }
+		}
+		nodes.push({ version: d.report_version, generated_at: d.generated_at, verdict, conviction, changed, event });
+	}
+	return nodes;
 }

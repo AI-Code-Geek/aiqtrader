@@ -22,7 +22,7 @@ const REQ_INDEX = "idx:reqs";
 const USER_INDEX = "idx:users"; // list of minted userids (seed users aren't listed here)
 
 /** Bump when DEV_USERS change so an already-seeded namespace re-seeds once. */
-const SEED_VERSION = "v2";
+const SEED_VERSION = "v3";
 
 /**
  * REAL SUBSCRIBERS ARE NOT IN SOURCE. They live only in Cloudflare KV (provisioned via the admin
@@ -34,7 +34,7 @@ const SUBSCRIBERS: UserRecord[] = [];
 
 /** Demo/test accounts. Codes are public in the repo → seeded ONLY outside production. */
 const DEV_USERS: UserRecord[] = [
-	{ userid: "u_demo", name: "Demo Trader", email: "demo@aiqtrader.app", code: "AIQ-DEMO-2026", status: "active", validity: null, tier: "pro", schedules: [1], myList: [] },
+	{ userid: "u_demo", name: "Demo Trader", email: "demo@aiqtrader.app", code: "AIQ-DEMO-2026", status: "active", validity: null, tier: "pro", schedules: [1, 2, 3, 4, 5, 6, 7], myList: [] },
 	{ userid: "u_free", name: "Free Tier", email: "free@aiqtrader.app", code: "AIQ-FREE-0001", status: "active", validity: null, tier: "free", schedules: [1], myList: [] },
 	{ userid: "u_expired", name: "Lapsed Sub", email: "expired@aiqtrader.app", code: "AIQ-EXP-0002", status: "active", validity: "2020-01-01T00:00:00Z", tier: "pro", schedules: [1], myList: [] },
 	{ userid: "u_suspended", name: "Suspended", email: "suspended@aiqtrader.app", code: "AIQ-SUSP-0003", status: "suspended", validity: null, tier: "pro", schedules: [1], myList: [] },

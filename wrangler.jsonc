@@ -31,5 +31,10 @@
 	//   prod:  wrangler secret put SECRET
 	//   dev:   put SECRET=... in .dev.vars (gitignored)
 	// A weak dev fallback is used if unset (see src/lib/session.ts).
-	"vars": {}
+	//
+	// SYMBOL_DETAIL_PRO_ONLY (temporary): "false" OPENS symbol/chart pages to the free tier.
+	// Set back to "true" (or remove this line) to restore the Pro-only gate — no code change needed.
+	"vars": {
+		"SYMBOL_DETAIL_PRO_ONLY": "false"
+	}
 }

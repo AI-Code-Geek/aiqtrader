@@ -185,11 +185,17 @@ export function SetupCard({ d }: { d: SymbolDecision }) {
 	const s = d.best.setup;
 	const plan = d.decision.entry_plan?.entry_now;
 	const pull = d.decision.entry_plan?.entry_pullback;
+	// Entry-tactic terminology (consistent with the engine's normalized `entry_plan.entries` and the
+	// trading-ui app): entry_now is the STANDARD immediate entry (not a breakout by itself); the staged
+	// entry is either a PULLBACK (limit, better price) or a BREAKOUT — a breakUP for a long / breakDOWN
+	// for a short (stop, confirming through a level).
+	const move = (d.decision.entry_plan?.direction ?? s.direction) === "long" ? "breakup" : "breakdown";
+	const pullLabel = pull ? (pull.type === "stop" ? `Breakout · ${move}` : "Pullback · better price") : "";
 	return (
 		<Card title="Setup — the executable plan" extra={<DirectionLabel direction={s.direction} />}>
-			{/* Entry option 1 — immediate */}
+			{/* Entry option 1 — the standard immediate (market) entry */}
 			<div className="text-xs font-semibold uppercase tracking-wide text-muted">
-				{plan?.label ?? "Now"} · {plan?.type ?? "market"}
+				{plan?.label ?? "Now"} · {plan?.type ?? "market"} <span className="text-brand">· standard</span>
 			</div>
 			<div className="mt-1 grid grid-cols-4 gap-2 text-center text-sm">
 				<Stat label="Entry" value={`$${money(plan?.price ?? s.entry)}`} />
@@ -206,7 +212,7 @@ export function SetupCard({ d }: { d: SymbolDecision }) {
 			{pull ? (
 				<div className="mt-4 rounded-xl border border-border bg-surface-2/50 p-3">
 					<div className="mb-1 flex items-center justify-between">
-						<div className="text-xs font-semibold uppercase tracking-wide text-brand">{pull.label} · {pull.type}</div>
+						<div className="text-xs font-semibold uppercase tracking-wide text-brand">{pullLabel} · {pull.type}</div>
 						{pull.fill_odds ? <span className="text-xs text-muted">fill odds <b className="text-foreground">{pull.fill_odds.label}</b></span> : null}
 					</div>
 					<div className="grid grid-cols-4 gap-2 text-center text-sm">

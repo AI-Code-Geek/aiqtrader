@@ -150,11 +150,32 @@ export interface Duration {
 	};
 }
 
+/**
+ * P3.1 normalized entry tactic — the ways to enter this setup, alongside the standard levels. One
+ * engine-owned source (Module 2 `entry_zone`) rendered identically by the dashboard, the symbol page,
+ * and the trading-ui app. `kind`: breakout = enter now on the move in-direction; pullback = a limit at
+ * a better price; breakout_confirm = a stop that confirms through a level.
+ */
+export interface EntryOption {
+	kind: "now" | "breakout" | "pullback";
+	label: string;
+	order: string; // "market" | "limit" | "stop"
+	trigger: number | null;
+	zone: { low: number; high: number } | null;
+	stop: number | null;
+	target: number | null;
+	rr: number | null;
+	odds: string | null; // chase-risk (breakout) or fill-odds (pullback) label
+	odds_kind: "chase" | "fill";
+}
+
 export interface EntryPlan {
 	direction: Direction;
 	entry_now?: EntryNow;
 	/** "Breakout confirm" / pullback — present when the engine offers a staged trigger. */
 	entry_pullback?: EntryStaged;
+	/** P3.1 normalized entry tactics (breakout / pullback) — for viewers that render tactics compactly. */
+	entries?: EntryOption[];
 	/** Trade horizon + time-stop (how many bars/days the setup stays valid). */
 	duration?: Duration;
 }
@@ -218,6 +239,32 @@ export interface Screening {
 }
 
 /** An entry in report.candidates[] — a ranked, actionable setup (the dashboard's primary list). */
+/** P10 — one win-rate/expectancy slice of a validation snapshot (overall, per verdict, or a strategy row). */
+export interface ValidationSlice {
+	verdict?: string;
+	strategy?: string;
+	win_rate: number;   // 0–100
+	expectancy: number; // avg R
+	n: number;
+	wins?: number;
+	losses?: number;
+}
+
+/** P10-05 — the compact backtest-evidence block the engine attaches per candidate. The viewer renders
+ *  it verbatim (never derives). Absent = no snapshot yet → show nothing. */
+export interface Validation {
+	snapshot_id: number;
+	engine_version: string | null;
+	as_of: string | null;
+	period: { start: string | null; end: string | null; years: number | null };
+	n_trades: number;
+	overall: { win_rate: number; expectancy: number; n: number };
+	by_verdict: ValidationSlice[];
+	strategy?: ValidationSlice;   // the candidate's OWN strategy row (omitted if it never fired)
+	stale: boolean;               // as_of older than the staleness window → UI de-emphasizes
+	thin: boolean;                // n below the min-sample threshold → UI de-emphasizes
+}
+
 export interface Candidate {
 	symbol: string;
 	regime: string;
@@ -236,6 +283,7 @@ export interface Candidate {
 	rank_score: number;
 	age_bars: number;
 	thesis_expired: boolean;
+	validation?: Validation;   // P10-05 — durable backtest edge stats (absent when no snapshot)
 }
 
 export interface HtfStructure {
@@ -548,4 +596,119 @@ export interface Report {
 	/** Extra per-symbol analysis for the detail tabs (schema_version ≥ 2; omitted on older runs). */
 	analysis?: Record<string, SymbolAnalysis>;
 	charts: Record<string, Record<string, Bar[]>>;
+}
+
+// ── Report run-to-run diff (Phase 9) — a `<version>.diff.json` sibling: "what changed vs the previous
+// run?", computed by Module 1 (app/reports/differ.py). The viewer renders it; it derives nothing. ──
+export type DiffStatus = "new" | "dropped" | "changed" | "unchanged";
+export type DiffHighlightKind =
+	| "new_take" | "lost_take" | "promotion" | "demotion" | "trigger_crossed"
+	| "risk" | "confirmation" | "new" | "dropped" | "plan" | "drift" | "market";
+
+export interface NumChange { from?: number | null; to?: number | null; delta?: number | null; pct?: number | null }
+export interface CatChange { from?: string | null; to?: string | null; transition?: "promotion" | "demotion" | "lateral" }
+
+export interface DiffHighlight { rank: number; kind: DiffHighlightKind; symbol: string; text: string }
+
+/** One point on a symbol's verdict path across runs (P9-05). Absolute state, reconstructed from diffs. */
+export interface JourneyNode {
+	version: string;
+	generated_at: string;
+	/** Absolute verdict at this run (carried forward across "unchanged" runs). */
+	verdict: string | null;
+	conviction: number | null;
+	/** A material verdict/conviction change happened at this run. */
+	changed: boolean;
+	/** Set on the run the symbol entered / left the candidate set. */
+	event?: "new" | "dropped";
+}
+
+export interface DiffSymbol {
+	status: DiffStatus;
+	reason?: string;
+	verdict?: CatChange;
+	conviction?: NumChange;
+	rank_score?: NumChange;
+	quality?: { grade?: CatChange; trap_risk?: NumChange };
+	confirmation?: { score?: NumChange; state?: CatChange; resolved?: string[]; added_missing?: string[]; still_missing?: string[] };
+	plan?: { entry?: NumChange; stop?: NumChange; target?: NumChange; rr?: NumChange; moved?: boolean };
+	price?: NumChange;
+	derived?: { trigger_crossed?: boolean; toward_target_pct?: number | null; toward_stop_pct?: number | null; age_bars?: NumChange };
+	thesis_expired?: { from: boolean; to: boolean };
+	flags_added?: string[];
+	flags_cleared?: string[];
+	highlights?: string[];
+	snapshot?: { label?: string; direction?: string; verdict?: string; conviction?: number; rr?: number };
+	last?: { verdict?: string; conviction?: number; age_bars?: number };
+}
+
+export interface ReportDiff {
+	schema_version: number;
+	kind: "report_diff";
+	report_version: string;
+	previous_version: string | null;
+	generated_at: string;
+	previous_generated_at: string | null;
+	gap_hours: number | null;
+	baseline: boolean;
+	schedule_id: number;
+	watchlist_id: number | null;
+	persona: Persona | null;
+	universe?: { added: string[]; removed: string[]; count_from: number; count_to: number; changed: boolean };
+	highlights: DiffHighlight[];
+	summary: {
+		candidates_from?: number; candidates_to?: number;
+		new: number; dropped: number; persisted?: number; changed: number; unchanged: number;
+		promotions: number; demotions: number;
+		new_takes: string[]; lost_takes: string[];
+		by_verdict_from?: Record<string, number>; by_verdict_to?: Record<string, number>;
+		material: boolean;
+	};
+	symbols: Record<string, DiffSymbol>;
+	market?: { tape?: CatChange; breadth?: NumChange; data_health?: CatChange };
+	thresholds?: Record<string, number>;
+}
+
+// ── Report outcomes (Phase 11) — a `<report_version>.outcome.json` sibling: how the run's calls
+// actually resolved against the latest bars (target/stop/open + realized R). Engine (M2) resolves,
+// Module 1 writes; the viewer renders the "report card". ──────────────────────────────────────────
+export interface OutcomeScore {
+	n: number;
+	target: number;
+	stop: number;
+	time_exit: number;
+	open: number;
+	no_fill: number;
+	hit_rate: number | null;      // target / (target + stop) over resolved fills
+	expectancy_r: number | null;  // mean realized R over resolved windows
+	total_r: number;
+}
+
+export interface OutcomeSymbol {
+	symbol: string;
+	verdict: string | null;
+	direction: string | null;
+	entry: number | null;
+	stop: number | null;
+	outcome: "target" | "stop" | "time_exit" | "open" | "no_fill" | "unresolvable" | null;
+	milestone: "t1" | "t2" | null;
+	r_realized: number | null;
+	r_unrealized: number | null;
+	mfe_r: number | null;
+	mae_r: number | null;
+	bars_held: number | null;
+	resolved_through: string | null;
+}
+
+export interface ReportOutcome {
+	report_version: string;
+	resolved_at: string;
+	resolved_through: string | null;
+	persona: string | null;
+	timeframe: string | null;
+	matured: boolean;             // false → "outcomes pending" (no window has closed yet)
+	scoreboard: OutcomeScore;     // headline: actionable verdicts (take / take_small)
+	by_verdict: (OutcomeScore & { verdict: string })[];
+	symbols: OutcomeSymbol[];
+	n_unresolvable?: number;
 }

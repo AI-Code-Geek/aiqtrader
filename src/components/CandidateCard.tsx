@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Candidate, Report } from "@/lib/report-types";
+import type { Candidate, Report, EntryOption } from "@/lib/report-types";
 import { money, pct, num, mult } from "@/lib/format";
 import { VerdictBadge, QualityGrade, ConvictionMeter, DirectionLabel, RegimeChip, ConfluenceMini } from "./badges";
 
@@ -94,6 +94,10 @@ export function CandidateCard({
 					))}
 				</div>
 			) : null}
+
+			{/* P3.1 — how to enter: breakout (now, in-direction) vs pullback (better price), from the
+			    engine's normalized entry tactics. Render-only; the levels come straight from the engine. */}
+			<EntriesRow entries={d.entry_plan?.entries} />
 			<div className="mt-2 mb-1 flex justify-between text-sm text-muted">
 				<span>Conviction</span>
 				<span className="mono">
@@ -104,5 +108,34 @@ export function CandidateCard({
 			<ConvictionMeter value={d.conviction} />
 			{confluence ? <div className="mt-2"><ConfluenceMini confluence={confluence} /></div> : null}
 		</Link>
+	);
+}
+
+const ENTRY_STYLE: Record<string, { short: string; cls: string }> = {
+	now: { short: "Now", cls: "text-foreground" },
+	breakout: { short: "Breakout", cls: "text-brand" },
+	pullback: { short: "Pullback", cls: "text-muted" },
+};
+
+/** Compact "how to enter" row — the engine's normalized breakout/pullback tactics beside the setup. */
+function EntriesRow({ entries }: { entries?: EntryOption[] }) {
+	if (!entries?.length) return null;
+	return (
+		<div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px]">
+			<span className="uppercase tracking-wide text-muted">Enter</span>
+			{entries.map((e, i) => {
+				const s = ENTRY_STYLE[e.kind] ?? ENTRY_STYLE.breakout;
+				const tip = `${e.label} · ${e.order}`
+					+ (e.rr != null ? ` · ${e.rr}R` : "")
+					+ (e.odds ? ` · ${e.odds_kind} ${e.odds}` : "")
+					+ (e.zone ? ` · zone $${money(e.zone.low)}–$${money(e.zone.high)}` : "");
+				return (
+					<span key={i} className={`mono ${s.cls}`} title={tip}>
+						{s.short}
+						{e.trigger != null ? <span className="text-foreground"> ${money(e.trigger)}</span> : null}
+					</span>
+				);
+			})}
+		</div>
 	);
 }

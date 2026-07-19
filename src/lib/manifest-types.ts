@@ -22,6 +22,10 @@ export interface ScheduleMeta {
 	latest_candidate_count: number;
 	/** report_versions that have a sibling <version>.ai.json (AI Brain extension). */
 	ai_versions: string[];
+	/** report_versions that have a sibling <version>.diff.json (run-to-run diff, P9). Newest-first. */
+	diff_versions: string[];
+	/** report_versions that have a sibling <version>.outcome.json (report card, P11). Newest-first. */
+	outcome_versions?: string[];
 }
 
 /** A watchlist (universe.watchlist_id) with the schedule(s) that feed it. The dashboard's top nav unit. */

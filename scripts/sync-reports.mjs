@@ -36,6 +36,20 @@ async function scheduleMeta(scheduleId, files) {
 	const aiVersions = files
 		.filter((f) => f.endsWith(".ai.json"))
 		.map((f) => f.slice(0, -".ai.json".length));
+	// P9: which runs have a run-to-run diff (<ver>.diff.json). Tracked independently of index.json so
+	// the History tab still sees diffs of runs whose big report was pruned (P9-07).
+	const diffVersions = files
+		.filter((f) => f.endsWith(".diff.json"))
+		.map((f) => f.slice(0, -".diff.json".length))
+		.sort()
+		.reverse();
+	// P11: which runs have a report card (<ver>.outcome.json — how the run's calls resolved). Tracked
+	// independently of index.json so the History tab still finds cards of runs whose big report was pruned.
+	const outcomeVersions = files
+		.filter((f) => f.endsWith(".outcome.json"))
+		.map((f) => f.slice(0, -".outcome.json".length))
+		.sort()
+		.reverse();
 	return {
 		id: scheduleId,
 		schedule_id: index?.schedule_id ?? 0,
@@ -49,6 +63,8 @@ async function scheduleMeta(scheduleId, files) {
 		latest_generated_at: latest?.generated_at ?? null,
 		latest_candidate_count: latest?.candidate_count ?? 0,
 		ai_versions: aiVersions,
+		diff_versions: diffVersions,
+		outcome_versions: outcomeVersions,
 	};
 }
 

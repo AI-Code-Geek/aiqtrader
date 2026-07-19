@@ -13,8 +13,8 @@ export function PersonaTabs({
 	watchlistId: string;
 	personas: string[];
 	active: string;
-	/** Sub-view to preserve when switching persona: "" (dashboard) or "market". */
-	view?: "" | "market";
+	/** Sub-view to preserve when switching persona: "" (dashboard), "market", or "history". */
+	view?: "" | "market" | "history";
 }) {
 	if (personas.length === 0) return null;
 	const href = (p: string) => `/app/w/${watchlistId}/${p}${view ? `/${view}` : ""}`;

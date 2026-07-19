@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import type { AiReport, AiSymbol, Report, ReportIndex, Timeframe } from "@/lib/report-types";
+import type { AiReport, AiSymbol, DiffSymbol, JourneyNode, Report, ReportDiff, ReportIndex, Timeframe } from "@/lib/report-types";
 import { time } from "@/lib/format";
 import { PriceChart, type PriceLine } from "./PriceChart";
 import { IndicatorPanels } from "./IndicatorPanels";
+import { ChartErrorBoundary } from "./ChartErrorBoundary";
 import {
 	ConditionsChecklist,
 	ConfirmationCard,
@@ -19,6 +20,8 @@ import {
 } from "./DecisionCards";
 import { AnalysisTabs } from "./AnalysisTabs";
 import { AiPanel } from "./AiPanel";
+import { SymbolHistoryStrip } from "./SymbolHistoryStrip";
+import { ValidationCard } from "./ValidationCard";
 
 const INTRADAY: Record<string, boolean> = { "1Hour": true, "1Day": false, "1Week": false };
 
@@ -28,16 +31,23 @@ export function SymbolDetailClient({
 	index,
 	initialReport,
 	initialAi,
+	initialDiff,
+	journey = [],
 }: {
 	scheduleId: string;
 	symbol: string;
 	index: ReportIndex;
 	initialReport: Report;
 	initialAi?: AiSymbol;
+	/** This symbol's slice of the initially-shown run's diff (P9-05 "vs previous run"). */
+	initialDiff?: ReportDiff | null;
+	/** This symbol's verdict path across all runs (P9-05). */
+	journey?: JourneyNode[];
 }) {
 	const [report, setReport] = useState(initialReport);
 	const [version, setVersion] = useState("latest");
 	const [aiSym, setAiSym] = useState<AiSymbol | undefined>(initialAi);
+	const [diff, setDiff] = useState<ReportDiff | null>(initialDiff ?? null);
 	// Default to the persona's entry timeframe (1Day for swing), NOT timeframes[0] (1Hour). Switchable.
 	const defaultTf =
 		initialReport.schedule?.timeframe ??
@@ -61,28 +71,38 @@ export function SymbolDetailClient({
 		if (version === "latest") {
 			setReport(initialReport);
 			setAiSym(initialAi);
+			setDiff(initialDiff ?? null);
 			return;
 		}
 		setLoading(true);
-		// The AI extension is a sibling `<version>.ai.json`; absent runs simply clear the AI panel.
+		// Fetch the chosen run's report, its AI sibling, and its diff sibling as static assets. All three
+		// are optional siblings — absent runs simply clear the corresponding panel.
 		Promise.all([
 			fetch(`/reports/${scheduleId}/${version}.json`).then((r) => r.json() as Promise<Report>),
 			fetch(`/reports/${scheduleId}/${version}.ai.json`)
 				.then((r) => (r.ok ? (r.json() as Promise<AiReport>) : null))
 				.catch(() => null),
+			fetch(`/reports/${scheduleId}/${version}.diff.json`)
+				.then((r) => (r.ok ? (r.json() as Promise<ReportDiff>) : null))
+				.catch(() => null),
 		])
-			.then(([rep, ai]) => {
+			.then(([rep, ai, df]) => {
 				if (cancelled) return;
 				setReport(rep);
 				setAiSym(ai?.symbols?.[symbol]);
+				setDiff(df);
 			})
 			.finally(() => !cancelled && setLoading(false));
 		return () => {
 			cancelled = true;
 		};
-	}, [version, scheduleId, initialReport, initialAi, symbol]);
+	}, [version, scheduleId, initialReport, initialAi, initialDiff, symbol]);
+
+	const diffSym: DiffSymbol | undefined = diff?.symbols?.[symbol];
 
 	const decision = report.decisions?.[symbol];
+	// P10-05 — the durable backtest evidence lives on the candidate; attach it next to the live decision.
+	const validation = report.candidates?.find((c) => c.symbol === symbol)?.validation;
 	const bars = report.charts?.[symbol]?.[tf] ?? [];
 	const intraday = INTRADAY[tf] ?? false;
 	const timeframes = report.timeframes ?? Object.keys(report.charts?.[symbol] ?? {});
@@ -143,6 +163,19 @@ export function SymbolDetailClient({
 
 			<SymbolHero d={decision} />
 
+			<div className="mt-4">
+				<SymbolHistoryStrip
+					symbol={symbol}
+					diffSym={diffSym}
+					prevAt={diff?.previous_generated_at}
+					gapHours={diff?.gap_hours}
+					journey={journey}
+					currentVersion={report.report_version}
+					scheduleId={scheduleId}
+					loading={loading}
+				/>
+			</div>
+
 			<div className="mt-4 grid gap-4 lg:grid-cols-12">
 				{/* Chart column */}
 				<div className="lg:col-span-8">
@@ -161,14 +194,18 @@ export function SymbolDetailClient({
 							<span className="ml-auto text-xs text-muted">{bars.length} bars</span>
 						</div>
 						{bars.length ? (
-							<PriceChart bars={bars} lines={lines} intraday={intraday} />
+							<ChartErrorBoundary label="Price chart">
+								<PriceChart bars={bars} lines={lines} intraday={intraday} />
+							</ChartErrorBoundary>
 						) : (
 							<p className="py-16 text-center text-sm text-muted">No chart bars for {tf}.</p>
 						)}
 					</div>
 					{bars.length ? (
 						<div className="mt-3">
-							<IndicatorPanels bars={bars} intraday={intraday} />
+							<ChartErrorBoundary label="Indicator panels">
+								<IndicatorPanels bars={bars} intraday={intraday} />
+							</ChartErrorBoundary>
 						</div>
 					) : null}
 				</div>
@@ -176,6 +213,7 @@ export function SymbolDetailClient({
 				{/* Decision column */}
 				<div className="space-y-4 lg:col-span-4">
 					<DecisionCard d={decision} />
+					{validation ? <ValidationCard v={validation} strategyLabel={decision.best?.label} /> : null}
 					<SetupCard d={decision} />
 				</div>
 			</div>

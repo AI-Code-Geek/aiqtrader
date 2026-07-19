@@ -50,9 +50,14 @@ export async function middleware(req: NextRequest) {
 
 	// Symbol detail = /app/<scheduleId>/<symbol>. Pro-only (charts). The market overview
 	// (/app/<scheduleId>/market) is macro context, not per-symbol charts → available to all tiers.
+	//
+	// Feature flag (temporary): set env SYMBOL_DETAIL_PRO_ONLY="false" to OPEN symbol pages to the free
+	// tier. Default (unset / any other value) keeps the Pro-only gate. Flip the env back to re-gate —
+	// no code change needed.
+	const symbolDetailProOnly = process.env.SYMBOL_DETAIL_PRO_ONLY !== "false";
 	const parts = req.nextUrl.pathname.split("/").filter(Boolean); // ["app", scheduleId, symbol?]
 	const isSymbolDetail = parts.length === 3 && parts[0] === "app" && parts[2] !== "market";
-	if (session.tier === "free" && isSymbolDetail) {
+	if (symbolDetailProOnly && session.tier === "free" && isSymbolDetail) {
 		const url = req.nextUrl.clone();
 		url.pathname = `/app/${parts[1]}`;
 		url.search = "?upgrade=1";

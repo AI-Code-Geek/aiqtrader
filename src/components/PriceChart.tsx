@@ -18,7 +18,7 @@ function cssVar(name: string, fallback: string): string {
 	return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
 }
 
-const toSec = (iso: string) => (Date.parse(iso) / 1000) as UTCTimestamp;
+const toSec = (iso: string) => Math.floor(Date.parse(iso) / 1000);
 
 export interface PriceLine {
 	price: number;
@@ -80,9 +80,21 @@ export function PriceChart({ bars, lines, intraday }: { bars: Bar[]; lines: Pric
 		const series = seriesRef.current;
 		const chart = chartRef.current;
 		if (!series || !chart) return;
-		series.setData(
-			bars.map((b) => ({ time: toSec(b.ts), open: b.o, high: b.h, low: b.l, close: b.c })),
-		);
+		// Guard the data feed: lightweight-charts THROWS on a NaN time or on non-ascending/duplicate
+		// times. WebKit's Date.parse can differ from Blink's on odd offsets, so drop unparseable bars and
+		// enforce a strictly-increasing, de-duplicated series rather than let one bad bar blank the chart.
+		let prev = -Infinity;
+		const points = bars
+			.map((b) => ({ time: toSec(b.ts), open: b.o, high: b.h, low: b.l, close: b.c }))
+			.filter((p) => Number.isFinite(p.time))
+			.sort((a, b) => a.time - b.time)
+			.filter((p) => {
+				if (p.time <= prev) return false;
+				prev = p.time;
+				return true;
+			})
+			.map((p) => ({ ...p, time: p.time as UTCTimestamp }));
+		series.setData(points);
 		// Clear any existing price lines, then add the current set.
 		const created = lines.map((l) =>
 			series.createPriceLine({

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getWatchlistReport, listWatchlists, sliceReportForSymbol } from "@/lib/reports-source";
+import { getReportDiff, getSymbolJourney, getWatchlistReport, listWatchlists, sliceReportForSymbol } from "@/lib/reports-source";
 import { TopNav } from "@/components/TopNav";
 import { SymbolDetailClient } from "@/components/SymbolDetailClient";
 
@@ -31,6 +31,11 @@ export default async function WatchlistSymbolPage({
 	try {
 		const { scheduleId, report, ai, index } = await getWatchlistReport(watchlistId, "latest", persona);
 		if (!report.decisions?.[symbol]) notFound();
+		// P9-05: the latest run's diff (for the "vs previous run" strip) + this symbol's full verdict path.
+		const [initialDiff, journey] = await Promise.all([
+			getReportDiff(scheduleId, report.report_version),
+			getSymbolJourney(watchlistId, symbol, persona),
+		]);
 		return (
 			<>
 				<TopNav
@@ -45,6 +50,8 @@ export default async function WatchlistSymbolPage({
 					index={index}
 					initialReport={sliceReportForSymbol(report, symbol)}
 					initialAi={ai?.symbols?.[symbol]}
+					initialDiff={initialDiff}
+					journey={journey}
 				/>
 			</>
 		);

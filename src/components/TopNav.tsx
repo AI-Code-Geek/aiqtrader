@@ -7,6 +7,7 @@ import { Brand } from "./Brand";
 import { NotificationBell } from "./NotificationBell";
 import { getUser, setUser, clearUser } from "@/lib/client-user";
 import { fetchMe, logout } from "@/lib/api-client";
+import { fetchFeed } from "@/lib/notifications";
 
 export function TopNav({
 	subtitle,
@@ -16,7 +17,7 @@ export function TopNav({
 	persona,
 }: {
 	subtitle?: string;
-	active?: "dashboard" | "mylist" | "market" | "guide" | "feedback" | "admin";
+	active?: "dashboard" | "mylist" | "market" | "history" | "guide" | "feedback" | "admin";
 	/** When set, shows a Market link scoped to this schedule (persona-scoped market overview). */
 	scheduleId?: string;
 	/** Preferred over scheduleId: scopes links to the watchlist route (/app/w/<id>/<persona>/…). */
@@ -30,11 +31,16 @@ export function TopNav({
 			: scheduleId
 				? `/app/${scheduleId}/market`
 				: null;
+	// History lives only on the watchlist routes (needs a persona-scoped schedule to diff).
+	const historyHref = watchlistId && persona ? `/app/w/${watchlistId}/${persona}/history` : null;
 	const router = useRouter();
 	const [name, setName] = useState("");
 	const [tier, setTier] = useState("");
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [menuOpen, setMenuOpen] = useState(false);
+	// P9-08: a dot on the History link when this watchlist has a run newer than what the account
+	// acknowledged (same `seenReports` boundary the bell and the History banner use).
+	const [historyUnread, setHistoryUnread] = useState(false);
 
 	useEffect(() => {
 		// Instant paint from the localStorage mirror, then reconcile with server truth (/api/me).
@@ -48,13 +54,27 @@ export function TopNav({
 			setUser(me);
 			setName(me.name ?? "");
 			setTier(me.tier ?? "");
+			// History unread dot: only relevant on a watchlist route. Compare this watchlist's latest run
+			// (static feed) against the account's acknowledged boundary. A never-acknowledged watchlist is
+			// treated as read (baseline) so we don't dot a first-ever visit.
+			if (watchlistId) {
+				const seenAt = (me.seenReports ?? {})[watchlistId];
+				if (seenAt) {
+					fetchFeed()
+						.then((feed) => {
+							const entry = feed?.watchlists.find((w) => w.slug === watchlistId);
+							setHistoryUnread(!!entry && entry.generated_at > seenAt);
+						})
+						.catch(() => {});
+				}
+			}
 		});
 		// Reveal the Admin link only for admins (server decides; never trusted from the client).
 		fetch("/api/admin/whoami")
 			.then((r) => r.json() as Promise<{ admin?: boolean }>)
 			.then((d) => setIsAdmin(!!d.admin))
 			.catch(() => {});
-	}, []);
+	}, [watchlistId]);
 
 	function toggleTheme() {
 		const el = document.documentElement;
@@ -86,6 +106,12 @@ export function TopNav({
 		<>
 			<Link href="/app" className={linkCls("dashboard")}>Dashboard</Link>
 			{marketHref ? <Link href={marketHref} className={linkCls("market")}>Market</Link> : null}
+			{historyHref ? (
+				<Link href={historyHref} className={`relative ${linkCls("history")}`}>
+					History
+					{historyUnread ? <span className="absolute -right-2 -top-1 h-1.5 w-1.5 rounded-full bg-brand" aria-label="new since you last looked" /> : null}
+				</Link>
+			) : null}
 			<Link href="/app/my-list" className={linkCls("mylist")}>My List</Link>
 			<Link href="/app/guide" className={linkCls("guide")}>Guide</Link>
 			<Link href="/app/feedback" className={linkCls("feedback")}>Feedback</Link>
