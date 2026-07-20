@@ -1,7 +1,7 @@
 {
   "schema_version": 4,
-  "report_version": "20260719T224532Z",
-  "generated_at": "2026-07-19T22:45:32.029269+00:00",
+  "report_version": "20260720T121920Z",
+  "generated_at": "2026-07-20T12:19:20.758227+00:00",
   "schedule": {
     "id": 10,
     "name": "Energy",
@@ -23,7 +23,7 @@
     "1Week"
   ],
   "data_health": {
-    "checked_at": "2026-07-19T22:45:01.125866+00:00",
+    "checked_at": "2026-07-20T12:19:00.172285+00:00",
     "timeframes": [
       "1Hour",
       "1Day",
@@ -236,7 +236,7 @@
         "indexes_down": 0,
         "offensive_leading": false
       },
-      "computed_at": "2026-07-19T22:45:10.504524+00:00"
+      "computed_at": "2026-07-20T12:19:08.993655+00:00"
     },
     "breadth": {
       "available": true,
@@ -249,7 +249,7 @@
       "new_high_20d": 4,
       "new_low_20d": 0,
       "breadth_score": 64,
-      "computed_at": "2026-07-19T22:45:19.792084+00:00"
+      "computed_at": "2026-07-20T12:15:31.188779+00:00"
     }
   },
   "candidates": [
@@ -355,10 +355,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 49.4,
@@ -473,7 +473,49 @@
               "t1_sub_1r": false
             }
           },
-          "entry_pullback": null,
+          "entry_pullback": {
+            "label": "Retest",
+            "type": "limit",
+            "tactic": "retest",
+            "zone": {
+              "low": 144.1195,
+              "high": 145.7405
+            },
+            "trigger": 144.93,
+            "stop": 143.3091,
+            "target": 161.3837,
+            "rr": 10.15,
+            "fill_odds": {
+              "score": 0.7,
+              "label": "high",
+              "atr_away": 0.76
+            },
+            "note": "Limit: buy the retest of the broken level (now support); a hold/reclaim confirms.",
+            "ladder": {
+              "targets": [
+                {
+                  "level": 154.9,
+                  "rr": 6.15,
+                  "basis": "next_resistance",
+                  "pct": 50.0,
+                  "milestone": "T1"
+                },
+                {
+                  "level": 156.92,
+                  "rr": 7.4,
+                  "basis": "next_resistance",
+                  "pct": 50.0,
+                  "milestone": "T2"
+                }
+              ],
+              "rr1": 6.15,
+              "rr2": 7.4,
+              "rr_blended": 6.78,
+              "scale_out": "Take 50% @ T1 \u2192 stop to breakeven \u2192 run 50% to T2",
+              "capped": false,
+              "t1_sub_1r": false
+            }
+          },
           "duration": {
             "expected_bars": 9,
             "max_bars": 22,
@@ -492,6 +534,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 147.39,
               "zone": null,
@@ -499,9 +542,29 @@
               "target": 161.3837,
               "rr": 3.43,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
+            },
+            {
+              "kind": "pullback",
+              "label": "Retest \u00b7 broken level (breakup held)",
+              "plain": "The level already broke and is holding \u2014 wait to buy the retest of it (now support) at a better price.",
+              "order": "limit",
+              "trigger": 144.93,
+              "zone": {
+                "low": 144.1195,
+                "high": 145.7405
+              },
+              "stop": 143.3091,
+              "target": 161.3837,
+              "rr": 10.15,
+              "odds": "high",
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 10.15
         },
         "sizing": null,
         "event_block": null,
@@ -518,7 +581,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:06.649233+00:00",
+          "computed_at": "2026-07-20T12:19:05.203058+00:00",
           "wall_atr": 5.022
         },
         "position_gate": {
@@ -714,10 +777,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 31.9,
@@ -851,6 +914,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 93.58,
               "zone": null,
@@ -858,9 +922,12 @@
               "target": 99.7326,
               "rr": 1.85,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 1.85
         },
         "sizing": null,
         "event_block": null,
@@ -877,7 +944,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:05.367244+00:00",
+          "computed_at": "2026-07-20T12:19:04.160946+00:00",
           "wall_atr": 0.776
         },
         "position_gate": {
@@ -1085,10 +1152,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 29.2,
@@ -1206,6 +1273,7 @@
           "entry_pullback": {
             "label": "Pullback",
             "type": "limit",
+            "tactic": "pullback",
             "zone": {
               "low": 43.3008,
               "high": 43.9592
@@ -1263,6 +1331,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three.",
               "order": "market",
               "trigger": 43.825,
               "zone": null,
@@ -1270,11 +1339,13 @@
               "target": 46.12,
               "rr": 2.54,
               "odds": "low",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
               "kind": "pullback",
               "label": "Pullback \u00b7 better price",
+              "plain": "Wait for a pullback into value for a better price and tighter risk \u2014 may never fill.",
               "order": "limit",
               "trigger": 43.63,
               "zone": {
@@ -1285,9 +1356,12 @@
               "target": 46.12,
               "rr": 3.51,
               "odds": "high",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 3.51
         },
         "sizing": null,
         "event_block": null,
@@ -1304,7 +1378,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:03.429361+00:00",
+          "computed_at": "2026-07-20T12:19:02.411719+00:00",
           "wall_atr": 6.729
         },
         "position_gate": {
@@ -1503,10 +1577,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 25.9,
@@ -1617,6 +1691,7 @@
           "entry_pullback": {
             "label": "Pullback",
             "type": "limit",
+            "tactic": "pullback",
             "zone": {
               "low": 277.0458,
               "high": 281.2682
@@ -1667,6 +1742,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (high chase).",
               "order": "market",
               "trigger": 312.62,
               "zone": null,
@@ -1674,11 +1750,13 @@
               "target": 337.9545,
               "rr": 0.66,
               "odds": "high",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
               "kind": "pullback",
               "label": "Pullback \u00b7 better price",
+              "plain": "Wait for a pullback into value for a better price and tighter risk \u2014 may never fill.",
               "order": "limit",
               "trigger": 279.157,
               "zone": {
@@ -1689,9 +1767,12 @@
               "target": 337.9545,
               "rr": 12.61,
               "odds": "low",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 12.61
         },
         "sizing": null,
         "event_block": null,
@@ -1708,7 +1789,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:05.080585+00:00",
+          "computed_at": "2026-07-20T12:19:03.914151+00:00",
           "wall_atr": null
         },
         "position_gate": {
@@ -1903,10 +1984,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 24.9,
@@ -2040,6 +2121,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 35.22,
               "zone": null,
@@ -2047,9 +2129,12 @@
               "target": 38.69,
               "rr": 4.38,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 4.38
         },
         "sizing": null,
         "event_block": null,
@@ -2066,7 +2151,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:02.520195+00:00",
+          "computed_at": "2026-07-20T12:19:01.559537+00:00",
           "wall_atr": 8.658
         },
         "position_gate": {
@@ -2278,10 +2363,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 24.9,
@@ -2399,6 +2484,7 @@
           "entry_pullback": {
             "label": "Pullback",
             "type": "limit",
+            "tactic": "pullback",
             "zone": {
               "low": 112.92,
               "high": 114.34
@@ -2456,6 +2542,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 114.7,
               "zone": null,
@@ -2463,11 +2550,13 @@
               "target": 121.505,
               "rr": 2.73,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
               "kind": "pullback",
               "label": "Pullback \u00b7 better price",
+              "plain": "Wait for a pullback into value for a better price and tighter risk \u2014 may never fill.",
               "order": "limit",
               "trigger": 113.63,
               "zone": {
@@ -2478,9 +2567,12 @@
               "target": 121.505,
               "rr": 5.55,
               "odds": "high",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 5.55
         },
         "sizing": null,
         "event_block": null,
@@ -2497,7 +2589,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:02.899391+00:00",
+          "computed_at": "2026-07-20T12:19:01.921142+00:00",
           "wall_atr": 7.444
         },
         "position_gate": {
@@ -2706,10 +2798,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 22.8,
@@ -2827,6 +2919,7 @@
           "entry_pullback": {
             "label": "Bounce",
             "type": "limit",
+            "tactic": "pullback",
             "zone": {
               "low": 35.0436,
               "high": 35.5472
@@ -2884,6 +2977,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three.",
               "order": "market",
               "trigger": 35.215,
               "zone": null,
@@ -2891,11 +2985,13 @@
               "target": 33.485,
               "rr": 2.05,
               "odds": "low",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
               "kind": "pullback",
               "label": "Pullback \u00b7 better price",
+              "plain": "Wait for a bounce back into value for a better price and tighter risk \u2014 may never fill.",
               "order": "limit",
               "trigger": 35.2954,
               "zone": {
@@ -2906,9 +3002,12 @@
               "target": 33.485,
               "rr": 2.37,
               "odds": "high",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 2.37
         },
         "sizing": null,
         "event_block": null,
@@ -2925,7 +3024,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:04.482906+00:00",
+          "computed_at": "2026-07-20T12:19:03.439545+00:00",
           "wall_atr": null
         },
         "position_gate": {
@@ -3130,10 +3229,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 22.3,
@@ -3249,45 +3348,46 @@
             }
           },
           "entry_pullback": {
-            "label": "Breakout confirm",
-            "type": "stop",
+            "label": "Pullback",
+            "type": "limit",
+            "tactic": "retest",
             "zone": {
-              "low": 187.2809,
-              "high": 189.1778
+              "low": 181.2166,
+              "high": 183.1134
             },
-            "trigger": 188.2294,
+            "trigger": 182.165,
             "stop": 181.2724,
             "target": 195.4376,
-            "rr": 1.04,
+            "rr": 14.87,
             "fill_odds": {
-              "score": 0.91,
-              "label": "high",
-              "atr_away": 0.23
+              "score": 0.45,
+              "label": "medium",
+              "atr_away": 1.37
             },
-            "note": "Stop: enter on confirmation through the level, not in anticipation.",
+            "note": "Limit: buy the pullback into value; a rejection/reclaim bar confirms.",
             "ladder": {
               "targets": [
                 {
-                  "level": 192.67,
-                  "rr": 0.64,
+                  "level": 187.85,
+                  "rr": 6.37,
                   "basis": "next_resistance",
                   "pct": 50.0,
                   "milestone": "T1"
                 },
                 {
-                  "level": 198.865,
-                  "rr": 1.53,
+                  "level": 192.67,
+                  "rr": 11.77,
                   "basis": "next_resistance",
                   "pct": 50.0,
                   "milestone": "T2"
                 }
               ],
-              "rr1": 0.64,
-              "rr2": 1.53,
-              "rr_blended": 1.08,
+              "rr1": 6.37,
+              "rr2": 11.77,
+              "rr_blended": 9.07,
               "scale_out": "Take 50% @ T1 \u2192 stop to breakeven \u2192 run 50% to T2",
               "capped": false,
-              "t1_sub_1r": true
+              "t1_sub_1r": false
             }
           },
           "duration": {
@@ -3308,6 +3408,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (high chase).",
               "order": "market",
               "trigger": 187.355,
               "zone": null,
@@ -3315,24 +3416,29 @@
               "target": 195.4376,
               "rr": 1.33,
               "odds": "high",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
-              "kind": "breakout",
-              "label": "Breakout \u00b7 breakup",
-              "order": "stop",
-              "trigger": 188.2294,
+              "kind": "pullback",
+              "label": "Retest \u00b7 broken level (breakup held)",
+              "plain": "The level already broke and is holding \u2014 wait to buy the retest of it (now support) at a better price.",
+              "order": "limit",
+              "trigger": 182.165,
               "zone": {
-                "low": 187.2809,
-                "high": 189.1778
+                "low": 181.2166,
+                "high": 183.1134
               },
               "stop": 181.2724,
               "target": 195.4376,
-              "rr": 1.04,
-              "odds": "high",
-              "odds_kind": "fill"
+              "rr": 14.87,
+              "odds": "medium",
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 14.87
         },
         "sizing": null,
         "event_block": null,
@@ -3349,7 +3455,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:03.163493+00:00",
+          "computed_at": "2026-07-20T12:19:02.176790+00:00",
           "wall_atr": 3.034
         },
         "position_gate": {
@@ -3548,10 +3654,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 19.8,
@@ -3685,6 +3791,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 139.89,
               "zone": null,
@@ -3692,9 +3799,12 @@
               "target": 132.2,
               "rr": 1.6,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 1.6
         },
         "sizing": null,
         "event_block": null,
@@ -3711,7 +3821,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:03.686833+00:00",
+          "computed_at": "2026-07-20T12:19:02.674943+00:00",
           "wall_atr": 4.437
         },
         "position_gate": {
@@ -3902,10 +4012,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 19.8,
@@ -4039,6 +4149,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 38.18,
               "zone": null,
@@ -4046,9 +4157,12 @@
               "target": 36.7525,
               "rr": 3.7,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 3.7
         },
         "sizing": null,
         "event_block": null,
@@ -4065,7 +4179,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:03.962143+00:00",
+          "computed_at": "2026-07-20T12:19:02.927365+00:00",
           "wall_atr": 3.077
         },
         "position_gate": {
@@ -4255,10 +4369,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 18.7,
@@ -4374,45 +4488,46 @@
             }
           },
           "entry_pullback": {
-            "label": "Breakout confirm",
-            "type": "stop",
+            "label": "Retest",
+            "type": "limit",
+            "tactic": "retest",
             "zone": {
-              "low": 74.4694,
-              "high": 75.4048
+              "low": 72.0923,
+              "high": 73.0277
             },
-            "trigger": 74.9371,
+            "trigger": 72.56,
             "stop": 71.6246,
             "target": 78.4917,
-            "rr": 1.07,
+            "rr": 6.34,
             "fill_odds": {
-              "score": 0.67,
+              "score": 0.82,
               "label": "high",
-              "atr_away": 0.83
+              "atr_away": 0.44
             },
-            "note": "Stop: enter on confirmation through the level, not in anticipation.",
+            "note": "Limit: buy the retest of the broken level (now support); a hold/reclaim confirms.",
             "ladder": {
               "targets": [
                 {
-                  "level": 76.44,
-                  "rr": 0.45,
+                  "level": 74.75,
+                  "rr": 2.34,
                   "basis": "next_resistance",
                   "pct": 50.0,
                   "milestone": "T1"
                 },
                 {
-                  "level": 77.39,
-                  "rr": 0.74,
+                  "level": 76.44,
+                  "rr": 4.15,
                   "basis": "next_resistance",
                   "pct": 50.0,
                   "milestone": "T2"
                 }
               ],
-              "rr1": 0.45,
-              "rr2": 0.74,
-              "rr_blended": 0.59,
+              "rr1": 2.34,
+              "rr2": 4.15,
+              "rr_blended": 3.25,
               "scale_out": "Take 50% @ T1 \u2192 stop to breakeven \u2192 run 50% to T2",
               "capped": false,
-              "t1_sub_1r": true
+              "t1_sub_1r": false
             }
           },
           "duration": {
@@ -4433,6 +4548,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three.",
               "order": "market",
               "trigger": 73.39,
               "zone": null,
@@ -4440,24 +4556,29 @@
               "target": 78.4917,
               "rr": 2.89,
               "odds": "low",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
-              "kind": "breakout",
-              "label": "Breakout \u00b7 breakup",
-              "order": "stop",
-              "trigger": 74.9371,
+              "kind": "pullback",
+              "label": "Retest \u00b7 broken level (breakup held)",
+              "plain": "The level already broke and is holding \u2014 wait to buy the retest of it (now support) at a better price.",
+              "order": "limit",
+              "trigger": 72.56,
               "zone": {
-                "low": 74.4694,
-                "high": 75.4048
+                "low": 72.0923,
+                "high": 73.0277
               },
               "stop": 71.6246,
               "target": 78.4917,
-              "rr": 1.07,
+              "rr": 6.34,
               "odds": "high",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 6.34
         },
         "sizing": null,
         "event_block": null,
@@ -4474,7 +4595,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:06.367166+00:00",
+          "computed_at": "2026-07-20T12:19:04.950402+00:00",
           "wall_atr": 1.855
         },
         "position_gate": {
@@ -4669,10 +4790,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 14.5,
@@ -4806,6 +4927,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three.",
               "order": "market",
               "trigger": 32.3,
               "zone": null,
@@ -4813,9 +4935,12 @@
               "target": 31.505,
               "rr": 0.8,
               "odds": "low",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 0.8
         },
         "sizing": null,
         "event_block": null,
@@ -4832,7 +4957,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:04.763460+00:00",
+          "computed_at": "2026-07-20T12:19:03.668315+00:00",
           "wall_atr": 2.413
         },
         "position_gate": {
@@ -5040,10 +5165,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 3.8,
@@ -5177,6 +5302,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 283.43,
               "zone": null,
@@ -5184,9 +5310,12 @@
               "target": 272.7026,
               "rr": 1.35,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 1.35
         },
         "sizing": null,
         "event_block": null,
@@ -5203,7 +5332,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:05.977064+00:00",
+          "computed_at": "2026-07-20T12:19:04.610147+00:00",
           "wall_atr": 8.367
         },
         "position_gate": {
@@ -5335,6 +5464,8 @@
           "rr": 3.43,
           "stop_widened_by": 0.0
         },
+        "break_state": "broke_holding",
+        "break_level": 144.93,
         "quality": {
           "direction": "long",
           "grade": "A",
@@ -5458,10 +5589,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 49.4,
@@ -5576,7 +5707,49 @@
               "t1_sub_1r": false
             }
           },
-          "entry_pullback": null,
+          "entry_pullback": {
+            "label": "Retest",
+            "type": "limit",
+            "tactic": "retest",
+            "zone": {
+              "low": 144.1195,
+              "high": 145.7405
+            },
+            "trigger": 144.93,
+            "stop": 143.3091,
+            "target": 161.3837,
+            "rr": 10.15,
+            "fill_odds": {
+              "score": 0.7,
+              "label": "high",
+              "atr_away": 0.76
+            },
+            "note": "Limit: buy the retest of the broken level (now support); a hold/reclaim confirms.",
+            "ladder": {
+              "targets": [
+                {
+                  "level": 154.9,
+                  "rr": 6.15,
+                  "basis": "next_resistance",
+                  "pct": 50.0,
+                  "milestone": "T1"
+                },
+                {
+                  "level": 156.92,
+                  "rr": 7.4,
+                  "basis": "next_resistance",
+                  "pct": 50.0,
+                  "milestone": "T2"
+                }
+              ],
+              "rr1": 6.15,
+              "rr2": 7.4,
+              "rr_blended": 6.78,
+              "scale_out": "Take 50% @ T1 \u2192 stop to breakeven \u2192 run 50% to T2",
+              "capped": false,
+              "t1_sub_1r": false
+            }
+          },
           "duration": {
             "expected_bars": 9,
             "max_bars": 22,
@@ -5595,6 +5768,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 147.39,
               "zone": null,
@@ -5602,9 +5776,29 @@
               "target": 161.3837,
               "rr": 3.43,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
+            },
+            {
+              "kind": "pullback",
+              "label": "Retest \u00b7 broken level (breakup held)",
+              "plain": "The level already broke and is holding \u2014 wait to buy the retest of it (now support) at a better price.",
+              "order": "limit",
+              "trigger": 144.93,
+              "zone": {
+                "low": 144.1195,
+                "high": 145.7405
+              },
+              "stop": 143.3091,
+              "target": 161.3837,
+              "rr": 10.15,
+              "odds": "high",
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 10.15
         },
         "sizing": null,
         "event_block": null,
@@ -5621,8 +5815,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:20.702270+00:00",
+          "computed_at": "2026-07-20T12:19:09.871727+00:00",
           "wall_atr": 5.022
+        },
+        "provenance": {
+          "symbol": "XOM",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "38c380e78b9a5f7a",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:10.195326+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -5722,9 +5929,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:20.548952+00:00"
+        "checked_at": "2026-07-20T12:19:09.730649+00:00"
       },
-      "computed_at": "2026-07-19T22:45:21.037928+00:00"
+      "computed_at": "2026-07-20T12:19:10.207702+00:00"
     },
     "OKE": {
       "symbol": "OKE",
@@ -5886,10 +6093,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 31.9,
@@ -6023,6 +6230,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 93.58,
               "zone": null,
@@ -6030,9 +6238,12 @@
               "target": 99.7326,
               "rr": 1.85,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 1.85
         },
         "sizing": null,
         "event_block": null,
@@ -6049,8 +6260,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:21.564686+00:00",
+          "computed_at": "2026-07-20T12:19:10.686464+00:00",
           "wall_atr": 0.776
+        },
+        "provenance": {
+          "symbol": "OKE",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "25299280ead42db9",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:11.014064+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -6153,9 +6377,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:21.403517+00:00"
+        "checked_at": "2026-07-20T12:19:10.542939+00:00"
       },
-      "computed_at": "2026-07-19T22:45:21.925315+00:00"
+      "computed_at": "2026-07-20T12:19:11.025637+00:00"
     },
     "DVN": {
       "symbol": "DVN",
@@ -6329,10 +6553,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 29.2,
@@ -6450,6 +6674,7 @@
           "entry_pullback": {
             "label": "Pullback",
             "type": "limit",
+            "tactic": "pullback",
             "zone": {
               "low": 43.3008,
               "high": 43.9592
@@ -6507,6 +6732,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three.",
               "order": "market",
               "trigger": 43.825,
               "zone": null,
@@ -6514,11 +6740,13 @@
               "target": 46.12,
               "rr": 2.54,
               "odds": "low",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
               "kind": "pullback",
               "label": "Pullback \u00b7 better price",
+              "plain": "Wait for a pullback into value for a better price and tighter risk \u2014 may never fill.",
               "order": "limit",
               "trigger": 43.63,
               "zone": {
@@ -6529,9 +6757,12 @@
               "target": 46.12,
               "rr": 3.51,
               "odds": "high",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 3.51
         },
         "sizing": null,
         "event_block": null,
@@ -6548,8 +6779,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:22.455025+00:00",
+          "computed_at": "2026-07-20T12:19:11.578018+00:00",
           "wall_atr": 6.729
+        },
+        "provenance": {
+          "symbol": "DVN",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "439f500b4cb7c303",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:11.904811+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -6647,9 +6891,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:22.300378+00:00"
+        "checked_at": "2026-07-20T12:19:11.432964+00:00"
       },
-      "computed_at": "2026-07-19T22:45:22.787057+00:00"
+      "computed_at": "2026-07-20T12:19:11.919069+00:00"
     },
     "MPC": {
       "symbol": "MPC",
@@ -6809,10 +7053,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 25.9,
@@ -6923,6 +7167,7 @@
           "entry_pullback": {
             "label": "Pullback",
             "type": "limit",
+            "tactic": "pullback",
             "zone": {
               "low": 277.0458,
               "high": 281.2682
@@ -6973,6 +7218,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (high chase).",
               "order": "market",
               "trigger": 312.62,
               "zone": null,
@@ -6980,11 +7226,13 @@
               "target": 337.9545,
               "rr": 0.66,
               "odds": "high",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
               "kind": "pullback",
               "label": "Pullback \u00b7 better price",
+              "plain": "Wait for a pullback into value for a better price and tighter risk \u2014 may never fill.",
               "order": "limit",
               "trigger": 279.157,
               "zone": {
@@ -6995,9 +7243,12 @@
               "target": 337.9545,
               "rr": 12.61,
               "odds": "low",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 12.61
         },
         "sizing": null,
         "event_block": null,
@@ -7014,8 +7265,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:23.314004+00:00",
+          "computed_at": "2026-07-20T12:19:12.434421+00:00",
           "wall_atr": null
+        },
+        "provenance": {
+          "symbol": "MPC",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "41f83ebf2c9bfb2b",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:12.778665+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -7123,9 +7387,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:23.169227+00:00"
+        "checked_at": "2026-07-20T12:19:12.278560+00:00"
       },
-      "computed_at": "2026-07-19T22:45:23.647957+00:00"
+      "computed_at": "2026-07-20T12:19:12.788800+00:00"
     },
     "APA": {
       "symbol": "APA",
@@ -7294,10 +7558,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 24.9,
@@ -7431,6 +7695,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 35.22,
               "zone": null,
@@ -7438,9 +7703,12 @@
               "target": 38.69,
               "rr": 4.38,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 4.38
         },
         "sizing": null,
         "event_block": null,
@@ -7457,8 +7725,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:24.152945+00:00",
+          "computed_at": "2026-07-20T12:19:13.305561+00:00",
           "wall_atr": 8.658
+        },
+        "provenance": {
+          "symbol": "APA",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "c441c72d95042b8b",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:13.632675+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -7557,9 +7838,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:24.007612+00:00"
+        "checked_at": "2026-07-20T12:19:13.150900+00:00"
       },
-      "computed_at": "2026-07-19T22:45:24.487948+00:00"
+      "computed_at": "2026-07-20T12:19:13.643117+00:00"
     },
     "COP": {
       "symbol": "COP",
@@ -7737,10 +8018,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 24.9,
@@ -7858,6 +8139,7 @@
           "entry_pullback": {
             "label": "Pullback",
             "type": "limit",
+            "tactic": "pullback",
             "zone": {
               "low": 112.92,
               "high": 114.34
@@ -7915,6 +8197,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 114.7,
               "zone": null,
@@ -7922,11 +8205,13 @@
               "target": 121.505,
               "rr": 2.73,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
               "kind": "pullback",
               "label": "Pullback \u00b7 better price",
+              "plain": "Wait for a pullback into value for a better price and tighter risk \u2014 may never fill.",
               "order": "limit",
               "trigger": 113.63,
               "zone": {
@@ -7937,9 +8222,12 @@
               "target": 121.505,
               "rr": 5.55,
               "odds": "high",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 5.55
         },
         "sizing": null,
         "event_block": null,
@@ -7956,8 +8244,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:24.993806+00:00",
+          "computed_at": "2026-07-20T12:19:14.158810+00:00",
           "wall_atr": 7.444
+        },
+        "provenance": {
+          "symbol": "COP",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "c8a87288c85fac98",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:14.477815+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -8049,9 +8350,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:24.847956+00:00"
+        "checked_at": "2026-07-20T12:19:14.013490+00:00"
       },
-      "computed_at": "2026-07-19T22:45:25.321928+00:00"
+      "computed_at": "2026-07-20T12:19:14.492102+00:00"
     },
     "HAL": {
       "symbol": "HAL",
@@ -8226,10 +8527,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 22.8,
@@ -8347,6 +8648,7 @@
           "entry_pullback": {
             "label": "Bounce",
             "type": "limit",
+            "tactic": "pullback",
             "zone": {
               "low": 35.0436,
               "high": 35.5472
@@ -8404,6 +8706,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three.",
               "order": "market",
               "trigger": 35.215,
               "zone": null,
@@ -8411,11 +8714,13 @@
               "target": 33.485,
               "rr": 2.05,
               "odds": "low",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
               "kind": "pullback",
               "label": "Pullback \u00b7 better price",
+              "plain": "Wait for a bounce back into value for a better price and tighter risk \u2014 may never fill.",
               "order": "limit",
               "trigger": 35.2954,
               "zone": {
@@ -8426,9 +8731,12 @@
               "target": 33.485,
               "rr": 2.37,
               "odds": "high",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 2.37
         },
         "sizing": null,
         "event_block": null,
@@ -8445,8 +8753,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:25.832310+00:00",
+          "computed_at": "2026-07-20T12:19:14.965799+00:00",
           "wall_atr": null
+        },
+        "provenance": {
+          "symbol": "HAL",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "ced4f7f5db98f83d",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:15.289610+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -8525,9 +8846,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:25.678390+00:00"
+        "checked_at": "2026-07-20T12:19:14.832528+00:00"
       },
-      "computed_at": "2026-07-19T22:45:26.159611+00:00"
+      "computed_at": "2026-07-20T12:19:15.302832+00:00"
     },
     "CVX": {
       "symbol": "CVX",
@@ -8567,6 +8888,8 @@
           "rr": 1.33,
           "stop_widened_by": 0.1
         },
+        "break_state": "broke_holding",
+        "break_level": 187.85,
         "quality": {
           "direction": "long",
           "grade": "D",
@@ -8693,10 +9016,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 22.3,
@@ -8812,45 +9135,46 @@
             }
           },
           "entry_pullback": {
-            "label": "Breakout confirm",
-            "type": "stop",
+            "label": "Pullback",
+            "type": "limit",
+            "tactic": "retest",
             "zone": {
-              "low": 187.2809,
-              "high": 189.1778
+              "low": 181.2166,
+              "high": 183.1134
             },
-            "trigger": 188.2294,
+            "trigger": 182.165,
             "stop": 181.2724,
             "target": 195.4376,
-            "rr": 1.04,
+            "rr": 14.87,
             "fill_odds": {
-              "score": 0.91,
-              "label": "high",
-              "atr_away": 0.23
+              "score": 0.45,
+              "label": "medium",
+              "atr_away": 1.37
             },
-            "note": "Stop: enter on confirmation through the level, not in anticipation.",
+            "note": "Limit: buy the pullback into value; a rejection/reclaim bar confirms.",
             "ladder": {
               "targets": [
                 {
-                  "level": 192.67,
-                  "rr": 0.64,
+                  "level": 187.85,
+                  "rr": 6.37,
                   "basis": "next_resistance",
                   "pct": 50.0,
                   "milestone": "T1"
                 },
                 {
-                  "level": 198.865,
-                  "rr": 1.53,
+                  "level": 192.67,
+                  "rr": 11.77,
                   "basis": "next_resistance",
                   "pct": 50.0,
                   "milestone": "T2"
                 }
               ],
-              "rr1": 0.64,
-              "rr2": 1.53,
-              "rr_blended": 1.08,
+              "rr1": 6.37,
+              "rr2": 11.77,
+              "rr_blended": 9.07,
               "scale_out": "Take 50% @ T1 \u2192 stop to breakeven \u2192 run 50% to T2",
               "capped": false,
-              "t1_sub_1r": true
+              "t1_sub_1r": false
             }
           },
           "duration": {
@@ -8871,6 +9195,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (high chase).",
               "order": "market",
               "trigger": 187.355,
               "zone": null,
@@ -8878,24 +9203,29 @@
               "target": 195.4376,
               "rr": 1.33,
               "odds": "high",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
-              "kind": "breakout",
-              "label": "Breakout \u00b7 breakup",
-              "order": "stop",
-              "trigger": 188.2294,
+              "kind": "pullback",
+              "label": "Retest \u00b7 broken level (breakup held)",
+              "plain": "The level already broke and is holding \u2014 wait to buy the retest of it (now support) at a better price.",
+              "order": "limit",
+              "trigger": 182.165,
               "zone": {
-                "low": 187.2809,
-                "high": 189.1778
+                "low": 181.2166,
+                "high": 183.1134
               },
               "stop": 181.2724,
               "target": 195.4376,
-              "rr": 1.04,
-              "odds": "high",
-              "odds_kind": "fill"
+              "rr": 14.87,
+              "odds": "medium",
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 14.87
         },
         "sizing": null,
         "event_block": null,
@@ -8912,8 +9242,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:26.700059+00:00",
+          "computed_at": "2026-07-20T12:19:15.793454+00:00",
           "wall_atr": 3.034
+        },
+        "provenance": {
+          "symbol": "CVX",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "ab71dc4b3c69ebfc",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:16.108505+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -9018,9 +9361,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:26.548327+00:00"
+        "checked_at": "2026-07-20T12:19:15.651858+00:00"
       },
-      "computed_at": "2026-07-19T22:45:27.062247+00:00"
+      "computed_at": "2026-07-20T12:19:16.120329+00:00"
     },
     "EOG": {
       "symbol": "EOG",
@@ -9185,10 +9528,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 19.8,
@@ -9322,6 +9665,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 139.89,
               "zone": null,
@@ -9329,9 +9673,12 @@
               "target": 132.2,
               "rr": 1.6,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 1.6
         },
         "sizing": null,
         "event_block": null,
@@ -9348,8 +9695,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:27.618966+00:00",
+          "computed_at": "2026-07-20T12:19:16.583230+00:00",
           "wall_atr": 4.437
+        },
+        "provenance": {
+          "symbol": "EOG",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "1810bf66ad0dd9d1",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:16.909645+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -9459,9 +9819,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:27.433139+00:00"
+        "checked_at": "2026-07-20T12:19:16.442150+00:00"
       },
-      "computed_at": "2026-07-19T22:45:27.963743+00:00"
+      "computed_at": "2026-07-20T12:19:16.922328+00:00"
     },
     "EPD": {
       "symbol": "EPD",
@@ -9626,10 +9986,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 19.8,
@@ -9763,6 +10123,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 38.18,
               "zone": null,
@@ -9770,9 +10131,12 @@
               "target": 36.7525,
               "rr": 3.7,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 3.7
         },
         "sizing": null,
         "event_block": null,
@@ -9789,8 +10153,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:28.491557+00:00",
+          "computed_at": "2026-07-20T12:19:17.544237+00:00",
           "wall_atr": 3.077
+        },
+        "provenance": {
+          "symbol": "EPD",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 300,
+          "first_bar_ts": "2025-05-07T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "8276fa42830d481f",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:17.873981+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -9902,9 +10279,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:28.333255+00:00"
+        "checked_at": "2026-07-20T12:19:17.375533+00:00"
       },
-      "computed_at": "2026-07-19T22:45:28.851139+00:00"
+      "computed_at": "2026-07-20T12:19:17.885556+00:00"
     },
     "WMB": {
       "symbol": "WMB",
@@ -9944,6 +10321,8 @@
           "rr": 2.89,
           "stop_widened_by": 0.0
         },
+        "break_state": "broke_holding",
+        "break_level": 72.56,
         "quality": {
           "direction": "long",
           "grade": "B",
@@ -10063,10 +10442,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 18.7,
@@ -10182,45 +10561,46 @@
             }
           },
           "entry_pullback": {
-            "label": "Breakout confirm",
-            "type": "stop",
+            "label": "Retest",
+            "type": "limit",
+            "tactic": "retest",
             "zone": {
-              "low": 74.4694,
-              "high": 75.4048
+              "low": 72.0923,
+              "high": 73.0277
             },
-            "trigger": 74.9371,
+            "trigger": 72.56,
             "stop": 71.6246,
             "target": 78.4917,
-            "rr": 1.07,
+            "rr": 6.34,
             "fill_odds": {
-              "score": 0.67,
+              "score": 0.82,
               "label": "high",
-              "atr_away": 0.83
+              "atr_away": 0.44
             },
-            "note": "Stop: enter on confirmation through the level, not in anticipation.",
+            "note": "Limit: buy the retest of the broken level (now support); a hold/reclaim confirms.",
             "ladder": {
               "targets": [
                 {
-                  "level": 76.44,
-                  "rr": 0.45,
+                  "level": 74.75,
+                  "rr": 2.34,
                   "basis": "next_resistance",
                   "pct": 50.0,
                   "milestone": "T1"
                 },
                 {
-                  "level": 77.39,
-                  "rr": 0.74,
+                  "level": 76.44,
+                  "rr": 4.15,
                   "basis": "next_resistance",
                   "pct": 50.0,
                   "milestone": "T2"
                 }
               ],
-              "rr1": 0.45,
-              "rr2": 0.74,
-              "rr_blended": 0.59,
+              "rr1": 2.34,
+              "rr2": 4.15,
+              "rr_blended": 3.25,
               "scale_out": "Take 50% @ T1 \u2192 stop to breakeven \u2192 run 50% to T2",
               "capped": false,
-              "t1_sub_1r": true
+              "t1_sub_1r": false
             }
           },
           "duration": {
@@ -10241,6 +10621,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three.",
               "order": "market",
               "trigger": 73.39,
               "zone": null,
@@ -10248,24 +10629,29 @@
               "target": 78.4917,
               "rr": 2.89,
               "odds": "low",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": false
             },
             {
-              "kind": "breakout",
-              "label": "Breakout \u00b7 breakup",
-              "order": "stop",
-              "trigger": 74.9371,
+              "kind": "pullback",
+              "label": "Retest \u00b7 broken level (breakup held)",
+              "plain": "The level already broke and is holding \u2014 wait to buy the retest of it (now support) at a better price.",
+              "order": "limit",
+              "trigger": 72.56,
               "zone": {
-                "low": 74.4694,
-                "high": 75.4048
+                "low": 72.0923,
+                "high": 73.0277
               },
               "stop": 71.6246,
               "target": 78.4917,
-              "rr": 1.07,
+              "rr": 6.34,
               "odds": "high",
-              "odds_kind": "fill"
+              "odds_kind": "fill",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "pullback",
+          "governing_rr": 6.34
         },
         "sizing": null,
         "event_block": null,
@@ -10282,8 +10668,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:29.398345+00:00",
+          "computed_at": "2026-07-20T12:19:18.391050+00:00",
           "wall_atr": 1.855
+        },
+        "provenance": {
+          "symbol": "WMB",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "6c1189fecbdbdfc0",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:18.704976+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -10403,9 +10802,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:29.247671+00:00"
+        "checked_at": "2026-07-20T12:19:18.248565+00:00"
       },
-      "computed_at": "2026-07-19T22:45:29.736188+00:00"
+      "computed_at": "2026-07-20T12:19:18.716549+00:00"
     },
     "KMI": {
       "symbol": "KMI",
@@ -10569,10 +10968,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 14.5,
@@ -10706,6 +11105,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three.",
               "order": "market",
               "trigger": 32.3,
               "zone": null,
@@ -10713,9 +11113,12 @@
               "target": 31.505,
               "rr": 0.8,
               "odds": "low",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 0.8
         },
         "sizing": null,
         "event_block": null,
@@ -10732,8 +11135,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:30.292406+00:00",
+          "computed_at": "2026-07-20T12:19:19.194294+00:00",
           "wall_atr": 2.413
+        },
+        "provenance": {
+          "symbol": "KMI",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "263874ae99d536fa",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:19.509210+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -10835,9 +11251,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:30.128692+00:00"
+        "checked_at": "2026-07-20T12:19:19.059040+00:00"
       },
-      "computed_at": "2026-07-19T22:45:30.644604+00:00"
+      "computed_at": "2026-07-20T12:19:19.522538+00:00"
     },
     "TRGP": {
       "symbol": "TRGP",
@@ -11011,10 +11427,10 @@
             "note": "Market vol calm (VIXY 21.6, 5th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Sunday",
-            "dow": 6,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 3.8,
@@ -11148,6 +11564,7 @@
             {
               "kind": "now",
               "label": "Now \u00b7 market",
+              "plain": "Take it now at market \u2014 fastest fill, but the worst price of the three. Price is already extended from value (medium chase).",
               "order": "market",
               "trigger": 283.43,
               "zone": null,
@@ -11155,9 +11572,12 @@
               "target": 272.7026,
               "rr": 1.35,
               "odds": "medium",
-              "odds_kind": "chase"
+              "odds_kind": "chase",
+              "primary": true
             }
-          ]
+          ],
+          "primary_kind": "now",
+          "governing_rr": 1.35
         },
         "sizing": null,
         "event_block": null,
@@ -11174,8 +11594,21 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-07-19T22:45:31.166982+00:00",
+          "computed_at": "2026-07-20T12:19:20.006308+00:00",
           "wall_atr": 8.367
+        },
+        "provenance": {
+          "symbol": "TRGP",
+          "timeframe": "1Day",
+          "preset": "swing",
+          "bar_count": 273,
+          "first_bar_ts": "2025-06-16T04:00:00+00:00",
+          "last_bar_ts": "2026-07-17T04:00:00+00:00",
+          "inputs_hash": "dc93d53640c6b545",
+          "feature_set_version": "fs-1",
+          "model_version": "xgb-20260716-131657",
+          "engine_version": "1.0.0",
+          "computed_at": "2026-07-20T12:19:20.338702+00:00"
         },
         "position_gate": {
           "state": "clear",
@@ -11282,9 +11715,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-07-19T22:45:31.007318+00:00"
+        "checked_at": "2026-07-20T12:19:19.862768+00:00"
       },
-      "computed_at": "2026-07-19T22:45:31.507821+00:00"
+      "computed_at": "2026-07-20T12:19:20.350053+00:00"
     }
   },
   "analysis": {
@@ -11334,7 +11767,7 @@
           "available": 3,
           "agreement": 100.0
         },
-        "computed_at": "2026-07-19T22:45:21.264848+00:00"
+        "computed_at": "2026-07-20T12:19:10.414414+00:00"
       },
       "price_volume": {
         "available": true,
@@ -11615,7 +12048,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-07-19T22:45:22.168223+00:00"
+        "computed_at": "2026-07-20T12:19:11.304045+00:00"
       },
       "price_volume": {
         "available": true,
@@ -11930,7 +12363,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-07-19T22:45:23.032481+00:00"
+        "computed_at": "2026-07-20T12:19:12.139277+00:00"
       },
       "price_volume": {
         "available": true,
@@ -12203,7 +12636,7 @@
           "available": 3,
           "agreement": 100.0
         },
-        "computed_at": "2026-07-19T22:45:23.875759+00:00"
+        "computed_at": "2026-07-20T12:19:13.015806+00:00"
       },
       "price_volume": {
         "available": true,
@@ -12486,7 +12919,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-07-19T22:45:24.716964+00:00"
+        "computed_at": "2026-07-20T12:19:13.856745+00:00"
       },
       "price_volume": {
         "available": true,
@@ -12809,7 +13242,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-07-19T22:45:25.549854+00:00"
+        "computed_at": "2026-07-20T12:19:14.701775+00:00"
       },
       "price_volume": {
         "available": true,
@@ -13086,7 +13519,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-07-19T22:45:26.391034+00:00"
+        "computed_at": "2026-07-20T12:19:15.523615+00:00"
       },
       "price_volume": {
         "available": true,
@@ -13427,7 +13860,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-07-19T22:45:27.295754+00:00"
+        "computed_at": "2026-07-20T12:19:16.313126+00:00"
       },
       "price_volume": {
         "available": true,
@@ -13706,7 +14139,7 @@
           "available": 3,
           "agreement": 100.0
         },
-        "computed_at": "2026-07-19T22:45:28.202174+00:00"
+        "computed_at": "2026-07-20T12:19:17.204028+00:00"
       },
       "price_volume": {
         "available": true,
@@ -13987,7 +14420,7 @@
           "available": 3,
           "agreement": 100.0
         },
-        "computed_at": "2026-07-19T22:45:29.107896+00:00"
+        "computed_at": "2026-07-20T12:19:18.113663+00:00"
       },
       "price_volume": {
         "available": true,
@@ -14294,7 +14727,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-07-19T22:45:29.980277+00:00"
+        "computed_at": "2026-07-20T12:19:18.926247+00:00"
       },
       "price_volume": {
         "available": true,
@@ -14601,7 +15034,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-07-19T22:45:30.871474+00:00"
+        "computed_at": "2026-07-20T12:19:19.736311+00:00"
       },
       "price_volume": {
         "available": true,
@@ -14868,7 +15301,7 @@
           "available": 3,
           "agreement": 100.0
         },
-        "computed_at": "2026-07-19T22:45:31.746253+00:00"
+        "computed_at": "2026-07-20T12:19:20.561313+00:00"
       },
       "price_volume": {
         "available": true,
