@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "kind": "ai_extension",
+  "report_version": "20260720T121920Z",
+  "extends": "20260720T121920Z.json",
+  "persona": "swing",
+  "generated_at": "2026-07-20T12:27:08Z",
+  "model": "claude-opus-4-8",
+  "disclaimer": "Educational analysis, not financial advice.",
+
+  "market_overview": {
+    "tape": "Indexes are range-bound and soft on the day — SPY 743.28 (-1.01%), QQQ 695.31 (-1.50%), DIA 520.64 (-0.79%), IWM 294.09 (-0.52%) — with ADX weak across all four (12.0-19.7), which is why the engine labels the tape neutral and does not gate. Volatility is normal in absolute terms (SPY ATR% 1.14) but the direction of travel is up: VIX 21.65, +5.15% on the day and rising.",
+    "risk_tone": "Cautious risk-off underneath a quiet surface. Leadership is barbelled between a defensive (XLV, +5.34%, RS 100) and two offensive-but-macro-driven groups (XLE +4.19% RS 90, XLF +3.50% RS 80), while the cyclical complex lags hard (XLB -4.20%, XLY -2.60%, XLC -1.50%). That is not broad risk appetite — it is money paying up for defensives and for the energy risk premium at the same time.",
+    "energy_note": "This report's whole universe is XLE, and XLE's leadership right now is being purchased by a geopolitical bid — the US-Iran escalation and Strait of Hormuz transit risk have driven a sharp crude rally. That makes every long in this report correlated to one headline stream: they will not diversify each other, and a de-escalation print would hit them together.",
+    "event_density": "Unusually heavy for a swing window: FOMC decision 2026-07-29, XOM Q2 earnings 2026-07-31, OPEC+ policy meeting 2026-08-02, July jobs 2026-08-07, July CPI 2026-08-12 — five macro or company events inside a 22-bar hold.",
+    "handle_with_care": [
+      {
+        "symbol": "XOM",
+        "why": "Q2 earnings 2026-07-31 lands at business day 9 from this report — exactly the engine's expected hold (expected_bars 9). The planned exit and the print are the same day."
+      },
+      {
+        "symbol": "OKE",
+        "why": "Squeeze Breakout long (conviction 92) in a sector whose expansion is headline-driven; a squeeze that fires on a geopolitical gap is the classic false-break setup if the premium unwinds."
+      },
+      {
+        "symbol": "MPC",
+        "why": "Refiner — crack spreads move opposite to a pure crude-price spike, so the XLE strength lifting this report is not unambiguously a tailwind for MPC the way it is for the integrateds and E&Ps."
+      },
+      {
+        "symbol": "CVX",
+        "why": "Same integrated-major, same-crude exposure as the XOM take; treat XOM and CVX as one position for risk purposes rather than two, and Chevron's own Q2 print sits in the same late-July cluster."
+      },
+      {
+        "symbol": "HAL",
+        "why": "The book's shorts (HAL, EOG, EPD, KMI) are positioned against a sector that is currently the second-strongest in the tape (XLE RS 90) and against a rising crude bid — counter-trend into strength."
+      }
+    ],
+    "book_note": "13 candidates, all energy, and 9 of the 12 non-avoid names are directionally long into the same crude catalyst. The single 'take' (XOM) plus the watch/arm longs represent one concentrated macro bet, not a diversified basket. Size the book, not just the ticket."
+  },
+
+  "symbols": {
+    "XOM": {
+      "status": "active",
+      "schema_version": 1,
+      "report_version": "20260720T121920Z",
+      "symbol": "XOM",
+      "persona": "swing",
+
+      "stance": "cautionary",
+      "alignment": "agree",
+      "score": 62,
+      "size_hint": "trim",
+      "confidence": "medium",
+
+      "sentiment": {
+        "label": "mildly_bullish",
+        "score": 0.35,
+        "drivers": [
+          "US-Iran escalation and Strait of Hormuz transit risk have driven a sharp crude rally, a direct tailwind for an integrated major",
+          "Exxon pre-disclosed a Q2 upstream windfall of roughly $3.5-3.9B versus Q1 via 8-K, netted against about $1.2B ($0.28/sh) of Mideast disruption costs",
+          "Sell-side ratings held Buy/Overweight but price targets were TRIMMED in early July (JPMorgan $173->$158, TD Cowen $172->$155, Citi $175->$155, Mizuho $175->$170) — bullish stance, cooling conviction",
+          "The bullish driver is geopolitical rather than company-specific, so it is reversible on a single de-escalation headline"
+        ]
+      },
+
+      "dimensions": {
+        "news_flow": {
+          "lean": "bullish",
+          "confidence": "high",
+          "note": "Crude rallied hard on the Iran/Hormuz escalation and XOM has jumped ~3% on those headlines; supportive of the long, but the driver is event-risk, not fundamentals."
+        },
+        "analyst": {
+          "lean": "mixed",
+          "confidence": "medium",
+          "note": "Consensus stays Moderate Buy with average targets ~$164-173, well above the report's 147.39 — but the most recent revisions (2026-07-02 to 07-09) were all target CUTS with ratings held, and no post-spike raises have appeared."
+        },
+        "earnings": {
+          "lean": "mixed",
+          "confidence": "medium",
+          "note": "Q2 print 2026-07-31 is largely pre-signaled by the 8-K bridge, so the reaction hinges on the delta versus that disclosed bridge and the ~$3.65-3.68 Street EPS, not versus a naive headline beat — a good number is already partly in the price."
+        },
+        "macro_rates": {
+          "lean": "mixed",
+          "confidence": "medium",
+          "note": "Dense in-window calendar: FOMC 2026-07-29, OPEC+ 2026-08-02, jobs 2026-08-07, CPI 2026-08-12, with the earnings print sitting between the Fed and OPEC+. No directional read — flagging event density."
+        },
+        "policy_regulatory": {
+          "lean": "mildly_bearish",
+          "confidence": "low",
+          "note": "The Venezuela/Guyana Essequibo dispute is a standing tail risk to the Stabroek Block, XOM's highest-growth asset; the most recent hard-dated action is the 2026-07-04 OFAC sanctions expansion (before this window). No confirmed new in-window flashpoint."
+        },
+        "sector_peers": {
+          "lean": "bullish",
+          "confidence": "high",
+          "note": "The report has XLE leading (RS 90, +4.19%) and the engine's own market block names XLE a leader — sector tailwind is real and agrees with the long."
+        },
+        "institutional": {
+          "lean": "neutral",
+          "confidence": "low",
+          "note": "Permissive, not confirming: options put/call ~0.67-0.72 leans mildly bullish and short interest is low (~1.2% of float, though that figure is stale to Dec 2025), while 13F flows are mixed small-manager noise on Q1 data."
+        },
+        "social_retail": {
+          "lean": "neutral",
+          "confidence": "low",
+          "note": "Reddit/WSB volume is very thin and readings conflict between snapshots; no crowding or euphoria to fade, and no capitulation either. Effectively a non-factor."
+        }
+      },
+
+      "catalysts": [
+        {
+          "type": "macro",
+          "date": "2026-07-29",
+          "in_window": true,
+          "impact": "medium",
+          "direction": "unknown",
+          "note": "FOMC decision, 2:00pm ET (meeting 07-28/29). Rate-path signal drives USD, crude, and energy risk appetite; 2 days before Exxon's own print."
+        },
+        {
+          "type": "earnings",
+          "date": "2026-07-31",
+          "in_window": true,
+          "impact": "high",
+          "direction": "unknown",
+          "note": "Q2 2026 results, pre-market. Business day 9 from this report — identical to the engine's expected_bars of 9. Date corroborated by 3 sources (stockanalysis, TipRanks, US News/AP framing) against 1 conflicting (investing.com showed 07-24); both candidate dates fall inside the window, so the in_window call is unaffected. Company pre-disclosed the earnings bridge via 8-K, so reaction is to the delta versus that bridge."
+        },
+        {
+          "type": "macro",
+          "date": "2026-08-02",
+          "in_window": true,
+          "impact": "medium",
+          "direction": "unknown",
+          "note": "OPEC+ (8-member) meeting setting September supply policy; the prior 2026-07-05 meeting delivered a +188k bpd August increase. Direct crude catalyst days after the earnings print."
+        },
+        {
+          "type": "macro",
+          "date": "2026-08-07",
+          "in_window": true,
+          "impact": "low",
+          "direction": "unknown",
+          "note": "July Employment Situation (BLS, 8:30am ET) — growth/oil-demand read feeding the September Fed path."
+        },
+        {
+          "type": "macro",
+          "date": "2026-08-12",
+          "in_window": true,
+          "impact": "low",
+          "direction": "unknown",
+          "note": "July CPI (BLS, ~8:30am ET) — with the jobs print, shapes rate expectations and the USD leg of the crude trade."
+        },
+        {
+          "type": "corporate_action",
+          "date": "2026-08-14",
+          "in_window": true,
+          "impact": "low",
+          "direction": "unknown",
+          "note": "Q3 dividend ex-date, ~$1.03/share, pay ~2026-09-10. UNCONFIRMED: aggregators disagree between 2026-08-14 and 2026-08-17 and no board declaration was found as of this scan; both dates fall inside the window, so only the exact day is uncertain. Routine and well-telegraphed — low price impact."
+        }
+      ],
+
+      "market_read": {
+        "agrees_with_engine": true,
+        "note": "The engine reads tape-neutral, not gated, with XLE leading — that matches what the tape shows (indexes ranging with weak ADX, XLE RS 90). The one thing the engine's neutral label does not capture is WHY energy leads: a geopolitical risk premium with VIX rising 5.15%. Sector strength here is borrowed from a headline, not from broad risk appetite."
+      },
+
+      "edge_cases": [
+        {
+          "risk": "Earnings lands exactly on the expected exit bar",
+          "severity": "high",
+          "note": "Q2 results print 2026-07-31, which is 9 business days out — precisely the engine's expected_bars of 9. The plan's expected hold ends on an event the historical math treats as an ordinary bar. Either plan to be flat before 07-31 or accept that the T1 (154.90) / T2 (156.92) ladder will most likely be resolved by a gap rather than by the drift the backtest assumed."
+        },
+        {
+          "risk": "The entire bull case is one reversible headline",
+          "severity": "high",
+          "note": "Crude's bid is an Iran/Hormuz war premium. A de-escalation or ceasefire print unwinds it overnight, and the stop at 143.3091 is only 2.77% below the 147.39 entry — inside a single gap for a name whose ATR is already 2.2%. This is the specific way the geometry breaks that the S/R Breakout backtest cannot see."
+        },
+        {
+          "risk": "The trigger is unconfirmed and its confirmation is also the first target",
+          "severity": "medium",
+          "note": "Confirmation is only 'forming' (score 15): the engine wants a reclaim of the last lower-high at 154.90, but 154.90 IS T1 on the ladder. The setup does not become confirmed until price is already at first target, so the 'Now' entry at 147.39 (R:R 3.43) is being taken ahead of confirmation by construction. The 144.93 retest entry (R:R 10.15) is the structurally cheaper way to express the same idea."
+        },
+        {
+          "risk": "The ladder sits on top of freshly cut sell-side targets",
+          "severity": "medium",
+          "note": "T1 154.90 and T2 156.92 land right inside the trimmed street band ($155-158 from TD Cowen, Citi, JPMorgan in early July). That is mildly supportive for the ladder being reachable, but it means the final target of 161.3837 is above essentially every recently revised target — the last leg of the R:R 3.43 is the least supported part of the plan."
+        },
+        {
+          "risk": "Book-level correlation, not a standalone ticket",
+          "severity": "medium",
+          "note": "Nine of the twelve non-avoid candidates in this energy report are long the same crude catalyst. Sizing XOM at the engine's full size_factor 1.0 while also taking the OKE/MPC/CVX watch longs concentrates one macro bet across several tickets."
+        },
+        {
+          "risk": "Standing Venezuela/Guyana tail risk",
+          "severity": "low",
+          "note": "The Essequibo dispute touches the Stabroek Block directly. No dated in-window flashpoint was found, but this dispute has a pattern of sudden naval/diplomatic incidents and would hit XOM specifically rather than the sector."
+        }
+      ],
+
+      "narrative": "The engine and the AI read agree on direction: this is a long, with the tape and the sector behind it. The engine has XOM at 147.39 as a 'take' with conviction 86 and an A-grade S/R Breakout, WITH TREND, bullish higher timeframe, R:R 3.43 to 161.3837 with the stop at 143.3091. The web adds a reason for that strength — crude is rallying on the US-Iran escalation and Strait of Hormuz transit risk, XLE is the second-strongest sector in the report (RS 90), and Exxon has already pre-disclosed a Q2 upstream windfall of roughly $3.5-3.9B via 8-K. So the direction is not in dispute.\n\nWhat the AI adds is timing and fragility, and both point the same way. First, timing: Q2 earnings print 2026-07-31, which is 9 business days from this report — exactly the engine's expected hold of 9 bars. The plan's expected exit and the single largest scheduled volatility event are the same day, and they are surrounded by FOMC on 07-29 and OPEC+ on 08-02. Second, fragility: the bullish driver is a geopolitical risk premium, not a company-specific rerating, and the stop at 143.3091 sits only 2.77% under the entry on a name with ATR% of 2.2 — comfortably inside one de-escalation gap.\n\nTwo structural notes on the plan itself. The confirmation is still only 'forming' (score 15) and what the engine wants confirmed is a reclaim of 154.90 — which is also T1, so the setup cannot confirm before it is already at first target; the 144.93 retest entry at R:R 10.15 is the more disciplined expression. And the ladder's T1/T2 (154.90 / 156.92) sit right inside the sell-side targets that were CUT in early July to the $155-158 area, which leaves the run to 161.3837 as the least externally supported leg. Stance is supportive of direction but cautionary on size and timing.",
+
+      "reconciliation": "Alignment is 'agree' — the AI's directional read (long, sector-supported, news-driven bullish) matches the engine's continuation long, so there is no conflict to resolve on direction. The divergence is one of degree, not sign: the engine's conviction 86 and size_factor 1.0 are computed from a bar-history model in which 2026-07-31 is an ordinary bar, whereas it is an earnings print landing on the expected exit. Hence size_hint 'trim' and a context score of 62 rather than something matched to conviction 86 — take the trade in the engine's direction, but either size down to survive an earnings gap or plan to be flat into 07-31.",
+
+      "provenance": {
+        "model": "claude-opus-4-8",
+        "generated_at": "2026-07-20T12:27:08Z",
+        "disclaimer": "Educational analysis, not financial advice.",
+        "sources": [
+          { "kind": "report", "ref": "20260720T121920Z.json decisions.XOM + market" },
+          { "kind": "web", "url": "https://www.cnbc.com/2026/07/20/oil-prices-today-brent-wti-crude-us-iran-centcom-hormuz.html" },
+          { "kind": "web", "url": "https://money.usnews.com/investing/news/articles/2026-07-07/exxon-mobil-signals-higher-second-quarter-earnings" },
+          { "kind": "web", "url": "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20260707-2q26-earnings-considerations" },
+          { "kind": "web", "url": "https://stockstotrade.com/news/exxonmobil-holdings-corporation-xom-news-2026_07_13/" },
+          { "kind": "web", "url": "https://www.gurufocus.com/news/8943455/xom-maintained-by-td-cowen-price-target-lowered-to-155" },
+          { "kind": "web", "url": "https://www.marketscreener.com/news/jpmorgan-adjusts-price-target-on-exxon-mobil-to-158-from-173-ce7f5ed9d08bf325" },
+          { "kind": "web", "url": "https://cryptobriefing.com/opec-adjusts-oil-production-by-188k-bpd-meeting-set-for-august-2/" },
+          { "kind": "web", "url": "https://www.aljazeera.com/economy/2026/7/6/opec-countries-say-they-will-expand-monthly-oil-production" },
+          { "kind": "web", "url": "https://www.federalreserve.gov/newsevents/2026-july.htm" },
+          { "kind": "web", "url": "https://www.bls.gov/schedule/news_release/empsit.htm" },
+          { "kind": "web", "url": "https://www.bls.gov/schedule/news_release/cpi.htm" },
+          { "kind": "web", "url": "https://stockanalysis.com/stocks/xom/" },
+          { "kind": "web", "url": "https://www.marketbeat.com/stocks/NYSE/XOM/forecast/" }
+        ]
+      },
+
+      "verification": {
+        "verdict": "warn",
+        "report_price": 147.39,
+        "cited": {
+          "entry": 147.39,
+          "stop": 143.3091,
+          "target": 161.3837
+        },
+        "sources_checked": [
+          { "url": "https://www.cnbc.com/2026/07/20/oil-prices-today-brent-wti-crude-us-iran-centcom-hormuz.html", "published": "2026-07-20" },
+          { "url": "https://money.usnews.com/investing/news/articles/2026-07-07/exxon-mobil-signals-higher-second-quarter-earnings", "published": "2026-07-07" },
+          { "url": "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20260707-2q26-earnings-considerations", "published": "2026-07-07" },
+          { "url": "https://stockstotrade.com/news/exxonmobil-holdings-corporation-xom-news-2026_07_13/", "published": "2026-07-13" },
+          { "url": "https://blockonomi.com/exxonmobil-xom-stock-jumps-nearly-3-on-crude-rally-triggered-by-iran-diplomatic-freeze/", "published": "2026-07-15" },
+          { "url": "https://247wallst.com/investing/2026/07/15/if-youd-invested-10000-in-exxon-mobil-when-the-iran-conflict-started-heres-how-much-youd-have-now/", "published": "2026-07-15" },
+          { "url": "https://www.gurufocus.com/news/8943455/xom-maintained-by-td-cowen-price-target-lowered-to-155", "published": "2026-07-08" },
+          { "url": "https://www.marketscreener.com/news/jpmorgan-adjusts-price-target-on-exxon-mobil-to-158-from-173-ce7f5ed9d08bf325", "published": "2026-07-19" },
+          { "url": "https://www.gurufocus.com/news/8951614/xom-maintains-rating-by-mizuho-price-target-lowered-to-170", "published": "2026-07-10" },
+          { "url": "https://cryptobriefing.com/opec-adjusts-oil-production-by-188k-bpd-meeting-set-for-august-2/", "published": "2026-07-06" },
+          { "url": "https://www.aljazeera.com/economy/2026/7/6/opec-countries-say-they-will-expand-monthly-oil-production", "published": "2026-07-06" },
+          { "url": "https://www.federalreserve.gov/newsevents/2026-july.htm", "published": null, "as_of": "2026-07-20" },
+          { "url": "https://www.bls.gov/schedule/news_release/empsit.htm", "published": null, "as_of": "2026-07-20" },
+          { "url": "https://www.bls.gov/schedule/news_release/cpi.htm", "published": null, "as_of": "2026-07-20" },
+          { "url": "https://stockanalysis.com/stocks/xom/", "published": null, "as_of": "2026-07-20" },
+          { "url": "https://www.marketbeat.com/stocks/NYSE/XOM/forecast/", "published": null, "as_of": "2026-07-20" },
+          { "url": "https://apewisdom.io/stocks/XOM/", "published": null, "as_of": "2026-07-20" }
+        ],
+        "flags": [
+          "Earnings date conflict: weight of evidence favours 2026-07-31 (stockanalysis, TipRanks incl. a webcast time, marketbeat) over investing.com's 2026-07-24, and BOTH are real Fridays (bd9 and bd4 respectively), which explains the aggregator split. No primary IR/8-K release locks either date — marketbeat still labels it 'estimated'. Both fall inside the 22-bar window so in_window is unaffected. Treat 07-31 as high-confidence but NOT certain; reconfirm via XOM IR closer to the print.",
+          "CITATION GAP: the Citi $175->$155 cut quoted in sentiment.drivers has no retained source URL, unlike the JPMorgan/TD Cowen/Mizuho cuts. The supervisor independently confirmed the claim is accurate (Citi, Alastair Syme, Neutral maintained, early July 2026) via web search, but no durable link was captured — no URL was invented to fill the gap.",
+          "Dividend ex-date unsettled between 2026-08-14 (dividendhistory.org, marked estimated) and 2026-08-17 (stockevents/Koyfin); no board declaration found. Both in-window; only the day is uncertain.",
+          "Undated live pages used for calendar/consensus facts (federalreserve.gov, bls.gov, stockanalysis, marketbeat, apewisdom) — these are official or live-snapshot sources with no article publish date; each was accessed 2026-07-20.",
+          "Short-interest figures are stale (data as of December 2025, ~7 months old) — used only as a directional baseline that XOM is not crowded-short, not as current fact.",
+          "Reddit/WSB sentiment snapshots conflicted between pulls (1 mention vs 22 mentions) and are undated; recorded as low-confidence color only and given a neutral lean.",
+          "Venezuela/Guyana naval-incident articles returned by search lacked reliable 2026 date stamps; treated as background tail risk, NOT as a dated in-window catalyst.",
+          "The 2026-07-01 Texas redomicile / rename to ExxonMobil Holdings Corporation is administrative and pre-window; excluded from catalysts deliberately.",
+          "SUPERVISOR CHECKS PASSED: Iran/Hormuz crude rally confirmed genuinely current (same-day CNBC 2026-07-20 plus an evolving Al Jazeera series through 07-19/20), not recycled coverage. Report price 147.39 corroborated within ~$0.50 across 3 independent live sources (stockanalysis $147.36, marketbeat $147.56, Google Finance ~$146.87-147.36). All six undated calendar/consensus pages independently confirmed to support their stated claims (FOMC 2026-07-29 2:00pm ET, jobs 2026-08-07, CPI 2026-08-12). Window end recomputed as bd22 = 2026-08-19, so all six catalysts are correctly in_window."
+        ],
+        "checked_at": "2026-07-20T12:27:08Z"
+      }
+    }
+  },
+
+  "coverage": {
+    "requested": 1,
+    "enriched": 1,
+    "basis": "take_candidates"
+  }
+}
