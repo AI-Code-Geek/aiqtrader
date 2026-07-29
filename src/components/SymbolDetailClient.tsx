@@ -13,6 +13,8 @@ import {
 	ConfluencePanel,
 	DecisionCard,
 	MarketContextCard,
+	MarketTimingCard,
+	MathScoreCard,
 	QualityCard,
 	SetupCard,
 	StructureCard,
@@ -227,7 +229,9 @@ export function SymbolDetailClient({
 			{/* Lower detail grid */}
 			<div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 				<ConfluencePanel d={decision} />
+				<MathScoreCard d={decision} />
 				<QualityCard d={decision} />
+				<MarketTimingCard d={decision} />
 				<MarketContextCard d={decision} />
 				<ConditionsChecklist d={decision} />
 				<ConfirmationCard d={decision} />

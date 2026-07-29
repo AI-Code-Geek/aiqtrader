@@ -167,15 +167,23 @@ export interface EntryOption {
 	rr: number | null;
 	odds: string | null; // chase-risk (breakout) or fill-odds (pullback) label
 	odds_kind: "chase" | "fill";
+	/** P15-01 — the tactic the UI leads with (matches EntryPlan.primary_kind). */
+	primary?: boolean;
+	/** P15-04 — trader-readable one-liner for this tactic (engine-owned). */
+	plain?: string;
 }
 
 export interface EntryPlan {
 	direction: Direction;
 	entry_now?: EntryNow;
-	/** "Breakout confirm" / pullback — present when the engine offers a staged trigger. */
+	/** "Breakout confirm" / pullback / retest — present when the engine offers a staged trigger. */
 	entry_pullback?: EntryStaged;
 	/** P3.1 normalized entry tactics (breakout / pullback) — for viewers that render tactics compactly. */
 	entries?: EntryOption[];
+	/** P15-01 — which tactic to lead with: better-risk when offered, else market-now. */
+	primary_kind?: "now" | "breakout" | "pullback";
+	/** P15-03 — the ONE headline R:R (the primary tactic's), so surfaces never show two conflicting R:Rs. */
+	governing_rr?: number | null;
 	/** Trade horizon + time-stop (how many bars/days the setup stays valid). */
 	duration?: Duration;
 }
@@ -200,6 +208,32 @@ export interface Confirmation {
 	missing: { axis: string; detail: string }[];
 }
 
+/** P12 — advisory market-timing reads (VIX-adaptive vol + day-of-week institutional cycle). Display-only. */
+export interface MarketTiming {
+	vol?: {
+		proxy?: string;
+		level?: number | null;
+		percentile?: number | null;
+		regime?: "calm" | "normal" | "elevated" | "high" | string;
+		stop_multiplier?: number | null;
+		size_scale?: number | null;
+		note?: string;
+	} | null;
+	cycle?: { day?: string; dow?: number; phase?: string; note?: string } | null;
+}
+
+/** P3.1-03 / P10-08 — the calibrated Math Score + the three honest win-rate reads. */
+export interface MathScore {
+	score?: number | null;            // population win-prob (calibrated) or null (abstain/cold-start)
+	calibrated?: boolean;
+	model_version?: string | null;
+	mode?: string;
+	population?: { score: number | null };
+	symbol_empirical?: { win_rate: number; n: number; expectancy?: number | null; scope?: string } | null;
+	symbol_aware?: { score: number; n: number; shrinkage_k?: number } | null;
+	top_features?: { name: string; value?: number }[];
+}
+
 /** The fused, server-side trade decision. */
 export interface Decision {
 	verdict: Verdict;
@@ -214,6 +248,8 @@ export interface Decision {
 	size_factor: number;
 	confirmation: Confirmation;
 	market: MarketContext;
+	market_timing?: MarketTiming | null;   // P12 — VIX vol + institutional cycle
+	math?: MathScore;                      // P3.1/P10-08 — win-prob + symbol-aware reads
 	rank_score: number;
 	entry_plan: EntryPlan;
 	reason: string;
@@ -268,6 +304,7 @@ export interface Validation {
 export interface Candidate {
 	symbol: string;
 	regime: string;
+	regime_plain?: string;   // P15-04 — trader-readable regime name
 	price: number;
 	change_pct: number;
 	rvol: number;
@@ -312,6 +349,7 @@ export interface SymbolDecision {
 	symbol: string;
 	timeframe: Timeframe;
 	regime: string;
+	regime_plain?: string;   // P15-04 — trader-readable regime name
 	price: number;
 	best: BestStrategy;
 	confluence: Confluence;

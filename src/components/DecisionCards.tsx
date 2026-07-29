@@ -183,54 +183,122 @@ function DurationBlock({ d }: { d: SymbolDecision }) {
 
 export function SetupCard({ d }: { d: SymbolDecision }) {
 	const s = d.best.setup;
-	const plan = d.decision.entry_plan?.entry_now;
-	const pull = d.decision.entry_plan?.entry_pullback;
-	// Entry-tactic terminology (consistent with the engine's normalized `entry_plan.entries` and the
-	// trading-ui app): entry_now is the STANDARD immediate entry (not a breakout by itself); the staged
-	// entry is either a PULLBACK (limit, better price) or a BREAKOUT — a breakUP for a long / breakDOWN
-	// for a short (stop, confirming through a level).
-	const move = (d.decision.entry_plan?.direction ?? s.direction) === "long" ? "breakup" : "breakdown";
-	const pullLabel = pull ? (pull.type === "stop" ? `Breakout · ${move}` : "Pullback · better price") : "";
-	return (
-		<Card title="Setup — the executable plan" extra={<DirectionLabel direction={s.direction} />}>
-			{/* Entry option 1 — the standard immediate (market) entry */}
-			<div className="text-xs font-semibold uppercase tracking-wide text-muted">
-				{plan?.label ?? "Now"} · {plan?.type ?? "market"} <span className="text-brand">· standard</span>
-			</div>
-			<div className="mt-1 grid grid-cols-4 gap-2 text-center text-sm">
-				<Stat label="Entry" value={`$${money(plan?.price ?? s.entry)}`} />
-				<Stat label="Stop" value={`$${money(plan?.stop ?? s.stop)}`} tone="short" />
-				<Stat label="Target" value={`$${money(plan?.target ?? s.target)}`} tone="long" />
-				<Stat label="R:R" value={num(plan?.rr ?? s.rr)} />
-			</div>
-			{plan?.chase_risk ? (
-				<p className="mt-2 text-xs text-muted">Chase risk: <b>{plan.chase_risk.label}</b> ({num(plan.chase_risk.atr_from_value)} ATR from value)</p>
-			) : null}
-			<Ladder ladder={plan?.ladder} />
+	const ep = d.decision.entry_plan;
+	const now = ep?.entry_now;
+	const pull = ep?.entry_pullback;
+	// P15-05 — render the engine's normalized `entries[]` led by `primary_kind` (the same model the
+	// trading-ui app uses). Fall back to synthesizing from entry_now/entry_pullback for older payloads.
+	const move = (ep?.direction ?? s.direction) === "long" ? "breakup" : "breakdown";
+	const entries = ep?.entries?.length
+		? ep.entries
+		: [
+				now && { kind: "now" as const, label: `${now.label ?? "Now"} · market`, order: now.type, trigger: now.price, zone: null, stop: now.stop, target: now.target, rr: now.rr, odds: now.chase_risk?.label ?? null, odds_kind: "chase" as const, primary: !pull },
+				pull && { kind: (pull.type === "stop" ? "breakout" : "pullback") as "breakout" | "pullback", label: pull.type === "stop" ? `Breakout · ${move}` : "Pullback · better price", order: pull.type, trigger: pull.trigger, zone: pull.zone ?? null, stop: pull.stop, target: pull.target, rr: pull.rr, odds: pull.fill_odds?.label ?? null, odds_kind: "fill" as const, primary: true },
+		  ].filter(Boolean) as NonNullable<typeof ep>["entries"];
+	const primaryKind = ep?.primary_kind ?? entries?.find((e) => e.primary)?.kind ?? "now";
+	const governingRr = ep?.governing_rr ?? entries?.find((e) => e.kind === primaryKind)?.rr ?? s.rr;
+	// ladder rides on the raw entry objects, keyed by tactic (now → entry_now, else → entry_pullback)
+	const ladderFor = (kind: string) => (kind === "now" ? now?.ladder : pull?.ladder);
 
-			{/* Entry option 2 — staged trigger (breakout / pullback confirm) */}
-			{pull ? (
-				<div className="mt-4 rounded-xl border border-border bg-surface-2/50 p-3">
-					<div className="mb-1 flex items-center justify-between">
-						<div className="text-xs font-semibold uppercase tracking-wide text-brand">{pullLabel} · {pull.type}</div>
-						{pull.fill_odds ? <span className="text-xs text-muted">fill odds <b className="text-foreground">{pull.fill_odds.label}</b></span> : null}
+	return (
+		<Card
+			title="Setup — the executable plan"
+			extra={
+				<span className="flex items-center gap-2">
+					<span className="text-xs text-muted" title="R:R of the recommended entry tactic">R:R <b className="mono text-foreground">{num(governingRr)}</b></span>
+					<DirectionLabel direction={s.direction} />
+				</span>
+			}
+		>
+			{(entries ?? []).map((e) => {
+				const recommended = e.kind === primaryKind;
+				return (
+					<div key={e.kind} className={`mb-3 rounded-xl border p-3 ${recommended ? "border-brand/50 bg-brand/5" : "border-border bg-surface-2/40"}`}>
+						<div className="mb-1 flex items-center justify-between">
+							<div className="text-xs font-semibold uppercase tracking-wide text-brand">
+								{recommended ? "★ " : ""}{e.label}
+							</div>
+							{e.odds ? (
+								<span className="text-xs text-muted">{e.odds_kind === "chase" ? "chase" : "fill"} <b className="text-foreground">{e.odds}</b></span>
+							) : null}
+						</div>
+						<div className="grid grid-cols-4 gap-2 text-center text-sm">
+							<Stat label={e.order === "market" ? "Entry" : "Trigger"} value={`$${money(e.trigger ?? s.entry)}`} />
+							<Stat label="Stop" value={`$${money(e.stop ?? s.stop)}`} tone="short" />
+							<Stat label="Target" value={`$${money(e.target ?? s.target)}`} tone="long" />
+							<Stat label="R:R" value={num(e.rr ?? s.rr)} />
+						</div>
+						{e.zone ? (
+							<p className="mt-2 text-xs text-muted">Trigger zone <span className="mono text-foreground">${money(e.zone.low)}–${money(e.zone.high)}</span></p>
+						) : null}
+						{/* P15-08 — plain one-liner: what this tactic means for the trader */}
+						{e.plain ? <p className="mt-1 text-xs text-muted">{e.plain}</p> : null}
+						<Ladder ladder={ladderFor(e.kind)} />
 					</div>
-					<div className="grid grid-cols-4 gap-2 text-center text-sm">
-						<Stat label="Trigger" value={`$${money(pull.trigger)}`} />
-						<Stat label="Stop" value={`$${money(pull.stop)}`} tone="short" />
-						<Stat label="Target" value={`$${money(pull.target)}`} tone="long" />
-						<Stat label="R:R" value={num(pull.rr)} />
-					</div>
-					{pull.zone ? (
-						<p className="mt-2 text-xs text-muted">Trigger zone <span className="mono text-foreground">${money(pull.zone.low)}–${money(pull.zone.high)}</span></p>
-					) : null}
-					{pull.note ? <p className="mt-1 text-xs text-muted">{pull.note}</p> : null}
-					<Ladder ladder={pull.ladder} />
-				</div>
-			) : null}
+				);
+			})}
 
 			{/* The clock: how long the thesis stays valid + the time-stop. Applies to the whole plan. */}
 			<DurationBlock d={d} />
+		</Card>
+	);
+}
+
+/** P12 — advisory market-timing (VIX-adaptive volatility + day-of-week institutional cycle). Display-only. */
+export function MarketTimingCard({ d }: { d: SymbolDecision }) {
+	const mt = d.decision.market_timing;
+	if (!mt || (!mt.vol && !mt.cycle)) return null;
+	const vol = mt.vol, cyc = mt.cycle;
+	const volTone = vol?.regime === "high" || vol?.regime === "elevated" ? "text-short" : vol?.regime === "calm" ? "text-long" : "text-muted";
+	return (
+		<Card title="Market timing — volatility & cycle">
+			{vol ? (
+				<div className="mb-2">
+					<div className="flex items-center justify-between text-sm">
+						<span className="text-muted">Volatility ({vol.proxy ?? "VIX"})</span>
+						<span className={`font-semibold capitalize ${volTone}`}>{vol.regime}</span>
+					</div>
+					<div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+						{vol.percentile != null ? <span>pct <b className="mono text-foreground">{num(vol.percentile, 0)}</b></span> : null}
+						{vol.stop_multiplier != null ? <span>stop ×<b className="mono text-foreground">{num(vol.stop_multiplier)}</b></span> : null}
+						{vol.size_scale != null ? <span>size ×<b className="mono text-foreground">{num(vol.size_scale)}</b></span> : null}
+					</div>
+					{vol.note ? <p className="mt-1 text-xs text-muted">{vol.note}</p> : null}
+				</div>
+			) : null}
+			{cyc ? (
+				<div className="border-t border-border pt-2 text-sm">
+					<div className="flex items-center justify-between">
+						<span className="text-muted">Cycle {cyc.day ? `· ${cyc.day}` : ""}</span>
+						<span className="font-medium">{cyc.phase}</span>
+					</div>
+					{cyc.note ? <p className="mt-1 text-xs text-muted">{cyc.note}</p> : null}
+				</div>
+			) : null}
+		</Card>
+	);
+}
+
+/** P3.1 / P10-08 — the calibrated Math Score win-probability + the symbol-aware reads. Conviction ≠ this. */
+export function MathScoreCard({ d }: { d: SymbolDecision }) {
+	const m = d.decision.math;
+	if (!m) return null;
+	const pop = m.population?.score ?? m.score;
+	const emp = m.symbol_empirical;
+	const aware = m.symbol_aware;
+	if (pop == null && !emp && !aware) return null;
+	const pct = (x: number | null | undefined) => (x == null ? "—" : `${Math.round(x * 100)}%`);
+	return (
+		<Card
+			title="Win-probability (Math Score)"
+			extra={<span className="text-xs text-muted" title="A calibrated win-rate — unlike conviction, which is completeness">calibrated edge</span>}
+		>
+			<dl className="grid grid-cols-2 gap-y-1.5 text-sm">
+				<Row k="Population" v={<span className="mono">{pct(pop as number | null)}</span>} />
+				{emp ? <Row k={`This symbol (n=${emp.n})`} v={<span className="mono">{pct(emp.win_rate > 1 ? emp.win_rate / 100 : emp.win_rate)}</span>} /> : null}
+				{aware ? <Row k={`Symbol-aware (n=${aware.n})`} v={<span className="mono">{pct(aware.score)}</span>} /> : null}
+			</dl>
+			<p className="mt-2 text-xs text-muted">This is the only calibrated win-rate. Conviction is a completeness gauge, not a probability.</p>
 		</Card>
 	);
 }
@@ -389,7 +457,7 @@ export function SymbolHero({ d }: { d: SymbolDecision }) {
 		<div className="flex flex-wrap items-center gap-3">
 			<h1 className="text-2xl font-bold">{d.symbol}</h1>
 			<span className="mono text-lg">${money(d.price)}</span>
-			<RegimeChip label={d.regime} />
+			<RegimeChip label={d.regime_plain ?? d.regime} />
 			<span className="text-sm text-muted">{d.best.label}</span>
 			<span className="ml-auto text-sm text-muted">as of {new Date(d.computed_at).toLocaleString()}</span>
 		</div>

@@ -45,11 +45,11 @@ export function CandidateCard({
 				</div>
 			</div>
 			<div className="mt-1 flex items-center gap-2 text-sm text-muted">
-				<span>{c.label}</span>·<DirectionLabel direction={c.direction} />·<RegimeChip label={c.regime} />
+				<span>{c.label}</span>·<DirectionLabel direction={c.direction} />·<RegimeChip label={c.regime_plain ?? c.regime} />
 			</div>
 			<div className="mt-2 flex items-center gap-2">
 				<QualityGrade grade={c.quality.grade} />
-				<span className="text-sm text-muted">RR {num(c.setup.rr)} · RVOL {mult(c.rvol)}</span>
+				<span className="text-sm text-muted">RR {num(d.entry_plan?.governing_rr ?? c.setup.rr)} · RVOL {mult(c.rvol)}</span>
 			</div>
 
 			{/* The plan: entry / stop / target / how long it's valid (+ the scale-out ladder below). */}
@@ -130,8 +130,8 @@ function EntriesRow({ entries }: { entries?: EntryOption[] }) {
 					+ (e.odds ? ` · ${e.odds_kind} ${e.odds}` : "")
 					+ (e.zone ? ` · zone $${money(e.zone.low)}–$${money(e.zone.high)}` : "");
 				return (
-					<span key={i} className={`mono ${s.cls}`} title={tip}>
-						{s.short}
+					<span key={i} className={`mono ${s.cls}`} title={e.plain ?? tip}>
+						{e.primary ? "★ " : ""}{s.short}
 						{e.trigger != null ? <span className="text-foreground"> ${money(e.trigger)}</span> : null}
 					</span>
 				);
