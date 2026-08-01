@@ -251,7 +251,9 @@ export interface Decision {
 	market_timing?: MarketTiming | null;   // P12 — VIX vol + institutional cycle
 	math?: MathScore;                      // P3.1/P10-08 — win-prob + symbol-aware reads
 	rank_score: number;
-	entry_plan: EntryPlan;
+	/** NULL when the engine produced no executable plan (e.g. a `watch` with no valid geometry).
+	 * Typed non-nullable until 2026-08-01, which is how an unguarded deref crashed the WM prerender. */
+	entry_plan: EntryPlan | null;
 	reason: string;
 	trend_state?: string;
 	phase?: string;
@@ -313,8 +315,9 @@ export interface Candidate {
 	direction: Direction;
 	status: "active" | "watch" | string;
 	conviction: number;
-	setup: Setup;
-	quality: Quality;
+	/** NULL when no executable setup was produced for this candidate — see BestStrategy.setup. */
+	setup: Setup | null;
+	quality: Quality | null;
 	decision: Decision;
 	screening: Screening;
 	rank_score: number;
@@ -340,8 +343,11 @@ export interface BestStrategy {
 	regime_ok: boolean;
 	conviction: number;
 	conditions: Condition[];
-	setup: Setup;
-	quality: Quality;
+	/** NULL when the strategy fired but produced no valid executable geometry — the engine emits
+	 * `setup: null` / `quality: null` rather than a half-built plan (2 of 199 symbols on 2026-08-01,
+	 * e.g. 011-industrials/WM and /JCI). Anything reading these MUST guard. */
+	setup: Setup | null;
+	quality: Quality | null;
 }
 
 /** An entry in report.decisions{} — full per-symbol detail for the symbol page. */
