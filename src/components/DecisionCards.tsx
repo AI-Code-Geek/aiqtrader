@@ -184,11 +184,27 @@ function DurationBlock({ d }: { d: SymbolDecision }) {
 export function SetupCard({ d }: { d: SymbolDecision }) {
 	const s = d.best.setup;
 	const ep = d.decision.entry_plan;
+	// A strategy can fire without producing executable geometry — the engine then emits
+	// `best.setup: null` AND `entry_plan: null` rather than a half-built plan. There is no plan to
+	// render, and dereferencing either one crashed the static build (011-industrials/WM, 2026-08-01).
+	if (!s && !ep) {
+		return (
+			<Card title="Setup — the executable plan">
+				<p className="text-sm text-muted">
+					No executable plan right now — {d.best.label ?? d.best.strategy} fired, but it did not
+					produce a valid entry/stop/target. Treat this as context, not a trade.
+				</p>
+			</Card>
+		);
+	}
 	const now = ep?.entry_now;
 	const pull = ep?.entry_pullback;
 	// P15-05 — render the engine's normalized `entries[]` led by `primary_kind` (the same model the
 	// trading-ui app uses). Fall back to synthesizing from entry_now/entry_pullback for older payloads.
-	const move = (ep?.direction ?? s.direction) === "long" ? "breakup" : "breakdown";
+	// `s` may still be null here when a plan exists without a setup — every use of it below is a
+	// FALLBACK for a value the entry leg didn't carry, so optional-chain them all.
+	const dir = ep?.direction ?? s?.direction ?? null;
+	const move = dir === "long" ? "breakup" : "breakdown";
 	const entries = ep?.entries?.length
 		? ep.entries
 		: [
@@ -196,7 +212,7 @@ export function SetupCard({ d }: { d: SymbolDecision }) {
 				pull && { kind: (pull.type === "stop" ? "breakout" : "pullback") as "breakout" | "pullback", label: pull.type === "stop" ? `Breakout · ${move}` : "Pullback · better price", order: pull.type, trigger: pull.trigger, zone: pull.zone ?? null, stop: pull.stop, target: pull.target, rr: pull.rr, odds: pull.fill_odds?.label ?? null, odds_kind: "fill" as const, primary: true },
 		  ].filter(Boolean) as NonNullable<typeof ep>["entries"];
 	const primaryKind = ep?.primary_kind ?? entries?.find((e) => e.primary)?.kind ?? "now";
-	const governingRr = ep?.governing_rr ?? entries?.find((e) => e.kind === primaryKind)?.rr ?? s.rr;
+	const governingRr = ep?.governing_rr ?? entries?.find((e) => e.kind === primaryKind)?.rr ?? s?.rr;
 	// ladder rides on the raw entry objects, keyed by tactic (now → entry_now, else → entry_pullback)
 	const ladderFor = (kind: string) => (kind === "now" ? now?.ladder : pull?.ladder);
 
@@ -206,7 +222,7 @@ export function SetupCard({ d }: { d: SymbolDecision }) {
 			extra={
 				<span className="flex items-center gap-2">
 					<span className="text-xs text-muted" title="R:R of the recommended entry tactic">R:R <b className="mono text-foreground">{num(governingRr)}</b></span>
-					<DirectionLabel direction={s.direction} />
+					{dir ? <DirectionLabel direction={dir} /> : null}
 				</span>
 			}
 		>
@@ -223,10 +239,10 @@ export function SetupCard({ d }: { d: SymbolDecision }) {
 							) : null}
 						</div>
 						<div className="grid grid-cols-4 gap-2 text-center text-sm">
-							<Stat label={e.order === "market" ? "Entry" : "Trigger"} value={`$${money(e.trigger ?? s.entry)}`} />
-							<Stat label="Stop" value={`$${money(e.stop ?? s.stop)}`} tone="short" />
-							<Stat label="Target" value={`$${money(e.target ?? s.target)}`} tone="long" />
-							<Stat label="R:R" value={num(e.rr ?? s.rr)} />
+							<Stat label={e.order === "market" ? "Entry" : "Trigger"} value={`$${money(e.trigger ?? s?.entry)}`} />
+							<Stat label="Stop" value={`$${money(e.stop ?? s?.stop)}`} tone="short" />
+							<Stat label="Target" value={`$${money(e.target ?? s?.target)}`} tone="long" />
+							<Stat label="R:R" value={num(e.rr ?? s?.rr)} />
 						</div>
 						{e.zone ? (
 							<p className="mt-2 text-xs text-muted">Trigger zone <span className="mono text-foreground">${money(e.zone.low)}–${money(e.zone.high)}</span></p>
@@ -323,6 +339,14 @@ export function MarketContextCard({ d }: { d: SymbolDecision }) {
 
 export function QualityCard({ d }: { d: SymbolDecision }) {
 	const q = d.best.quality;
+	// Quality is scored FROM the setup, so it is null exactly when the setup is (see BestStrategy).
+	if (!q) {
+		return (
+			<Card title="Signal quality">
+				<p className="text-sm text-muted">Not scored — no executable setup was produced for this symbol.</p>
+			</Card>
+		);
+	}
 	return (
 		<Card title="Signal quality" extra={<QualityGrade grade={q.grade} />}>
 			<div className="mb-2 flex items-center gap-3 text-sm text-muted">

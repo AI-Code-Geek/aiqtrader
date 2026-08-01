@@ -21,9 +21,11 @@ export function CandidateCard({
 
 	// Display-only arithmetic on the engine's own numbers (distance to stop/target as a %). The scale-out
 	// ladder comes straight from the engine's entry_plan — the UI never derives levels itself.
-	const entry = c.setup.entry;
-	const riskPct = entry ? Math.abs(((entry - c.setup.stop) / entry) * 100).toFixed(1) : null;
-	const rewardPct = entry ? Math.abs(((c.setup.target - entry) / entry) * 100).toFixed(1) : null;
+	// `setup` is null when the strategy fired without valid geometry; there is then no plan to show.
+	const s = c.setup;
+	const entry = s?.entry;
+	const riskPct = s && entry ? Math.abs(((entry - s.stop) / entry) * 100).toFixed(1) : null;
+	const rewardPct = s && entry ? Math.abs(((s.target - entry) / entry) * 100).toFixed(1) : null;
 	const ladder = d.entry_plan?.entry_now?.ladder?.targets ?? [];
 	// Trade horizon — engine-computed (decision.entry_plan.duration); shown next to the levels so a trader
 	// sees "how long" at a glance, not only on the detail page.
@@ -48,27 +50,34 @@ export function CandidateCard({
 				<span>{c.label}</span>·<DirectionLabel direction={c.direction} />·<RegimeChip label={c.regime_plain ?? c.regime} />
 			</div>
 			<div className="mt-2 flex items-center gap-2">
-				<QualityGrade grade={c.quality.grade} />
-				<span className="text-sm text-muted">RR {num(d.entry_plan?.governing_rr ?? c.setup.rr)} · RVOL {mult(c.rvol)}</span>
+				{c.quality ? <QualityGrade grade={c.quality.grade} /> : null}
+				<span className="text-sm text-muted">RR {num(d.entry_plan?.governing_rr ?? s?.rr)} · RVOL {mult(c.rvol)}</span>
 			</div>
 
-			{/* The plan: entry / stop / target / how long it's valid (+ the scale-out ladder below). */}
+			{/* The plan: entry / stop / target / how long it's valid (+ the scale-out ladder below).
+			    Omitted entirely when there is no setup — an empty levels grid reads as "flat at $0",
+			    which is worse than saying there is no plan. */}
+			{!s ? (
+				<p className="mt-2 rounded-lg border border-border bg-surface-2 px-2 py-1.5 text-xs text-muted">
+					No executable plan — signal fired without valid entry/stop/target.
+				</p>
+			) : (
 			<div className={`mt-2 grid ${dur ? "grid-cols-4" : "grid-cols-3"} gap-1 rounded-lg border border-border bg-surface-2 px-2 py-1.5`}>
 				<div>
 					<div className="text-[10px] uppercase tracking-wide text-muted">Entry</div>
-					<div className="mono text-sm">${money(c.setup.entry)}</div>
+					<div className="mono text-sm">${money(s.entry)}</div>
 				</div>
 				<div>
 					<div className="text-[10px] uppercase tracking-wide text-muted">Stop</div>
 					<div className="mono text-sm text-short">
-						${money(c.setup.stop)}
+						${money(s.stop)}
 						{riskPct != null ? <span className="ml-1 text-[10px] text-muted">−{riskPct}%</span> : null}
 					</div>
 				</div>
 				<div>
 					<div className="text-[10px] uppercase tracking-wide text-muted">Target</div>
 					<div className="mono text-sm text-long">
-						${money(c.setup.target)}
+						${money(s.target)}
 						{rewardPct != null ? <span className="ml-1 text-[10px] text-muted">+{rewardPct}%</span> : null}
 					</div>
 				</div>
@@ -82,6 +91,7 @@ export function CandidateCard({
 					</div>
 				) : null}
 			</div>
+			)}
 
 			{ladder.length > 0 ? (
 				<div className="mt-1 flex flex-wrap items-center gap-x-2 text-[11px] text-muted">

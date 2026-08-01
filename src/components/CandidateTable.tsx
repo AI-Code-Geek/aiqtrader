@@ -39,9 +39,11 @@ export function CandidateTable({
 				<tbody>
 					{candidates.map((c) => {
 						// Display-only: % distance to the engine's own stop/target. The levels come from the engine.
-						const entry = c.setup.entry;
-						const riskPct = entry ? Math.abs(((entry - c.setup.stop) / entry) * 100).toFixed(1) : null;
-						const rewardPct = entry ? Math.abs(((c.setup.target - entry) / entry) * 100).toFixed(1) : null;
+						// `setup` is null when the signal fired without valid geometry — cells fall back to "—".
+						const s = c.setup;
+						const entry = s?.entry;
+						const riskPct = s && entry ? Math.abs(((entry - s.stop) / entry) * 100).toFixed(1) : null;
+						const rewardPct = s && entry ? Math.abs(((s.target - entry) / entry) * 100).toFixed(1) : null;
 						// Trade horizon straight from the engine (decision.entry_plan.duration).
 						const dur = c.decision.entry_plan?.duration;
 						const unit = (dur?.unit ?? "day").startsWith("h") ? "h" : "d";
@@ -58,14 +60,14 @@ export function CandidateTable({
 							<td className="p-3 text-right mono">${money(c.price)}</td>
 							<td className={`p-3 text-right ${c.change_pct >= 0 ? "text-long" : "text-short"}`}>{pct(c.change_pct)}</td>
 							<td className="p-3 text-right mono">{mult(c.rvol)}</td>
-							<td className="p-3 text-right mono">{num(c.setup.rr)}</td>
-							<td className="p-3 text-right mono">${money(c.setup.entry)}</td>
+							<td className="p-3 text-right mono">{num(s?.rr)}</td>
+							<td className="p-3 text-right mono">{s ? `$${money(s.entry)}` : "—"}</td>
 							<td className="p-3 text-right mono text-short whitespace-nowrap">
-								${money(c.setup.stop)}
+								{s ? `$${money(s.stop)}` : "—"}
 								{riskPct ? <span className="ml-1 text-[10px] text-muted">−{riskPct}%</span> : null}
 							</td>
 							<td className="p-3 text-right mono text-long whitespace-nowrap">
-								${money(c.setup.target)}
+								{s ? `$${money(s.target)}` : "—"}
 								{rewardPct ? <span className="ml-1 text-[10px] text-muted">+{rewardPct}%</span> : null}
 							</td>
 							<td className="p-3 text-right mono whitespace-nowrap" title={dur?.valid_until ?? undefined}>
@@ -78,7 +80,7 @@ export function CandidateTable({
 									<span className="text-muted">—</span>
 								)}
 							</td>
-							<td className="p-3"><QualityGrade grade={c.quality.grade} /></td>
+							<td className="p-3">{c.quality ? <QualityGrade grade={c.quality.grade} /> : <span className="text-muted">—</span>}</td>
 							<td className="p-3">
 								<ConvictionMeter value={c.decision.conviction} />
 								<span className="mono text-xs text-muted">{c.decision.conviction}</span>
