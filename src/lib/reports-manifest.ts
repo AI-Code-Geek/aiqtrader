@@ -11,13 +11,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 4,
     "watchlist_name": "Information technology",
-    "updated_at": "2026-08-04T12:16:10.160621+00:00",
-    "version_count": 13,
-    "latest_version": "20260804T121610Z",
-    "latest_generated_at": "2026-08-04T12:16:10.160621+00:00",
-    "latest_candidate_count": 46,
+    "updated_at": "2026-08-05T04:51:39.584813+00:00",
+    "version_count": 14,
+    "latest_version": "20260805T045139Z",
+    "latest_generated_at": "2026-08-05T04:51:39.584813+00:00",
+    "latest_candidate_count": 49,
     "ai_versions": [],
     "diff_versions": [
+      "20260805T045139Z",
       "20260804T121610Z",
       "20260804T001626Z",
       "20260803T221657Z",
@@ -449,14 +450,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-08-04T12:16:10.160621+00:00",
-    "report_count": 13,
+    "updated_at": "2026-08-05T04:51:39.584813+00:00",
+    "report_count": 14,
     "latest": {
       "scheduleId": "008-information-technology",
-      "version": "20260804T121610Z",
-      "generated_at": "2026-08-04T12:16:10.160621+00:00",
+      "version": "20260805T045139Z",
+      "generated_at": "2026-08-05T04:51:39.584813+00:00",
       "persona": "swing",
-      "candidate_count": 46,
+      "candidate_count": 49,
       "hasAi": false
     }
   },
