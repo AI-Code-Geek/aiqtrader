@@ -11,13 +11,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 4,
     "watchlist_name": "Information technology",
-    "updated_at": "2026-08-04T22:15:26.847399+00:00",
+    "updated_at": "2026-08-05T00:15:14.623973+00:00",
     "version_count": 15,
-    "latest_version": "20260804T221526Z",
-    "latest_generated_at": "2026-08-04T22:15:26.847399+00:00",
+    "latest_version": "20260805T001514Z",
+    "latest_generated_at": "2026-08-05T00:15:14.623973+00:00",
     "latest_candidate_count": 0,
     "ai_versions": [],
     "diff_versions": [
+      "20260805T001514Z",
       "20260804T221526Z",
       "20260804T121610Z",
       "20260804T001626Z",
@@ -390,12 +391,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-08-04T22:15:26.847399+00:00",
+    "updated_at": "2026-08-05T00:15:14.623973+00:00",
     "report_count": 15,
     "latest": {
       "scheduleId": "008-information-technology",
-      "version": "20260804T221526Z",
-      "generated_at": "2026-08-04T22:15:26.847399+00:00",
+      "version": "20260805T001514Z",
+      "generated_at": "2026-08-05T00:15:14.623973+00:00",
       "persona": "swing",
       "candidate_count": 0,
       "hasAi": false
