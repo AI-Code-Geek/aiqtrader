@@ -134,11 +134,37 @@ export function SymbolDetailClient({
 		return out;
 	}, [decision]);
 
+	// The run picker belongs in BOTH branches. A symbol is pre-rendered if it had a decision in ANY
+	// retained run (reports-source.symbolsAcrossRuns), so a reader can legitimately land here on a run
+	// that doesn't cover it — and the fix for that is to switch runs, which needs this control. Hiding
+	// it behind `decision` made "no detail in this run" a dead end.
+	const runPicker = (
+		<div className="flex items-center gap-2">
+			<label className="text-sm text-muted">Run</label>
+			<select
+				value={version}
+				onChange={(e) => setVersion(e.target.value)}
+				className="rounded-md border border-border bg-surface px-2 py-1 text-sm"
+			>
+				{index.versions.map((v, i) => (
+					<option key={v.version} value={i === 0 ? "latest" : v.version}>
+						{i === 0 ? "Latest · " : ""}{time(v.generated_at)}
+					</option>
+				))}
+			</select>
+		</div>
+	);
+
 	if (!decision) {
 		return (
-			<div className="mx-auto max-w-7xl px-4 py-8">
-				<Link href={`/app/${scheduleId}`} className="text-sm text-brand">← Back to dashboard</Link>
-				<p className="mt-4 text-muted">No decision detail for {symbol} in this run.</p>
+			<div className="mx-auto max-w-7xl px-4 py-4">
+				<div className="mb-3 flex items-center justify-between gap-2">
+					<Link href={`/app/${scheduleId}`} className="text-sm text-brand">← Dashboard</Link>
+					{runPicker}
+				</div>
+				<p className="mt-8 text-center text-muted">
+					{loading ? "Loading…" : <>No decision for {symbol} in this run — pick another run above.</>}
+				</p>
 			</div>
 		);
 	}
@@ -147,20 +173,7 @@ export function SymbolDetailClient({
 		<div className="mx-auto max-w-7xl px-4 py-4">
 			<div className="mb-3 flex items-center justify-between gap-2">
 				<Link href={`/app/${scheduleId}`} className="text-sm text-brand">← Dashboard</Link>
-				<div className="flex items-center gap-2">
-					<label className="text-sm text-muted">Run</label>
-					<select
-						value={version}
-						onChange={(e) => setVersion(e.target.value)}
-						className="rounded-md border border-border bg-surface px-2 py-1 text-sm"
-					>
-						{index.versions.map((v, i) => (
-							<option key={v.version} value={i === 0 ? "latest" : v.version}>
-								{i === 0 ? "Latest · " : ""}{time(v.generated_at)}
-							</option>
-						))}
-					</select>
-				</div>
+				{runPicker}
 			</div>
 
 			<SymbolHero d={decision} />

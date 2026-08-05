@@ -114,6 +114,38 @@ export function sliceReportForSymbol(report: Report, symbol: string): Report {
 	};
 }
 
+/**
+ * Every symbol that has a decision in ANY retained run of a schedule, not just the latest.
+ *
+ * This is what the symbol routes must pre-render. They used to read `latest.json` alone, but the Run
+ * picker lets a reader open an archived run, and its candidates link to symbols that may have dropped
+ * out of the newest one — with `dynamicParams = false` those links 404. Worse, when a run publishes
+ * with `decisions: {}` (the 2026-08-04 empty-report incident) the latest-only set is EMPTY and the
+ * build emits no symbol pages at all, so every link on the site 404s.
+ *
+ * Reading each run is a build-time fs cost only, and the retention window keeps it to ~13 runs per
+ * schedule. Falls back to whatever it can read — one unreadable run must not empty the whole set.
+ */
+export async function symbolsAcrossRuns(scheduleId: string): Promise<string[]> {
+	const symbols = new Set<string>();
+	let versions: string[] = [];
+	try {
+		versions = (await getIndex(scheduleId)).versions.map((v) => v.version);
+	} catch {
+		versions = [];
+	}
+	// "latest" too: a run can be the current latest.json before it appears in index.json.
+	for (const v of ["latest", ...versions]) {
+		try {
+			const report = await getReport(scheduleId, v);
+			for (const s of Object.keys(report.decisions ?? {})) symbols.add(s);
+		} catch {
+			// pruned, archived or unreadable — the other runs still contribute
+		}
+	}
+	return [...symbols].sort();
+}
+
 /** Load the run-to-run diff for a run, or null if it has none. Sibling `<version>.diff.json` (P9). */
 export async function getReportDiff(scheduleId: string, reportVersion: string): Promise<ReportDiff | null> {
 	try {
