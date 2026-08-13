@@ -11,13 +11,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 4,
     "watchlist_name": "Information technology",
-    "updated_at": "2026-08-12T00:16:12.236614+00:00",
-    "version_count": 12,
-    "latest_version": "20260812T001612Z",
-    "latest_generated_at": "2026-08-12T00:16:12.236614+00:00",
-    "latest_candidate_count": 46,
+    "updated_at": "2026-08-13T03:32:13.733878+00:00",
+    "version_count": 9,
+    "latest_version": "20260813T033213Z",
+    "latest_generated_at": "2026-08-13T03:32:13.733878+00:00",
+    "latest_candidate_count": 47,
     "ai_versions": [],
     "diff_versions": [
+      "20260813T033213Z",
       "20260812T001612Z",
       "20260811T221619Z",
       "20260811T121613Z",
@@ -64,6 +65,9 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260719T224217Z"
     ],
     "outcome_versions": [
+      "20260811T121613Z",
+      "20260811T001604Z",
+      "20260810T221620Z",
       "20260810T121609Z",
       "20260810T010124Z",
       "20260806T121614Z",
@@ -113,7 +117,7 @@ export const SCHEDULES: ScheduleMeta[] = [
     "watchlist_id": 5,
     "watchlist_name": "Financials",
     "updated_at": "2026-08-12T00:17:42.432595+00:00",
-    "version_count": 12,
+    "version_count": 8,
     "latest_version": "20260812T001742Z",
     "latest_generated_at": "2026-08-12T00:17:42.432595+00:00",
     "latest_candidate_count": 30,
@@ -202,7 +206,7 @@ export const SCHEDULES: ScheduleMeta[] = [
     "watchlist_id": 9,
     "watchlist_name": "Energy",
     "updated_at": "2026-08-12T00:19:23.128343+00:00",
-    "version_count": 12,
+    "version_count": 8,
     "latest_version": "20260812T001923Z",
     "latest_generated_at": "2026-08-12T00:19:23.128343+00:00",
     "latest_candidate_count": 15,
@@ -275,7 +279,7 @@ export const SCHEDULES: ScheduleMeta[] = [
     "watchlist_id": 7,
     "watchlist_name": "Industrials",
     "updated_at": "2026-08-12T00:21:43.713417+00:00",
-    "version_count": 12,
+    "version_count": 8,
     "latest_version": "20260812T002143Z",
     "latest_generated_at": "2026-08-12T00:21:43.713417+00:00",
     "latest_candidate_count": 29,
@@ -365,7 +369,7 @@ export const SCHEDULES: ScheduleMeta[] = [
     "watchlist_id": 8,
     "watchlist_name": "Utilities",
     "updated_at": "2026-08-12T00:23:32.081208+00:00",
-    "version_count": 12,
+    "version_count": 8,
     "latest_version": "20260812T002332Z",
     "latest_generated_at": "2026-08-12T00:23:32.081208+00:00",
     "latest_candidate_count": 21,
@@ -452,7 +456,7 @@ export const SCHEDULES: ScheduleMeta[] = [
     "watchlist_id": 6,
     "watchlist_name": "Health Care",
     "updated_at": "2026-08-12T00:25:46.467380+00:00",
-    "version_count": 12,
+    "version_count": 8,
     "latest_version": "20260812T002546Z",
     "latest_generated_at": "2026-08-12T00:25:46.467380+00:00",
     "latest_candidate_count": 34,
@@ -554,14 +558,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-08-12T00:16:12.236614+00:00",
-    "report_count": 12,
+    "updated_at": "2026-08-13T03:32:13.733878+00:00",
+    "report_count": 9,
     "latest": {
       "scheduleId": "008-information-technology",
-      "version": "20260812T001612Z",
-      "generated_at": "2026-08-12T00:16:12.236614+00:00",
+      "version": "20260813T033213Z",
+      "generated_at": "2026-08-13T03:32:13.733878+00:00",
       "persona": "swing",
-      "candidate_count": 46,
+      "candidate_count": 47,
       "hasAi": false
     }
   },
@@ -576,7 +580,7 @@ export const WATCHLISTS: WatchlistMeta[] = [
       "swing"
     ],
     "updated_at": "2026-08-12T00:17:42.432595+00:00",
-    "report_count": 12,
+    "report_count": 8,
     "latest": {
       "scheduleId": "009-financials",
       "version": "20260812T001742Z",
@@ -597,7 +601,7 @@ export const WATCHLISTS: WatchlistMeta[] = [
       "swing"
     ],
     "updated_at": "2026-08-12T00:25:46.467380+00:00",
-    "report_count": 12,
+    "report_count": 8,
     "latest": {
       "scheduleId": "013-health-care",
       "version": "20260812T002546Z",
@@ -618,7 +622,7 @@ export const WATCHLISTS: WatchlistMeta[] = [
       "swing"
     ],
     "updated_at": "2026-08-12T00:21:43.713417+00:00",
-    "report_count": 12,
+    "report_count": 8,
     "latest": {
       "scheduleId": "011-industrials",
       "version": "20260812T002143Z",
@@ -639,7 +643,7 @@ export const WATCHLISTS: WatchlistMeta[] = [
       "swing"
     ],
     "updated_at": "2026-08-12T00:23:32.081208+00:00",
-    "report_count": 12,
+    "report_count": 8,
     "latest": {
       "scheduleId": "012-utilities",
       "version": "20260812T002332Z",
@@ -660,7 +664,7 @@ export const WATCHLISTS: WatchlistMeta[] = [
       "swing"
     ],
     "updated_at": "2026-08-12T00:19:23.128343+00:00",
-    "report_count": 12,
+    "report_count": 8,
     "latest": {
       "scheduleId": "010-energy",
       "version": "20260812T001923Z",
