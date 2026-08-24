@@ -373,13 +373,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 7,
     "watchlist_name": "Industrials",
-    "updated_at": "2026-08-21T12:21:40.142634+00:00",
+    "updated_at": "2026-08-24T12:21:48.804787+00:00",
     "version_count": 13,
-    "latest_version": "20260821T122140Z",
-    "latest_generated_at": "2026-08-21T12:21:40.142634+00:00",
-    "latest_candidate_count": 30,
+    "latest_version": "20260824T122148Z",
+    "latest_generated_at": "2026-08-24T12:21:48.804787+00:00",
+    "latest_candidate_count": 33,
     "ai_versions": [],
     "diff_versions": [
+      "20260824T122148Z",
       "20260821T122140Z",
       "20260821T002138Z",
       "20260820T222144Z",
@@ -446,6 +447,7 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260719T224702Z"
     ],
     "outcome_versions": [
+      "20260820T122148Z",
       "20260820T002143Z",
       "20260819T222150Z",
       "20260819T122141Z",
@@ -497,7 +499,7 @@ export const SCHEDULES: ScheduleMeta[] = [
     "watchlist_id": 8,
     "watchlist_name": "Utilities",
     "updated_at": "2026-08-21T12:23:26.103077+00:00",
-    "version_count": 13,
+    "version_count": 12,
     "latest_version": "20260821T122326Z",
     "latest_generated_at": "2026-08-21T12:23:26.103077+00:00",
     "latest_candidate_count": 19,
@@ -893,14 +895,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-08-21T12:21:40.142634+00:00",
+    "updated_at": "2026-08-24T12:21:48.804787+00:00",
     "report_count": 13,
     "latest": {
       "scheduleId": "011-industrials",
-      "version": "20260821T122140Z",
-      "generated_at": "2026-08-21T12:21:40.142634+00:00",
+      "version": "20260824T122148Z",
+      "generated_at": "2026-08-24T12:21:48.804787+00:00",
       "persona": "swing",
-      "candidate_count": 30,
+      "candidate_count": 33,
       "hasAi": false
     }
   },
@@ -915,7 +917,7 @@ export const WATCHLISTS: WatchlistMeta[] = [
       "swing"
     ],
     "updated_at": "2026-08-21T12:23:26.103077+00:00",
-    "report_count": 13,
+    "report_count": 12,
     "latest": {
       "scheduleId": "012-utilities",
       "version": "20260821T122326Z",
