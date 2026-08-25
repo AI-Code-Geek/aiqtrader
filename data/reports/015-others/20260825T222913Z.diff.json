@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "kind": "report_diff",
+  "report_version": "20260825T222913Z",
+  "previous_version": "20260825T122906Z",
+  "generated_at": "2026-08-25T22:29:13.450790+00:00",
+  "previous_generated_at": "2026-08-25T12:29:06.994755+00:00",
+  "gap_hours": 10.0,
+  "baseline": false,
+  "schedule_id": 15,
+  "watchlist_id": 11,
+  "persona": "swing",
+  "thresholds": {
+    "conviction": 5,
+    "rank_score": 3.0,
+    "confirmation": 10,
+    "trap_risk": 10,
+    "rr": 0.3,
+    "level_atr_mult": 0.25,
+    "level_pct_floor": 1.0
+  },
+  "universe": {
+    "added": [],
+    "removed": [],
+    "count_from": 5,
+    "count_to": 5,
+    "changed": false
+  },
+  "symbols": {
+    "COIN": {
+      "status": "changed",
+      "verdict": {
+        "from": "arm",
+        "to": "take",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 49,
+        "to": 86,
+        "delta": 37
+      },
+      "rank_score": {
+        "from": 15.5,
+        "to": 42.35,
+        "delta": 26.85
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "A"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 0,
+          "delta": -53
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 179.33,
+          "to": 187.225,
+          "delta": 7.895,
+          "pct": 4.4
+        },
+        "stop": {
+          "from": 187.6079,
+          "to": 177.3753,
+          "delta": -10.2326,
+          "pct": -5.71
+        },
+        "target": {
+          "from": 177.74,
+          "to": 234.1461,
+          "delta": 56.4061,
+          "pct": 31.45
+        },
+        "rr": {
+          "from": 0.19,
+          "to": 4.76,
+          "delta": 4.57
+        },
+        "moved": true
+      },
+      "flags_added": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "resolved": [
+          "reclaim the last higher-low 139.21"
+        ],
+        "added_missing": [
+          "reclaim the last lower-high 155.23"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 155.23",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 179.33,
+        "to": 187.225,
+        "pct": 4.4
+      },
+      "derived": {
+        "trigger_crossed": true,
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 0,
+          "to": 2
+        }
+      },
+      "highlights": [
+        "Promoted ARM \u2192 TAKE",
+        "Confirmation advanced \u2014 reclaim the last higher-low 139.21 satisfied",
+        "R:R 0.19 \u2192 4.76",
+        "Price crossed the entry trigger"
+      ]
+    }
+  },
+  "summary": {
+    "candidates_from": 1,
+    "candidates_to": 1,
+    "new": 0,
+    "dropped": 0,
+    "persisted": 1,
+    "changed": 1,
+    "unchanged": 0,
+    "promotions": 1,
+    "demotions": 0,
+    "new_takes": [
+      "COIN"
+    ],
+    "lost_takes": [],
+    "by_verdict_from": {
+      "arm": 1
+    },
+    "by_verdict_to": {
+      "take": 1
+    },
+    "material": true
+  },
+  "highlights": [
+    {
+      "rank": 1,
+      "kind": "new_take",
+      "symbol": "COIN",
+      "text": "COIN became TAKE \u2014 the actionable event"
+    },
+    {
+      "rank": 2,
+      "kind": "trigger_crossed",
+      "symbol": "COIN",
+      "text": "COIN \u2014 price crossed the entry trigger"
+    },
+    {
+      "rank": 3,
+      "kind": "confirmation",
+      "symbol": "COIN",
+      "text": "COIN \u2014 confirmation advanced (reclaim the last higher-low 139.21)"
+    }
+  ]
+}
