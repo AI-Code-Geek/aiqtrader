@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "kind": "report_diff",
+  "report_version": "20260828T222913Z",
+  "previous_version": "20260828T122907Z",
+  "generated_at": "2026-08-28T22:29:13.371988+00:00",
+  "previous_generated_at": "2026-08-28T12:29:07.777140+00:00",
+  "gap_hours": 10.0,
+  "baseline": false,
+  "schedule_id": 15,
+  "watchlist_id": 11,
+  "persona": "swing",
+  "thresholds": {
+    "conviction": 5,
+    "rank_score": 3.0,
+    "confirmation": 10,
+    "trap_risk": 10,
+    "rr": 0.3,
+    "level_atr_mult": 0.25,
+    "level_pct_floor": 1.0
+  },
+  "universe": {
+    "added": [],
+    "removed": [],
+    "count_from": 5,
+    "count_to": 5,
+    "changed": false
+  },
+  "symbols": {
+    "COIN": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "take",
+        "conviction": 86,
+        "age_bars": 4
+      }
+    },
+    "SOFI": {
+      "status": "changed",
+      "verdict": {
+        "from": "arm",
+        "to": "watch",
+        "transition": "demotion"
+      },
+      "conviction": {
+        "from": 37,
+        "to": 62,
+        "delta": 25
+      },
+      "rank_score": {
+        "from": 11.7,
+        "to": 16.0,
+        "delta": 4.3
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 62,
+          "to": 0,
+          "delta": -62
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 19.17,
+          "to": 18.04,
+          "delta": -1.13,
+          "pct": -5.89
+        },
+        "stop": {
+          "from": 20.1572,
+          "to": 17.2055,
+          "delta": -2.9517,
+          "pct": -15.4
+        },
+        "target": {
+          "from": 17.645,
+          "to": 20.4581,
+          "delta": 2.8131,
+          "pct": 14.67
+        },
+        "rr": {
+          "from": 1.54,
+          "to": 2.9,
+          "delta": 1.36
+        },
+        "moved": true
+      },
+      "flags_added": [
+        "take_small_block"
+      ],
+      "confirmation": {
+        "resolved": [
+          "reclaim the last higher-low 17.64"
+        ],
+        "added_missing": [
+          "reclaim the last lower-high 18.85"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 18.85",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 19.17,
+        "to": 18.04,
+        "pct": -5.89
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0
+      },
+      "highlights": [
+        "Demoted ARM \u2192 WATCH",
+        "Confirmation advanced \u2014 reclaim the last higher-low 17.64 satisfied",
+        "R:R 1.54 \u2192 2.9"
+      ]
+    }
+  },
+  "summary": {
+    "candidates_from": 2,
+    "candidates_to": 1,
+    "new": 0,
+    "dropped": 1,
+    "persisted": 1,
+    "changed": 1,
+    "unchanged": 0,
+    "promotions": 0,
+    "demotions": 1,
+    "new_takes": [],
+    "lost_takes": [
+      "COIN"
+    ],
+    "by_verdict_from": {
+      "take": 1,
+      "arm": 1
+    },
+    "by_verdict_to": {
+      "watch": 1
+    },
+    "material": true
+  },
+  "highlights": [
+    {
+      "rank": 1,
+      "kind": "lost_take",
+      "symbol": "COIN",
+      "text": "COIN lost its TAKE"
+    },
+    {
+      "rank": 2,
+      "kind": "demotion",
+      "symbol": "SOFI",
+      "text": "SOFI demoted ARM \u2192 WATCH"
+    },
+    {
+      "rank": 3,
+      "kind": "confirmation",
+      "symbol": "SOFI",
+      "text": "SOFI \u2014 confirmation advanced (reclaim the last higher-low 17.64)"
+    },
+    {
+      "rank": 4,
+      "kind": "dropped",
+      "symbol": "COIN",
+      "text": "COIN \u2014 dropped (no_longer_qualifies)"
+    }
+  ]
+}
