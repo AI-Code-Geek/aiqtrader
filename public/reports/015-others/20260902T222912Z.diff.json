@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "kind": "report_diff",
+  "report_version": "20260902T222912Z",
+  "previous_version": "20260901T001005Z",
+  "generated_at": "2026-09-02T22:29:12.952244+00:00",
+  "previous_generated_at": "2026-09-01T00:10:05.425634+00:00",
+  "gap_hours": 46.3,
+  "baseline": false,
+  "schedule_id": 15,
+  "watchlist_id": 11,
+  "persona": "swing",
+  "thresholds": {
+    "conviction": 5,
+    "rank_score": 3.0,
+    "confirmation": 10,
+    "trap_risk": 10,
+    "rr": 0.3,
+    "level_atr_mult": 0.25,
+    "level_pct_floor": 1.0
+  },
+  "universe": {
+    "added": [],
+    "removed": [],
+    "count_from": 5,
+    "count_to": 5,
+    "changed": false
+  },
+  "symbols": {
+    "COIN": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "take",
+        "conviction": 86,
+        "age_bars": 0
+      }
+    },
+    "SOFI": {
+      "status": "changed",
+      "conviction": {
+        "from": 52,
+        "to": 46,
+        "delta": -6
+      },
+      "rank_score": {
+        "from": 18.7,
+        "to": 14.5,
+        "delta": -4.2
+      },
+      "quality": {
+        "grade": {
+          "from": "D",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 69,
+          "to": 0,
+          "delta": -69
+        }
+      },
+      "plan": {
+        "rr": {
+          "from": 3.75,
+          "to": 4.21,
+          "delta": 0.46
+        },
+        "moved": false
+      },
+      "confirmation": {
+        "score": {
+          "from": 31,
+          "to": 15,
+          "delta": -16
+        },
+        "added_missing": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 18.85",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 17.89,
+        "to": 17.83,
+        "pct": -0.34
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0
+      },
+      "highlights": [
+        "R:R 3.75 \u2192 4.21"
+      ]
+    }
+  },
+  "summary": {
+    "candidates_from": 2,
+    "candidates_to": 1,
+    "new": 0,
+    "dropped": 1,
+    "persisted": 1,
+    "changed": 1,
+    "unchanged": 0,
+    "promotions": 0,
+    "demotions": 0,
+    "new_takes": [],
+    "lost_takes": [
+      "COIN"
+    ],
+    "by_verdict_from": {
+      "take": 1,
+      "arm": 1
+    },
+    "by_verdict_to": {
+      "arm": 1
+    },
+    "material": true
+  },
+  "market": {
+    "breadth": {
+      "from": 59,
+      "to": 54,
+      "delta": -5
+    }
+  },
+  "highlights": [
+    {
+      "rank": 1,
+      "kind": "lost_take",
+      "symbol": "COIN",
+      "text": "COIN lost its TAKE"
+    },
+    {
+      "rank": 2,
+      "kind": "dropped",
+      "symbol": "COIN",
+      "text": "COIN \u2014 dropped (no_longer_qualifies)"
+    }
+  ]
+}
