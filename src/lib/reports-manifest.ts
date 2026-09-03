@@ -11,13 +11,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 4,
     "watchlist_name": "Information technology",
-    "updated_at": "2026-09-03T12:16:15.857718+00:00",
+    "updated_at": "2026-09-03T22:16:31.368354+00:00",
     "version_count": 11,
-    "latest_version": "20260903T121615Z",
-    "latest_generated_at": "2026-09-03T12:16:15.857718+00:00",
-    "latest_candidate_count": 54,
+    "latest_version": "20260903T221631Z",
+    "latest_generated_at": "2026-09-03T22:16:31.368354+00:00",
+    "latest_candidate_count": 52,
     "ai_versions": [],
     "diff_versions": [
+      "20260903T221631Z",
       "20260903T121615Z",
       "20260903T001613Z",
       "20260902T221622Z",
@@ -105,6 +106,8 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260719T224217Z"
     ],
     "outcome_versions": [
+      "20260903T001613Z",
+      "20260902T221622Z",
       "20260901T003907Z",
       "20260901T001632Z",
       "20260901T000143Z",
@@ -190,13 +193,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 5,
     "watchlist_name": "Financials",
-    "updated_at": "2026-09-03T12:17:46.092814+00:00",
+    "updated_at": "2026-09-03T22:17:48.580128+00:00",
     "version_count": 10,
-    "latest_version": "20260903T121746Z",
-    "latest_generated_at": "2026-09-03T12:17:46.092814+00:00",
-    "latest_candidate_count": 38,
+    "latest_version": "20260903T221748Z",
+    "latest_generated_at": "2026-09-03T22:17:48.580128+00:00",
+    "latest_candidate_count": 31,
     "ai_versions": [],
     "diff_versions": [
+      "20260903T221748Z",
       "20260903T121746Z",
       "20260903T001745Z",
       "20260902T221751Z",
@@ -283,6 +287,8 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260719T224450Z"
     ],
     "outcome_versions": [
+      "20260903T001745Z",
+      "20260902T221751Z",
       "20260901T001745Z",
       "20260901T000333Z",
       "20260829T001740Z",
@@ -1072,14 +1078,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-03T12:16:15.857718+00:00",
+    "updated_at": "2026-09-03T22:16:31.368354+00:00",
     "report_count": 11,
     "latest": {
       "scheduleId": "008-information-technology",
-      "version": "20260903T121615Z",
-      "generated_at": "2026-09-03T12:16:15.857718+00:00",
+      "version": "20260903T221631Z",
+      "generated_at": "2026-09-03T22:16:31.368354+00:00",
       "persona": "swing",
-      "candidate_count": 54,
+      "candidate_count": 52,
       "hasAi": false
     }
   },
@@ -1093,14 +1099,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-03T12:17:46.092814+00:00",
+    "updated_at": "2026-09-03T22:17:48.580128+00:00",
     "report_count": 10,
     "latest": {
       "scheduleId": "009-financials",
-      "version": "20260903T121746Z",
-      "generated_at": "2026-09-03T12:17:46.092814+00:00",
+      "version": "20260903T221748Z",
+      "generated_at": "2026-09-03T22:17:48.580128+00:00",
       "persona": "swing",
-      "candidate_count": 38,
+      "candidate_count": 31,
       "hasAi": false
     }
   },
