@@ -1,7 +1,7 @@
 {
   "schema_version": 4,
-  "report_version": "20260904T222913Z",
-  "generated_at": "2026-09-04T22:29:13.348750+00:00",
+  "report_version": "20260905T002906Z",
+  "generated_at": "2026-09-05T00:29:06.703448+00:00",
   "schedule": {
     "id": 15,
     "name": "Others",
@@ -23,7 +23,7 @@
     "1Week"
   ],
   "data_health": {
-    "checked_at": "2026-09-04T22:29:06.603297+00:00",
+    "checked_at": "2026-09-05T00:29:00.044242+00:00",
     "timeframes": [
       "1Hour",
       "1Day",
@@ -53,10 +53,7 @@
         }
       }
     },
-    "synced": {
-      "1Hour": 4,
-      "1Day": 4
-    },
+    "synced": {},
     "stale": {},
     "ok": true
   },
@@ -225,20 +222,20 @@
         "indexes_down": 0,
         "offensive_leading": true
       },
-      "computed_at": "2026-09-04T22:29:11.826691+00:00"
+      "computed_at": "2026-09-05T00:29:05.213082+00:00"
     },
     "breadth": {
       "available": true,
       "timeframe": "1Day",
       "analyzed": 575,
       "pct_above_50ma": 48.7,
-      "pct_above_200ma": 60.7,
+      "pct_above_200ma": 60.9,
       "advancers": 187,
       "decliners": 384,
       "new_high_20d": 0,
       "new_low_20d": 3,
       "breadth_score": 55,
-      "computed_at": "2026-09-04T22:27:37.925793+00:00"
+      "computed_at": "2026-09-05T00:27:29.821239+00:00"
     }
   },
   "candidates": [
@@ -293,7 +290,7 @@
         "context": "with_trend",
         "context_tone": "with-trend",
         "context_label": "WITH TREND",
-        "htf_lean": "neutral",
+        "htf_lean": "bullish",
         "size_factor": 1.0,
         "confirmation": {
           "score": 31,
@@ -352,10 +349,10 @@
             "note": "Market vol calm (VIXY 17.0, 0th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Friday",
-            "dow": 4,
-            "phase": "retail",
-            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
+            "day": "Saturday",
+            "dow": 5,
+            "phase": "mixed",
+            "note": "Mid-week \u2014 no strong day-of-week bias."
           }
         },
         "rank_score": 29.5,
@@ -470,49 +467,7 @@
               "t1_sub_1r": false
             }
           },
-          "entry_pullback": {
-            "label": "Bounce",
-            "type": "limit",
-            "tactic": "pullback",
-            "zone": {
-              "low": 18.4894,
-              "high": 18.9106
-            },
-            "trigger": 18.7,
-            "stop": 18.7562,
-            "target": 17.8715,
-            "rr": 14.74,
-            "fill_odds": {
-              "score": 0.77,
-              "label": "high",
-              "atr_away": 0.58
-            },
-            "note": "Limit: short a rally back into value/resistance; a rejection bar confirms.",
-            "ladder": {
-              "targets": [
-                {
-                  "level": 17.645,
-                  "rr": 18.77,
-                  "basis": "next_support",
-                  "pct": 50.0,
-                  "milestone": "T1"
-                },
-                {
-                  "level": 17.095,
-                  "rr": 28.56,
-                  "basis": "next_support",
-                  "pct": 50.0,
-                  "milestone": "T2"
-                }
-              ],
-              "rr1": 18.77,
-              "rr2": 28.56,
-              "rr_blended": 23.66,
-              "scale_out": "Take 50% @ T1 \u2192 stop to breakeven \u2192 run 50% to T2",
-              "capped": false,
-              "t1_sub_1r": false
-            }
-          },
+          "entry_pullback": null,
           "duration": {
             "expected_bars": 2,
             "max_bars": 5,
@@ -540,28 +495,11 @@
               "rr": 0.63,
               "odds": "low",
               "odds_kind": "chase",
-              "primary": false
-            },
-            {
-              "kind": "pullback",
-              "label": "Pullback \u00b7 better price",
-              "plain": "Wait for a bounce back into value for a better price and tighter risk \u2014 may never fill.",
-              "order": "limit",
-              "trigger": 18.7,
-              "zone": {
-                "low": 18.4894,
-                "high": 18.9106
-              },
-              "stop": 18.7562,
-              "target": 17.8715,
-              "rr": 14.74,
-              "odds": "high",
-              "odds_kind": "fill",
               "primary": true
             }
           ],
-          "primary_kind": "pullback",
-          "governing_rr": 14.74
+          "primary_kind": "now",
+          "governing_rr": 0.63
         },
         "sizing": null,
         "event_block": null,
@@ -570,15 +508,15 @@
         "take_small_block": null,
         "htf_agree": false,
         "phase": null,
-        "reason": "Short RSI Divergence Reversal with a strong bearish tape (0.0); higher-TF neutral. Trigger and evidence agree.",
+        "reason": "Short RSI Divergence Reversal with a strong bearish tape (0.0); higher-TF bullish. Trigger and evidence agree.",
         "htf": {
-          "lean": "neutral",
-          "score": 50.0,
-          "strength": "weak",
+          "lean": "bullish",
+          "score": 75.0,
+          "strength": "strong",
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-09-04T22:29:08.090163+00:00",
+          "computed_at": "2026-09-05T00:29:01.482441+00:00",
           "wall_atr": 3.919
         },
         "position_gate": {
@@ -716,7 +654,7 @@
         "context": "with_trend",
         "context_tone": "with-trend",
         "context_label": "WITH TREND",
-        "htf_lean": "neutral",
+        "htf_lean": "bullish",
         "size_factor": 1.0,
         "confirmation": {
           "score": 31,
@@ -775,10 +713,10 @@
             "note": "Market vol calm (VIXY 17.0, 0th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Friday",
-            "dow": 4,
-            "phase": "retail",
-            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
+            "day": "Saturday",
+            "dow": 5,
+            "phase": "mixed",
+            "note": "Mid-week \u2014 no strong day-of-week bias."
           }
         },
         "rank_score": 29.5,
@@ -893,49 +831,7 @@
               "t1_sub_1r": false
             }
           },
-          "entry_pullback": {
-            "label": "Bounce",
-            "type": "limit",
-            "tactic": "pullback",
-            "zone": {
-              "low": 18.4894,
-              "high": 18.9106
-            },
-            "trigger": 18.7,
-            "stop": 18.7562,
-            "target": 17.8715,
-            "rr": 14.74,
-            "fill_odds": {
-              "score": 0.77,
-              "label": "high",
-              "atr_away": 0.58
-            },
-            "note": "Limit: short a rally back into value/resistance; a rejection bar confirms.",
-            "ladder": {
-              "targets": [
-                {
-                  "level": 17.645,
-                  "rr": 18.77,
-                  "basis": "next_support",
-                  "pct": 50.0,
-                  "milestone": "T1"
-                },
-                {
-                  "level": 17.095,
-                  "rr": 28.56,
-                  "basis": "next_support",
-                  "pct": 50.0,
-                  "milestone": "T2"
-                }
-              ],
-              "rr1": 18.77,
-              "rr2": 28.56,
-              "rr_blended": 23.66,
-              "scale_out": "Take 50% @ T1 \u2192 stop to breakeven \u2192 run 50% to T2",
-              "capped": false,
-              "t1_sub_1r": false
-            }
-          },
+          "entry_pullback": null,
           "duration": {
             "expected_bars": 2,
             "max_bars": 5,
@@ -963,28 +859,11 @@
               "rr": 0.63,
               "odds": "low",
               "odds_kind": "chase",
-              "primary": false
-            },
-            {
-              "kind": "pullback",
-              "label": "Pullback \u00b7 better price",
-              "plain": "Wait for a bounce back into value for a better price and tighter risk \u2014 may never fill.",
-              "order": "limit",
-              "trigger": 18.7,
-              "zone": {
-                "low": 18.4894,
-                "high": 18.9106
-              },
-              "stop": 18.7562,
-              "target": 17.8715,
-              "rr": 14.74,
-              "odds": "high",
-              "odds_kind": "fill",
               "primary": true
             }
           ],
-          "primary_kind": "pullback",
-          "governing_rr": 14.74
+          "primary_kind": "now",
+          "governing_rr": 0.63
         },
         "sizing": null,
         "event_block": null,
@@ -993,15 +872,15 @@
         "take_small_block": null,
         "htf_agree": false,
         "phase": null,
-        "reason": "Short RSI Divergence Reversal with a strong bearish tape (0.0); higher-TF neutral. Trigger and evidence agree.",
+        "reason": "Short RSI Divergence Reversal with a strong bearish tape (0.0); higher-TF bullish. Trigger and evidence agree.",
         "htf": {
-          "lean": "neutral",
-          "score": 50.0,
-          "strength": "weak",
+          "lean": "bullish",
+          "score": 75.0,
+          "strength": "strong",
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-09-04T22:29:12.665218+00:00",
+          "computed_at": "2026-09-05T00:29:06.052455+00:00",
           "wall_atr": 3.919
         },
         "provenance": {
@@ -1015,7 +894,7 @@
           "feature_set_version": "fs-1",
           "model_version": "xgb-20260729-044256",
           "engine_version": "1.0.0",
-          "computed_at": "2026-09-04T22:29:12.975474+00:00"
+          "computed_at": "2026-09-05T00:29:06.352446+00:00"
         },
         "integrity": {
           "verdict": "READY",
@@ -1101,87 +980,6 @@
               "severity": "error",
               "expected": "rr\u22481.81",
               "actual": 1.81,
-              "detail": "each ladder leg's R:R must equal its own recompute",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_001:entry_pullback",
-              "ok": true,
-              "severity": "error",
-              "expected": "stop>entry",
-              "actual": "entry=18.7,stop=18.7562",
-              "detail": "stop must sit on the invalidation side of entry for the trade direction",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_003:entry_pullback",
-              "ok": true,
-              "severity": "error",
-              "expected": "entry\u2260stop",
-              "actual": "entry=18.7,stop=18.7562",
-              "detail": "a zero-risk (entry==stop) plan is degenerate",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_002:entry_pullback",
-              "ok": true,
-              "severity": "error",
-              "expected": "target<entry",
-              "actual": "entry=18.7,target=17.8715",
-              "detail": "target must be in the trade direction from entry",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_010:entry_pullback",
-              "ok": true,
-              "severity": "error",
-              "expected": "rr\u224814.74",
-              "actual": 14.74,
-              "detail": "surfaced R:R must equal |target\u2212entry|/|entry\u2212stop| \u2014 this number gates 'take'",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_020:entry_pullback:T1",
-              "ok": true,
-              "severity": "error",
-              "expected": "target<entry",
-              "actual": "entry=18.7,T1=17.645",
-              "detail": "every ladder target must sit in the trade direction from entry",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_020:entry_pullback:T2",
-              "ok": true,
-              "severity": "error",
-              "expected": "target<entry",
-              "actual": "entry=18.7,T2=17.095",
-              "detail": "every ladder target must sit in the trade direction from entry",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_021:entry_pullback",
-              "ok": true,
-              "severity": "error",
-              "expected": "T1>T2>\u2026",
-              "actual": "[17.645, 17.095]",
-              "detail": "ladder targets must be ordered outward from entry (T2 beyond T1)",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_022:entry_pullback:T1",
-              "ok": true,
-              "severity": "error",
-              "expected": "rr\u224818.77",
-              "actual": 18.77,
-              "detail": "each ladder leg's R:R must equal its own recompute",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_022:entry_pullback:T2",
-              "ok": true,
-              "severity": "error",
-              "expected": "rr\u224828.56",
-              "actual": 28.56,
               "detail": "each ladder leg's R:R must equal its own recompute",
               "layer": "output"
             },
@@ -1285,42 +1083,6 @@
               "layer": "output"
             },
             {
-              "id": "OUT_060:pullback:trigger",
-              "ok": true,
-              "severity": "error",
-              "expected": "trigger=18.7",
-              "actual": 18.7,
-              "detail": "entries[pullback].trigger must mirror its source entry_pullback leg",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_060:pullback:stop",
-              "ok": true,
-              "severity": "error",
-              "expected": "stop=18.7562",
-              "actual": 18.7562,
-              "detail": "entries[pullback].stop must mirror its source entry_pullback leg",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_060:pullback:target",
-              "ok": true,
-              "severity": "error",
-              "expected": "target=17.8715",
-              "actual": 17.8715,
-              "detail": "entries[pullback].target must mirror its source entry_pullback leg",
-              "layer": "output"
-            },
-            {
-              "id": "OUT_060:pullback:rr",
-              "ok": true,
-              "severity": "error",
-              "expected": "rr=14.74",
-              "actual": 14.74,
-              "detail": "entries[pullback].rr must mirror its source entry_pullback leg",
-              "layer": "output"
-            },
-            {
               "id": "OUT_090:conviction",
               "ok": true,
               "severity": "warn",
@@ -1369,8 +1131,8 @@
               "id": "htf_lean_matches_provenance",
               "ok": true,
               "severity": "error",
-              "expected": "neutral",
-              "actual": "neutral",
+              "expected": "bullish",
+              "actual": "bullish",
               "detail": "the lean fused into the decision must equal the lean in its provenance block",
               "layer": "cross_source"
             },
@@ -1415,7 +1177,7 @@
               "ok": true,
               "severity": "warn",
               "expected": "finite number",
-              "actual": "50.0",
+              "actual": "75.0",
               "detail": "surfaced numeric must be finite",
               "layer": "cross_source"
             },
@@ -1440,8 +1202,8 @@
             "bar_count": 300,
             "last_bar_ts": "2026-09-04T04:00:00+00:00",
             "current_price": 18.215,
-            "validated_at": "2026-09-04T22:29:12.994472+00:00",
-            "validation_ms": 18.97,
+            "validated_at": "2026-09-05T00:29:06.371292+00:00",
+            "validation_ms": 18.81,
             "issues": []
           }
         },
@@ -1543,9 +1305,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-09-04T22:29:12.519098+00:00"
+        "checked_at": "2026-09-05T00:29:05.912628+00:00"
       },
-      "computed_at": "2026-09-04T22:29:13.006929+00:00"
+      "computed_at": "2026-09-05T00:29:06.383203+00:00"
     }
   },
   "integrity": {
@@ -1584,26 +1346,26 @@
           },
           "1Week": {
             "available": true,
-            "score": 50.0,
-            "bias": "neutral",
-            "direction": "neutral",
+            "score": 75.0,
+            "bias": "strong_bullish",
+            "direction": "bull",
             "trend_alignment": "mixed",
             "momentum_bias": "bullish",
-            "rsi": 48.06,
-            "macd_hist": 0.3385,
-            "price": 17.89
+            "rsi": 49.33,
+            "macd_hist": 0.3593,
+            "price": 18.215
           }
         },
         "alignment": {
-          "verdict": "leaning_bear",
-          "label": "Leaning Bearish",
-          "bull": 0,
+          "verdict": "conflicting",
+          "label": "Conflicting",
+          "bull": 1,
           "bear": 1,
-          "neutral": 2,
+          "neutral": 1,
           "available": 3,
-          "agreement": 66.7
+          "agreement": 33.3
         },
-        "computed_at": "2026-09-04T22:29:13.218478+00:00"
+        "computed_at": "2026-09-05T00:29:06.580474+00:00"
       },
       "price_volume": {
         "available": true,
@@ -6635,10 +6397,10 @@
         {
           "ts": "2026-08-31T04:00:00+00:00",
           "o": 17.74,
-          "h": 17.955,
-          "l": 17.55,
-          "c": 17.89,
-          "v": 1042441
+          "h": 18.705,
+          "l": 16.93,
+          "c": 18.215,
+          "v": 5842501
         }
       ]
     }
