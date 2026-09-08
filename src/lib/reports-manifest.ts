@@ -495,13 +495,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 7,
     "watchlist_name": "Industrials",
-    "updated_at": "2026-09-05T00:21:45.377855+00:00",
-    "version_count": 8,
-    "latest_version": "20260905T002145Z",
-    "latest_generated_at": "2026-09-05T00:21:45.377855+00:00",
+    "updated_at": "2026-09-08T12:21:46.646030+00:00",
+    "version_count": 9,
+    "latest_version": "20260908T122146Z",
+    "latest_generated_at": "2026-09-08T12:21:46.646030+00:00",
     "latest_candidate_count": 33,
     "ai_versions": [],
     "diff_versions": [
+      "20260908T122146Z",
       "20260905T002145Z",
       "20260904T222150Z",
       "20260904T122148Z",
@@ -655,13 +656,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 8,
     "watchlist_name": "Utilities",
-    "updated_at": "2026-09-05T00:23:25.426693+00:00",
-    "version_count": 8,
-    "latest_version": "20260905T002325Z",
-    "latest_generated_at": "2026-09-05T00:23:25.426693+00:00",
+    "updated_at": "2026-09-08T12:23:25.380990+00:00",
+    "version_count": 9,
+    "latest_version": "20260908T122325Z",
+    "latest_generated_at": "2026-09-08T12:23:25.380990+00:00",
     "latest_candidate_count": 18,
     "ai_versions": [],
     "diff_versions": [
+      "20260908T122325Z",
       "20260905T002325Z",
       "20260904T222333Z",
       "20260904T122327Z",
@@ -1191,12 +1193,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-05T00:21:45.377855+00:00",
-    "report_count": 8,
+    "updated_at": "2026-09-08T12:21:46.646030+00:00",
+    "report_count": 9,
     "latest": {
       "scheduleId": "011-industrials",
-      "version": "20260905T002145Z",
-      "generated_at": "2026-09-05T00:21:45.377855+00:00",
+      "version": "20260908T122146Z",
+      "generated_at": "2026-09-08T12:21:46.646030+00:00",
       "persona": "swing",
       "candidate_count": 33,
       "hasAi": false
@@ -1212,12 +1214,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-05T00:23:25.426693+00:00",
-    "report_count": 8,
+    "updated_at": "2026-09-08T12:23:25.380990+00:00",
+    "report_count": 9,
     "latest": {
       "scheduleId": "012-utilities",
-      "version": "20260905T002325Z",
-      "generated_at": "2026-09-05T00:23:25.426693+00:00",
+      "version": "20260908T122325Z",
+      "generated_at": "2026-09-08T12:23:25.380990+00:00",
       "persona": "swing",
       "candidate_count": 18,
       "hasAi": false
