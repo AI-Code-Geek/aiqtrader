@@ -1,7 +1,7 @@
 {
   "schema_version": 4,
-  "report_version": "20260905T002906Z",
-  "generated_at": "2026-09-05T00:29:06.703448+00:00",
+  "report_version": "20260908T122906Z",
+  "generated_at": "2026-09-08T12:29:06.742458+00:00",
   "schedule": {
     "id": 15,
     "name": "Others",
@@ -23,7 +23,7 @@
     "1Week"
   ],
   "data_health": {
-    "checked_at": "2026-09-05T00:29:00.044242+00:00",
+    "checked_at": "2026-09-08T12:29:00.050185+00:00",
     "timeframes": [
       "1Hour",
       "1Day",
@@ -222,7 +222,7 @@
         "indexes_down": 0,
         "offensive_leading": true
       },
-      "computed_at": "2026-09-05T00:29:05.213082+00:00"
+      "computed_at": "2026-09-08T12:29:05.187154+00:00"
     },
     "breadth": {
       "available": true,
@@ -235,7 +235,7 @@
       "new_high_20d": 0,
       "new_low_20d": 3,
       "breadth_score": 55,
-      "computed_at": "2026-09-05T00:27:29.821239+00:00"
+      "computed_at": "2026-09-08T12:27:33.584587+00:00"
     }
   },
   "candidates": [
@@ -349,10 +349,10 @@
             "note": "Market vol calm (VIXY 17.0, 0th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Saturday",
-            "dow": 5,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Tuesday",
+            "dow": 1,
+            "phase": "institutional",
+            "note": "Institutional flow day (Tue/Thu rebalance & hedging) \u2014 entries tend to fill on real volume."
           }
         },
         "rank_score": 29.5,
@@ -516,7 +516,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-09-05T00:29:01.482441+00:00",
+          "computed_at": "2026-09-08T12:29:01.490885+00:00",
           "wall_atr": 3.919
         },
         "position_gate": {
@@ -713,10 +713,10 @@
             "note": "Market vol calm (VIXY 17.0, 0th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Saturday",
-            "dow": 5,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Tuesday",
+            "dow": 1,
+            "phase": "institutional",
+            "note": "Institutional flow day (Tue/Thu rebalance & hedging) \u2014 entries tend to fill on real volume."
           }
         },
         "rank_score": 29.5,
@@ -880,7 +880,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-09-05T00:29:06.052455+00:00",
+          "computed_at": "2026-09-08T12:29:06.034999+00:00",
           "wall_atr": 3.919
         },
         "provenance": {
@@ -894,7 +894,7 @@
           "feature_set_version": "fs-1",
           "model_version": "xgb-20260729-044256",
           "engine_version": "1.0.0",
-          "computed_at": "2026-09-05T00:29:06.352446+00:00"
+          "computed_at": "2026-09-08T12:29:06.322531+00:00"
         },
         "integrity": {
           "verdict": "READY",
@@ -1195,16 +1195,24 @@
             "symbol": "SOFI",
             "timeframe": "1Day",
             "trading_readiness": "READY",
-            "confidence_score": 100.0,
+            "confidence_score": 95.0,
             "critical_count": 0,
-            "warning_count": 0,
+            "warning_count": 1,
             "info_count": 0,
             "bar_count": 300,
             "last_bar_ts": "2026-09-04T04:00:00+00:00",
             "current_price": 18.215,
-            "validated_at": "2026-09-05T00:29:06.371292+00:00",
-            "validation_ms": 18.81,
-            "issues": []
+            "validated_at": "2026-09-08T12:29:06.339155+00:00",
+            "validation_ms": 16.61,
+            "issues": [
+              {
+                "code": "OHLCV_008",
+                "severity": "WARNING",
+                "message": "Most recent bar is 104h old \u2014 data may be stale",
+                "detail": "Last bar: 2026-09-04T04:00:00+00:00",
+                "indicator": ""
+              }
+            ]
           }
         },
         "position_gate": {
@@ -1305,9 +1313,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-09-05T00:29:05.912628+00:00"
+        "checked_at": "2026-09-08T12:29:05.877554+00:00"
       },
-      "computed_at": "2026-09-05T00:29:06.383203+00:00"
+      "computed_at": "2026-09-08T12:29:06.351654+00:00"
     }
   },
   "integrity": {
@@ -1324,14 +1332,14 @@
         "summary": {
           "1Hour": {
             "available": true,
-            "score": 54.5,
-            "bias": "neutral",
-            "direction": "neutral",
+            "score": 66.7,
+            "bias": "bullish",
+            "direction": "bull",
             "trend_alignment": "mixed",
             "momentum_bias": "bearish",
-            "rsi": 52.02,
-            "macd_hist": -0.0106,
-            "price": 18.18
+            "rsi": 53.06,
+            "macd_hist": -0.0084,
+            "price": 18.215
           },
           "1Day": {
             "available": true,
@@ -1359,13 +1367,13 @@
         "alignment": {
           "verdict": "conflicting",
           "label": "Conflicting",
-          "bull": 1,
+          "bull": 2,
           "bear": 1,
-          "neutral": 1,
+          "neutral": 0,
           "available": 3,
-          "agreement": 33.3
+          "agreement": 66.7
         },
-        "computed_at": "2026-09-05T00:29:06.580474+00:00"
+        "computed_at": "2026-09-08T12:29:06.622299+00:00"
       },
       "price_volume": {
         "available": true,
@@ -3193,10 +3201,10 @@
         {
           "ts": "2026-09-04T19:00:00+00:00",
           "o": 18.175,
-          "h": 18.205,
-          "l": 18.175,
-          "c": 18.18,
-          "v": 21813
+          "h": 18.245,
+          "l": 18.16,
+          "c": 18.215,
+          "v": 254248
         }
       ],
       "1Day": [
