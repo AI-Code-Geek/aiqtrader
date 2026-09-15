@@ -18,6 +18,7 @@ export const SCHEDULES: ScheduleMeta[] = [
     "latest_candidate_count": 56,
     "ai_versions": [],
     "diff_versions": [
+      "20260915T001635Z",
       "20260914T221649Z",
       "20260914T121626Z",
       "20260912T001626Z",
@@ -227,13 +228,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 5,
     "watchlist_name": "Financials",
-    "updated_at": "2026-09-14T22:18:11.689010+00:00",
-    "version_count": 13,
-    "latest_version": "20260914T221811Z",
-    "latest_generated_at": "2026-09-14T22:18:11.689010+00:00",
+    "updated_at": "2026-09-15T00:17:57.575316+00:00",
+    "version_count": 14,
+    "latest_version": "20260915T001757Z",
+    "latest_generated_at": "2026-09-15T00:17:57.575316+00:00",
     "latest_candidate_count": 40,
     "ai_versions": [],
     "diff_versions": [
+      "20260915T001757Z",
       "20260914T221811Z",
       "20260914T121746Z",
       "20260912T001746Z",
@@ -1335,12 +1337,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-14T22:18:11.689010+00:00",
-    "report_count": 13,
+    "updated_at": "2026-09-15T00:17:57.575316+00:00",
+    "report_count": 14,
     "latest": {
       "scheduleId": "009-financials",
-      "version": "20260914T221811Z",
-      "generated_at": "2026-09-14T22:18:11.689010+00:00",
+      "version": "20260915T001757Z",
+      "generated_at": "2026-09-15T00:17:57.575316+00:00",
       "persona": "swing",
       "candidate_count": 40,
       "hasAi": false
