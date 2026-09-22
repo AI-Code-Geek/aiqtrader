@@ -103,6 +103,33 @@ export function sliceReportForDashboard(report: Report): Report {
 	};
 }
 
+/**
+ * Trim a full report for the MARKET page. It renders only `report.market` (+ persona/schedule/
+ * generated_at header fields) — never candidates, decisions, analysis or charts (verified against
+ * MarketClient/MarketOverview). Same rationale as `sliceReportForDashboard`: for the largest watchlists
+ * (e.g. information-technology) the untrimmed report's per-symbol OHLCV charts pushed this statically
+ * generated page's serialized flight payload past Cloudflare Workers' 25 MiB per-asset limit.
+ */
+export function sliceReportForMarket(report: Report): Report {
+	return {
+		...report,
+		candidates: [],
+		decisions: {},
+		analysis: undefined,
+		charts: {},
+	};
+}
+
+/**
+ * Trim a full AI report for the MARKET page. It renders only `market_overview` + `model` (verified
+ * against MarketClient/AiMarketSection) — `symbols` is a per-symbol narrative record (the heavy part)
+ * that this page never touches.
+ */
+export function sliceAiReportForMarket(ai: AiReport | null): AiReport | null {
+	if (!ai) return ai;
+	return { ...ai, symbols: {} };
+}
+
 export function sliceReportForSymbol(report: Report, symbol: string): Report {
 	return {
 		...report,

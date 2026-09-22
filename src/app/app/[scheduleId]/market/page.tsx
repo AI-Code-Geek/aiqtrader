@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAiReport, getIndex, getReport, listScheduleIds } from "@/lib/reports-source";
+import { getAiReport, getIndex, getReport, listScheduleIds, sliceAiReportForMarket, sliceReportForMarket } from "@/lib/reports-source";
 import { TopNav } from "@/components/TopNav";
 import { MarketClient } from "@/components/MarketClient";
 
@@ -18,7 +18,12 @@ export default async function MarketPage({ params }: { params: Promise<{ schedul
 		return (
 			<>
 				<TopNav active="market" scheduleId={scheduleId} subtitle={`${report.persona} · market`} />
-				<MarketClient scheduleId={scheduleId} index={index} initialReport={report} initialAi={ai} />
+				<MarketClient
+					scheduleId={scheduleId}
+					index={index}
+					initialReport={sliceReportForMarket(report)}
+					initialAi={sliceAiReportForMarket(ai)}
+				/>
 			</>
 		);
 	} catch {
