@@ -1186,13 +1186,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 10,
     "watchlist_name": "AI Infrastructure Leaders",
-    "updated_at": "2026-09-23T12:28:15.183386+00:00",
-    "version_count": 5,
-    "latest_version": "20260923T122815Z",
-    "latest_generated_at": "2026-09-23T12:28:15.183386+00:00",
+    "updated_at": "2026-09-23T22:28:23.576354+00:00",
+    "version_count": 6,
+    "latest_version": "20260923T222823Z",
+    "latest_generated_at": "2026-09-23T22:28:23.576354+00:00",
     "latest_candidate_count": 52,
     "ai_versions": [],
     "diff_versions": [
+      "20260923T222823Z",
       "20260923T122815Z",
       "20260923T002817Z",
       "20260922T222821Z",
@@ -1258,6 +1259,9 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260813T040636Z"
     ],
     "outcome_versions": [
+      "20260923T002817Z",
+      "20260922T222821Z",
+      "20260922T122817Z",
       "20260922T002816Z",
       "20260915T002822Z",
       "20260914T222832Z",
@@ -1305,13 +1309,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 11,
     "watchlist_name": "Others",
-    "updated_at": "2026-09-23T12:29:07.575556+00:00",
-    "version_count": 5,
-    "latest_version": "20260923T122907Z",
-    "latest_generated_at": "2026-09-23T12:29:07.575556+00:00",
-    "latest_candidate_count": 2,
+    "updated_at": "2026-09-23T22:29:13.364056+00:00",
+    "version_count": 6,
+    "latest_version": "20260923T222913Z",
+    "latest_generated_at": "2026-09-23T22:29:13.364056+00:00",
+    "latest_candidate_count": 1,
     "ai_versions": [],
     "diff_versions": [
+      "20260923T222913Z",
       "20260923T122907Z",
       "20260923T002907Z",
       "20260922T222914Z",
@@ -1525,12 +1530,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-23T12:28:15.183386+00:00",
-    "report_count": 5,
+    "updated_at": "2026-09-23T22:28:23.576354+00:00",
+    "report_count": 6,
     "latest": {
       "scheduleId": "014-ai-infrastructure-leaders",
-      "version": "20260923T122815Z",
-      "generated_at": "2026-09-23T12:28:15.183386+00:00",
+      "version": "20260923T222823Z",
+      "generated_at": "2026-09-23T22:28:23.576354+00:00",
       "persona": "swing",
       "candidate_count": 52,
       "hasAi": false
@@ -1546,14 +1551,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-23T12:29:07.575556+00:00",
-    "report_count": 5,
+    "updated_at": "2026-09-23T22:29:13.364056+00:00",
+    "report_count": 6,
     "latest": {
       "scheduleId": "015-others",
-      "version": "20260923T122907Z",
-      "generated_at": "2026-09-23T12:29:07.575556+00:00",
+      "version": "20260923T222913Z",
+      "generated_at": "2026-09-23T22:29:13.364056+00:00",
       "persona": "swing",
-      "candidate_count": 2,
+      "candidate_count": 1,
       "hasAi": false
     }
   }
