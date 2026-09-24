@@ -613,13 +613,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 7,
     "watchlist_name": "Industrials",
-    "updated_at": "2026-09-24T12:21:42.839876+00:00",
-    "version_count": 8,
-    "latest_version": "20260924T122142Z",
-    "latest_generated_at": "2026-09-24T12:21:42.839876+00:00",
-    "latest_candidate_count": 33,
+    "updated_at": "2026-09-24T22:21:53.697626+00:00",
+    "version_count": 9,
+    "latest_version": "20260924T222153Z",
+    "latest_generated_at": "2026-09-24T22:21:53.697626+00:00",
+    "latest_candidate_count": 35,
     "ai_versions": [],
     "diff_versions": [
+      "20260924T222153Z",
       "20260924T122142Z",
       "20260924T002144Z",
       "20260923T222149Z",
@@ -733,6 +734,7 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260719T224702Z"
     ],
     "outcome_versions": [
+      "20260923T122143Z",
       "20260923T002145Z",
       "20260922T222148Z",
       "20260922T122144Z",
@@ -813,13 +815,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 8,
     "watchlist_name": "Utilities",
-    "updated_at": "2026-09-24T12:23:29.316233+00:00",
-    "version_count": 8,
-    "latest_version": "20260924T122329Z",
-    "latest_generated_at": "2026-09-24T12:23:29.316233+00:00",
-    "latest_candidate_count": 21,
+    "updated_at": "2026-09-24T22:23:33.835599+00:00",
+    "version_count": 9,
+    "latest_version": "20260924T222333Z",
+    "latest_generated_at": "2026-09-24T22:23:33.835599+00:00",
+    "latest_candidate_count": 20,
     "ai_versions": [],
     "diff_versions": [
+      "20260924T222333Z",
       "20260924T122329Z",
       "20260924T002330Z",
       "20260923T222335Z",
@@ -1490,14 +1493,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-24T12:21:42.839876+00:00",
-    "report_count": 8,
+    "updated_at": "2026-09-24T22:21:53.697626+00:00",
+    "report_count": 9,
     "latest": {
       "scheduleId": "011-industrials",
-      "version": "20260924T122142Z",
-      "generated_at": "2026-09-24T12:21:42.839876+00:00",
+      "version": "20260924T222153Z",
+      "generated_at": "2026-09-24T22:21:53.697626+00:00",
       "persona": "swing",
-      "candidate_count": 33,
+      "candidate_count": 35,
       "hasAi": false
     }
   },
@@ -1511,14 +1514,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-09-24T12:23:29.316233+00:00",
-    "report_count": 8,
+    "updated_at": "2026-09-24T22:23:33.835599+00:00",
+    "report_count": 9,
     "latest": {
       "scheduleId": "012-utilities",
-      "version": "20260924T122329Z",
-      "generated_at": "2026-09-24T12:23:29.316233+00:00",
+      "version": "20260924T222333Z",
+      "generated_at": "2026-09-24T22:23:33.835599+00:00",
       "persona": "swing",
-      "candidate_count": 21,
+      "candidate_count": 20,
       "hasAi": false
     }
   },
