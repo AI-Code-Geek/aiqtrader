@@ -1122,13 +1122,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 6,
     "watchlist_name": "Health Care",
-    "updated_at": "2026-10-01T22:25:50.644124+00:00",
+    "updated_at": "2026-10-02T00:25:45.699506+00:00",
     "version_count": 15,
-    "latest_version": "20261001T222550Z",
-    "latest_generated_at": "2026-10-01T22:25:50.644124+00:00",
+    "latest_version": "20261002T002545Z",
+    "latest_generated_at": "2026-10-02T00:25:45.699506+00:00",
     "latest_candidate_count": 34,
     "ai_versions": [],
     "diff_versions": [
+      "20261002T002545Z",
       "20261001T222550Z",
       "20261001T122540Z",
       "20261001T002541Z",
@@ -1667,12 +1668,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-01T22:25:50.644124+00:00",
+    "updated_at": "2026-10-02T00:25:45.699506+00:00",
     "report_count": 15,
     "latest": {
       "scheduleId": "013-health-care",
-      "version": "20261001T222550Z",
-      "generated_at": "2026-10-01T22:25:50.644124+00:00",
+      "version": "20261002T002545Z",
+      "generated_at": "2026-10-02T00:25:45.699506+00:00",
       "persona": "swing",
       "candidate_count": 34,
       "hasAi": false
