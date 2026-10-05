@@ -1,0 +1,2362 @@
+{
+  "schema_version": 1,
+  "kind": "report_diff",
+  "report_version": "20261005T222550Z",
+  "previous_version": "20261005T122547Z",
+  "generated_at": "2026-10-05T22:25:50.729273+00:00",
+  "previous_generated_at": "2026-10-05T12:25:47.629502+00:00",
+  "gap_hours": 10.0,
+  "baseline": false,
+  "schedule_id": 13,
+  "watchlist_id": 6,
+  "persona": "swing",
+  "thresholds": {
+    "conviction": 5,
+    "rank_score": 3.0,
+    "confirmation": 10,
+    "trap_risk": 10,
+    "rr": 0.3,
+    "level_atr_mult": 0.25,
+    "level_pct_floor": 1.0
+  },
+  "universe": {
+    "added": [],
+    "removed": [],
+    "count_from": 49,
+    "count_to": 49,
+    "changed": false
+  },
+  "symbols": {
+    "BIO": {
+      "status": "new",
+      "reason": "new_signal",
+      "verdict": {
+        "to": "arm"
+      },
+      "snapshot": {
+        "label": "S/R Bounce",
+        "direction": "short",
+        "verdict": "arm",
+        "conviction": 37,
+        "rr": 5.3
+      }
+    },
+    "IDXX": {
+      "status": "new",
+      "reason": "new_signal",
+      "verdict": {
+        "to": "take"
+      },
+      "snapshot": {
+        "label": "S/R Breakout",
+        "direction": "long",
+        "verdict": "take",
+        "conviction": 100,
+        "rr": 8.59
+      }
+    },
+    "ISRG": {
+      "status": "new",
+      "reason": "new_signal",
+      "verdict": {
+        "to": "watch"
+      },
+      "snapshot": {
+        "label": "S/R Breakout",
+        "direction": "long",
+        "verdict": "watch",
+        "conviction": 86,
+        "rr": 2.12
+      }
+    },
+    "TFX": {
+      "status": "new",
+      "reason": "new_signal",
+      "verdict": {
+        "to": "watch"
+      },
+      "snapshot": {
+        "label": "S/R Bounce",
+        "direction": "short",
+        "verdict": "watch",
+        "conviction": 58,
+        "rr": 0.18
+      }
+    },
+    "UNH": {
+      "status": "new",
+      "reason": "new_signal",
+      "verdict": {
+        "to": "arm"
+      },
+      "snapshot": {
+        "label": "S/R Bounce",
+        "direction": "short",
+        "verdict": "arm",
+        "conviction": 58,
+        "rr": 2.94
+      }
+    },
+    "ABT": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "take",
+        "conviction": 86,
+        "age_bars": 0
+      }
+    },
+    "BSX": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "arm",
+        "conviction": 52,
+        "age_bars": 9
+      }
+    },
+    "CAH": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "watch",
+        "conviction": 86,
+        "age_bars": 0
+      }
+    },
+    "HCA": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "watch",
+        "conviction": 69,
+        "age_bars": 9
+      }
+    },
+    "MRK": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "take",
+        "conviction": 86,
+        "age_bars": 0
+      }
+    },
+    "TMO": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "avoid",
+        "conviction": 25,
+        "age_bars": 0
+      }
+    },
+    "ABBV": {
+      "status": "changed",
+      "conviction": {
+        "from": 69,
+        "to": 41,
+        "delta": -28
+      },
+      "rank_score": {
+        "from": 15.41,
+        "to": 9.32,
+        "delta": -6.09
+      },
+      "plan": {
+        "entry": {
+          "from": 262.915,
+          "to": 265.75,
+          "delta": 2.835,
+          "pct": 1.08
+        },
+        "stop": {
+          "from": 266.79,
+          "to": 270.2989,
+          "delta": 3.5089,
+          "pct": 1.33
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "take_small_block"
+      ],
+      "confirmation": {
+        "still_missing": [
+          "reclaim the last higher-low 247.43",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 262.915,
+        "to": 265.75,
+        "pct": 1.08
+      },
+      "derived": {
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0,
+        "age_bars": {
+          "from": 9,
+          "to": 10
+        }
+      }
+    },
+    "BDX": {
+      "status": "changed",
+      "conviction": {
+        "from": 72,
+        "to": 92,
+        "delta": 20
+      },
+      "rank_score": {
+        "from": 19.11,
+        "to": 5.95,
+        "delta": -13.16
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 62,
+          "to": 0,
+          "delta": -62
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 176.85,
+          "to": 180.56,
+          "delta": 3.71,
+          "pct": 2.1
+        },
+        "stop": {
+          "from": 173.2873,
+          "to": 177.6908,
+          "delta": 4.4035,
+          "pct": 2.49
+        },
+        "target": {
+          "from": 193.9888,
+          "to": 184.32,
+          "delta": -9.6688,
+          "pct": -5.47
+        },
+        "rr": {
+          "from": 4.81,
+          "to": 1.31,
+          "delta": -3.5
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "take_small_block"
+      ],
+      "confirmation": {
+        "score": {
+          "from": 31,
+          "to": 15,
+          "delta": -16
+        },
+        "resolved": [
+          "reclaim the last lower-high 186.63"
+        ],
+        "added_missing": [
+          "reclaim the last lower-high 184.32",
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 184.32",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 176.85,
+        "to": 180.56,
+        "pct": 2.1
+      },
+      "derived": {
+        "trigger_crossed": true,
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 3,
+          "to": 10
+        }
+      },
+      "highlights": [
+        "Confirmation advanced \u2014 reclaim the last lower-high 186.63 satisfied",
+        "R:R 4.81 \u2192 1.31",
+        "Price crossed the entry trigger"
+      ]
+    },
+    "BMY": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "avoid",
+        "transition": "demotion"
+      },
+      "conviction": {
+        "from": 68,
+        "to": 25,
+        "delta": -43
+      },
+      "rank_score": {
+        "from": 12.84,
+        "to": 1.26,
+        "delta": -11.58
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "D"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 69,
+          "delta": 16
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 61.16,
+          "to": 58.8,
+          "delta": -2.36,
+          "pct": -3.86
+        },
+        "stop": {
+          "from": 59.9146,
+          "to": 56.4115,
+          "delta": -3.5031,
+          "pct": -5.73
+        },
+        "target": {
+          "from": 64.8768,
+          "to": 61.7702,
+          "delta": -3.1066,
+          "pct": -5.08
+        },
+        "rr": {
+          "from": 2.98,
+          "to": 1.24,
+          "delta": -1.74
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "htf_agree",
+        "take_small_block"
+      ],
+      "confirmation": {
+        "resolved": [
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "added_missing": [
+          "pull back to support 57.22"
+        ],
+        "state": {
+          "from": "forming",
+          "to": "absent"
+        },
+        "still_missing": [
+          "pull back to support 57.22",
+          "reclaim the last lower-high 68.19",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 61.16,
+        "to": 58.8,
+        "pct": -3.86
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 5,
+          "to": 6
+        }
+      },
+      "highlights": [
+        "Demoted WATCH \u2192 AVOID",
+        "Trap risk 53 \u2192 69",
+        "Confirmation advanced \u2014 volume \u22651.2\u00d7 on the confirmation bar satisfied",
+        "R:R 2.98 \u2192 1.24"
+      ]
+    },
+    "CI": {
+      "status": "changed",
+      "verdict": {
+        "from": "arm",
+        "to": "watch",
+        "transition": "demotion"
+      },
+      "conviction": {
+        "from": 46,
+        "to": 69,
+        "delta": 23
+      },
+      "rank_score": {
+        "from": 7.83,
+        "to": 0.02,
+        "delta": -7.81
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "D"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 77,
+          "delta": 24
+        }
+      },
+      "plan": {
+        "stop": {
+          "from": 264.5995,
+          "to": 275.3997,
+          "delta": 10.8002,
+          "pct": 3.99
+        },
+        "target": {
+          "from": 284.8915,
+          "to": 270.655,
+          "delta": -14.2365,
+          "pct": -5.26
+        },
+        "rr": {
+          "from": 2.36,
+          "to": 0.15,
+          "delta": -2.21
+        },
+        "moved": true
+      },
+      "thesis_expired": {
+        "from": false,
+        "to": true
+      },
+      "confirmation": {
+        "resolved": [
+          "reclaim the last lower-high 290.82"
+        ],
+        "added_missing": [
+          "reclaim the last higher-low 272.49"
+        ],
+        "still_missing": [
+          "reclaim the last higher-low 272.49",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 270.635,
+        "to": 271.29,
+        "pct": 0.24
+      },
+      "derived": {
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0,
+        "age_bars": {
+          "from": 8,
+          "to": 10
+        }
+      },
+      "highlights": [
+        "Demoted ARM \u2192 WATCH",
+        "Trap risk 53 \u2192 77",
+        "Confirmation advanced \u2014 reclaim the last lower-high 290.82 satisfied",
+        "R:R 2.36 \u2192 0.15",
+        "Thesis expired"
+      ]
+    },
+    "CNC": {
+      "status": "changed",
+      "verdict": {
+        "from": "arm",
+        "to": "take",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 46,
+        "to": 86,
+        "delta": 40
+      },
+      "rank_score": {
+        "from": 9.76,
+        "to": 56.3,
+        "delta": 46.54
+      },
+      "quality": {
+        "grade": {
+          "from": "B",
+          "to": "A"
+        },
+        "trap_risk": {
+          "from": 43,
+          "to": 0,
+          "delta": -43
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 62.97,
+          "to": 64.29,
+          "delta": 1.32,
+          "pct": 2.1
+        },
+        "stop": {
+          "from": 60.8012,
+          "to": 62.8029,
+          "delta": 2.0017,
+          "pct": 3.18
+        },
+        "rr": {
+          "from": 3.57,
+          "to": 4.25,
+          "delta": 0.68
+        },
+        "moved": true
+      },
+      "confirmation": {
+        "score": {
+          "from": 15,
+          "to": 31,
+          "delta": 16
+        },
+        "resolved": [
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 69.61",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 62.97,
+        "to": 64.29,
+        "pct": 2.1
+      },
+      "derived": {
+        "trigger_crossed": true,
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 8,
+          "to": 0
+        }
+      },
+      "highlights": [
+        "Promoted ARM \u2192 TAKE",
+        "Confirmation advanced \u2014 volume \u22651.2\u00d7 on the confirmation bar satisfied",
+        "R:R 3.57 \u2192 4.25",
+        "Price crossed the entry trigger"
+      ]
+    },
+    "COR": {
+      "status": "changed",
+      "verdict": {
+        "from": "arm",
+        "to": "watch",
+        "transition": "demotion"
+      },
+      "conviction": {
+        "from": 52,
+        "to": 72,
+        "delta": 20
+      },
+      "quality": {
+        "grade": {
+          "from": "D",
+          "to": "C"
+        },
+        "trap_risk": {
+          "from": 77,
+          "to": 45,
+          "delta": -32
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 309.13,
+          "to": 314.905,
+          "delta": 5.775,
+          "pct": 1.87
+        },
+        "stop": {
+          "from": 304.5358,
+          "to": 310.5343,
+          "delta": 5.9985,
+          "pct": 1.94
+        },
+        "target": {
+          "from": 325.9086,
+          "to": 330.4741,
+          "delta": 4.5655,
+          "pct": 1.48
+        },
+        "moved": true
+      },
+      "flags_added": [
+        "htf_agree",
+        "take_small_block"
+      ],
+      "confirmation": {
+        "resolved": [
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "added_missing": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 338.56",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 309.13,
+        "to": 314.905,
+        "pct": 1.87
+      },
+      "derived": {
+        "trigger_crossed": true,
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 9,
+          "to": 10
+        }
+      },
+      "highlights": [
+        "Demoted ARM \u2192 WATCH",
+        "Confirmation advanced \u2014 volume \u22651.2\u00d7 on the confirmation bar satisfied",
+        "Price crossed the entry trigger"
+      ]
+    },
+    "DGX": {
+      "status": "changed",
+      "conviction": {
+        "from": 92,
+        "to": 77,
+        "delta": -15
+      },
+      "plan": {
+        "rr": {
+          "from": 1.0,
+          "to": 1.46,
+          "delta": 0.46
+        },
+        "moved": false
+      },
+      "confirmation": {
+        "score": {
+          "from": 15,
+          "to": 31,
+          "delta": 16
+        },
+        "resolved": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 248.62",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 233.245,
+        "to": 232.025,
+        "pct": -0.52
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 9,
+          "to": 10
+        }
+      },
+      "highlights": [
+        "Confirmation advanced \u2014 rejection / reclaim candle in your direction satisfied",
+        "R:R 1.0 \u2192 1.46"
+      ]
+    },
+    "ELV": {
+      "status": "changed",
+      "quality": {
+        "grade": {
+          "from": "B",
+          "to": "C"
+        },
+        "trap_risk": {
+          "from": 43,
+          "to": 53,
+          "delta": 10
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 386.45,
+          "to": 394.45,
+          "delta": 8.0,
+          "pct": 2.07
+        },
+        "stop": {
+          "from": 379.4591,
+          "to": 386.4533,
+          "delta": 6.9942,
+          "pct": 1.81
+        },
+        "rr": {
+          "from": 5.16,
+          "to": 3.54,
+          "delta": -1.62
+        },
+        "moved": true
+      },
+      "confirmation": {
+        "still_missing": [
+          "reclaim the last lower-high 426.39",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 386.45,
+        "to": 394.45,
+        "pct": 2.07
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 0,
+          "to": 1
+        }
+      },
+      "highlights": [
+        "Trap risk 43 \u2192 53",
+        "R:R 5.16 \u2192 3.54"
+      ]
+    },
+    "EW": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "arm",
+        "transition": "promotion"
+      },
+      "rank_score": {
+        "from": 2.54,
+        "to": 9.16,
+        "delta": 6.62
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 0,
+          "delta": -53
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 85.19,
+          "to": 87.23,
+          "delta": 2.04,
+          "pct": 2.39
+        },
+        "stop": {
+          "from": 87.1889,
+          "to": 88.3296,
+          "delta": 1.1407,
+          "pct": 1.34
+        },
+        "rr": {
+          "from": 0.81,
+          "to": 3.33,
+          "delta": 2.52
+        },
+        "moved": true
+      },
+      "flags_added": [
+        "take_small_block"
+      ],
+      "confirmation": {
+        "score": {
+          "from": 31,
+          "to": 15,
+          "delta": -16
+        },
+        "added_missing": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last higher-low 83.88",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 85.19,
+        "to": 87.23,
+        "pct": 2.39
+      },
+      "derived": {
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0,
+        "age_bars": {
+          "from": 9,
+          "to": 10
+        }
+      },
+      "highlights": [
+        "Promoted WATCH \u2192 ARM",
+        "R:R 0.81 \u2192 3.33"
+      ]
+    },
+    "HUM": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "arm",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 68,
+        "to": 41,
+        "delta": -27
+      },
+      "rank_score": {
+        "from": 9.43,
+        "to": 4.25,
+        "delta": -5.18
+      },
+      "quality": {
+        "grade": {
+          "from": "D",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 69,
+          "to": 0,
+          "delta": -69
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 388.56,
+          "to": 404.26,
+          "delta": 15.7,
+          "pct": 4.04
+        },
+        "stop": {
+          "from": 378.2538,
+          "to": 420.7922,
+          "delta": 42.5384,
+          "pct": 10.95
+        },
+        "target": {
+          "from": 417.3806,
+          "to": 385.445,
+          "delta": -31.9356,
+          "pct": -8.22
+        },
+        "rr": {
+          "from": 2.8,
+          "to": 1.14,
+          "delta": -1.66
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "score": {
+          "from": 15,
+          "to": 31,
+          "delta": 16
+        },
+        "resolved": [
+          "reclaim the last lower-high 413.24",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "added_missing": [
+          "reclaim the last higher-low 369.54"
+        ],
+        "still_missing": [
+          "reclaim the last higher-low 369.54",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 388.56,
+        "to": 404.26,
+        "pct": 4.04
+      },
+      "derived": {
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0
+      },
+      "highlights": [
+        "Promoted WATCH \u2192 ARM",
+        "Confirmation advanced \u2014 reclaim the last lower-high 413.24 satisfied",
+        "R:R 2.8 \u2192 1.14"
+      ]
+    },
+    "INCY": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "avoid",
+        "transition": "demotion"
+      },
+      "conviction": {
+        "from": 58,
+        "to": 29,
+        "delta": -29
+      },
+      "rank_score": {
+        "from": 17.1,
+        "to": 3.31,
+        "delta": -13.79
+      },
+      "plan": {
+        "entry": {
+          "from": 115.29,
+          "to": 114.06,
+          "delta": -1.23,
+          "pct": -1.07
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "resolved": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "added_missing": [
+          "pull back to support 110.94"
+        ],
+        "state": {
+          "from": "forming",
+          "to": "absent"
+        },
+        "still_missing": [
+          "pull back to support 110.94",
+          "reclaim the last lower-high 128.72"
+        ]
+      },
+      "price": {
+        "from": 115.29,
+        "to": 114.06,
+        "pct": -1.07
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 0,
+          "to": 1
+        }
+      },
+      "highlights": [
+        "Demoted WATCH \u2192 AVOID",
+        "Confirmation advanced \u2014 rejection / reclaim candle in your direction satisfied"
+      ]
+    },
+    "IQV": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "take",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 61,
+        "to": 86,
+        "delta": 25
+      },
+      "rank_score": {
+        "from": 10.24,
+        "to": 30.17,
+        "delta": 19.93
+      },
+      "plan": {
+        "entry": {
+          "from": 258.315,
+          "to": 266.04,
+          "delta": 7.725,
+          "pct": 2.99
+        },
+        "target": {
+          "from": 245.9473,
+          "to": 251.7118,
+          "delta": 5.7645,
+          "pct": 2.23
+        },
+        "rr": {
+          "from": 1.29,
+          "to": 3.3,
+          "delta": 2.01
+        },
+        "moved": true
+      },
+      "confirmation": {
+        "score": {
+          "from": 15,
+          "to": 31,
+          "delta": 16
+        },
+        "resolved": [
+          "pull back to resistance 271.62"
+        ],
+        "added_missing": [
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "state": {
+          "from": "absent",
+          "to": "forming"
+        },
+        "still_missing": [
+          "reclaim the last higher-low 253.04",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 258.315,
+        "to": 266.04,
+        "pct": 2.99
+      },
+      "derived": {
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0,
+        "age_bars": {
+          "from": 5,
+          "to": 9
+        }
+      },
+      "highlights": [
+        "Promoted WATCH \u2192 TAKE",
+        "Confirmation advanced \u2014 pull back to resistance 271.62 satisfied",
+        "R:R 1.29 \u2192 3.3"
+      ]
+    },
+    "JNJ": {
+      "status": "changed",
+      "verdict": {
+        "from": "avoid",
+        "to": "arm",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 54,
+        "to": 46,
+        "delta": -8
+      },
+      "rank_score": {
+        "from": 6.2,
+        "to": 14.5,
+        "delta": 8.3
+      },
+      "plan": {
+        "entry": {
+          "from": 256.025,
+          "to": 252.78,
+          "delta": -3.245,
+          "pct": -1.27
+        },
+        "target": {
+          "from": 266.6731,
+          "to": 279.1139,
+          "delta": 12.4408,
+          "pct": 4.86
+        },
+        "rr": {
+          "from": 1.68,
+          "to": 5.19,
+          "delta": 3.51
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "resolved": [
+          "pull back to support 250.62"
+        ],
+        "added_missing": [
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "state": {
+          "from": "absent",
+          "to": "forming"
+        },
+        "still_missing": [
+          "reclaim the last lower-high 275.21",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 256.025,
+        "to": 252.78,
+        "pct": -1.27
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0
+      },
+      "highlights": [
+        "Promoted AVOID \u2192 ARM",
+        "Confirmation advanced \u2014 pull back to support 250.62 satisfied",
+        "R:R 1.68 \u2192 5.19"
+      ]
+    },
+    "LH": {
+      "status": "changed",
+      "conviction": {
+        "from": 68,
+        "to": 56,
+        "delta": -12
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 27,
+          "delta": -26
+        }
+      },
+      "plan": {
+        "target": {
+          "from": 354.565,
+          "to": 341.74,
+          "delta": -12.825,
+          "pct": -4.16
+        },
+        "rr": {
+          "from": 7.22,
+          "to": 5.07,
+          "delta": -2.15
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "still_missing": [
+          "reclaim the last lower-high 341.74",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 308.495,
+        "to": 308.65,
+        "pct": 0.05
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 6,
+          "to": 5
+        }
+      },
+      "highlights": [
+        "R:R 7.22 \u2192 5.07"
+      ]
+    },
+    "LLY": {
+      "status": "changed",
+      "conviction": {
+        "from": 69,
+        "to": 92,
+        "delta": 23
+      },
+      "quality": {
+        "grade": {
+          "from": "D",
+          "to": "C"
+        },
+        "trap_risk": {
+          "from": 69,
+          "to": 53,
+          "delta": -16
+        }
+      },
+      "flags_added": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "score": {
+          "from": 15,
+          "to": 31,
+          "delta": 16
+        },
+        "resolved": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last higher-low 1113.5",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 1143.54,
+        "to": 1143.7,
+        "pct": 0.01
+      },
+      "derived": {
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0,
+        "age_bars": {
+          "from": 3,
+          "to": 4
+        }
+      },
+      "highlights": [
+        "Confirmation advanced \u2014 rejection / reclaim candle in your direction satisfied"
+      ]
+    },
+    "MCK": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "take_small",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 86,
+        "to": 69,
+        "delta": -17
+      },
+      "rank_score": {
+        "from": 25.3,
+        "to": 31.7,
+        "delta": 6.4
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "A"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 0,
+          "delta": -53
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 902.73,
+          "to": 915.89,
+          "delta": 13.16,
+          "pct": 1.46
+        },
+        "stop": {
+          "from": 868.615,
+          "to": 898.623,
+          "delta": 30.008,
+          "pct": 3.32
+        },
+        "target": {
+          "from": 953.4514,
+          "to": 974.1804,
+          "delta": 20.729,
+          "pct": 2.3
+        },
+        "rr": {
+          "from": 1.49,
+          "to": 3.38,
+          "delta": 1.89
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "score": {
+          "from": 31,
+          "to": 15,
+          "delta": -16
+        },
+        "resolved": [
+          "pull back to support 845.57"
+        ],
+        "added_missing": [
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "state": {
+          "from": "absent",
+          "to": "forming"
+        },
+        "still_missing": [
+          "reclaim the last lower-high 905.8",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 902.73,
+        "to": 915.89,
+        "pct": 1.46
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0
+      },
+      "highlights": [
+        "Promoted WATCH \u2192 TAKE_SMALL",
+        "Confirmation advanced \u2014 pull back to support 845.57 satisfied",
+        "R:R 1.49 \u2192 3.38"
+      ]
+    },
+    "MDT": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "take",
+        "transition": "promotion"
+      },
+      "rank_score": {
+        "from": 32.9,
+        "to": 25.8,
+        "delta": -7.1
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 40,
+          "delta": -13
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 86.35,
+          "to": 87.98,
+          "delta": 1.63,
+          "pct": 1.89
+        },
+        "stop": {
+          "from": 84.781,
+          "to": 86.3776,
+          "delta": 1.5966,
+          "pct": 1.85
+        },
+        "target": {
+          "from": 88.9967,
+          "to": 93.075,
+          "delta": 4.0783,
+          "pct": 4.72
+        },
+        "rr": {
+          "from": 1.69,
+          "to": 3.18,
+          "delta": 1.49
+        },
+        "moved": true
+      },
+      "confirmation": {
+        "score": {
+          "from": 46,
+          "to": 31,
+          "delta": -15
+        },
+        "still_missing": [
+          "reclaim the last lower-high 94.69",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 86.35,
+        "to": 87.98,
+        "pct": 1.89
+      },
+      "derived": {
+        "trigger_crossed": true,
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 0,
+          "to": 9
+        }
+      },
+      "highlights": [
+        "Promoted WATCH \u2192 TAKE",
+        "R:R 1.69 \u2192 3.18",
+        "Price crossed the entry trigger"
+      ]
+    },
+    "MTD": {
+      "status": "changed",
+      "verdict": {
+        "from": "arm",
+        "to": "watch",
+        "transition": "demotion"
+      },
+      "conviction": {
+        "from": 37,
+        "to": 86,
+        "delta": 49
+      },
+      "rank_score": {
+        "from": 6.82,
+        "to": 19.4,
+        "delta": 12.58
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "B"
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 1486.37,
+          "to": 1541.44,
+          "delta": 55.07,
+          "pct": 3.7
+        },
+        "stop": {
+          "from": 1529.2094,
+          "to": 1434.6725,
+          "delta": -94.5369,
+          "pct": -6.36
+        },
+        "target": {
+          "from": 1362.98,
+          "to": 1657.8149,
+          "delta": 294.8349,
+          "pct": 19.84
+        },
+        "rr": {
+          "from": 2.88,
+          "to": 1.09,
+          "delta": -1.79
+        },
+        "moved": true
+      },
+      "flags_added": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "score": {
+          "from": 15,
+          "to": 0,
+          "delta": -15
+        },
+        "resolved": [
+          "reclaim the last higher-low 1273.4",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "added_missing": [
+          "pull back to support 1379.64",
+          "reclaim the last lower-high 1452.36"
+        ],
+        "state": {
+          "from": "forming",
+          "to": "absent"
+        },
+        "still_missing": [
+          "pull back to support 1379.64",
+          "reclaim the last lower-high 1452.36",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 1486.37,
+        "to": 1541.44,
+        "pct": 3.7
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 7,
+          "to": 0
+        }
+      },
+      "highlights": [
+        "Demoted ARM \u2192 WATCH",
+        "Confirmation advanced \u2014 reclaim the last higher-low 1273.4 satisfied",
+        "R:R 2.88 \u2192 1.09"
+      ]
+    },
+    "PFE": {
+      "status": "changed",
+      "quality": {
+        "grade": {
+          "from": "D",
+          "to": "C"
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 27.8,
+          "to": 27.41,
+          "delta": -0.39,
+          "pct": -1.4
+        },
+        "target": {
+          "from": 27.65,
+          "to": 27.245,
+          "delta": -0.405,
+          "pct": -1.46
+        },
+        "moved": true
+      },
+      "confirmation": {
+        "still_missing": [
+          "reclaim the last higher-low 27.25",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 27.8,
+        "to": 27.41,
+        "pct": -1.4
+      },
+      "derived": {
+        "trigger_crossed": true,
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0,
+        "age_bars": {
+          "from": 9,
+          "to": 10
+        }
+      },
+      "highlights": [
+        "Price crossed the entry trigger"
+      ]
+    },
+    "PODD": {
+      "status": "changed",
+      "verdict": {
+        "from": "arm",
+        "to": "watch",
+        "transition": "demotion"
+      },
+      "conviction": {
+        "from": 55,
+        "to": 66,
+        "delta": 11
+      },
+      "rank_score": {
+        "from": 19.8,
+        "to": 15.23,
+        "delta": -4.57
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "A"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 22,
+          "delta": -31
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 131.61,
+          "to": 135.67,
+          "delta": 4.06,
+          "pct": 3.08
+        },
+        "rr": {
+          "from": 5.08,
+          "to": 1.22,
+          "delta": -3.86
+        },
+        "moved": true
+      },
+      "confirmation": {
+        "score": {
+          "from": 31,
+          "to": 15,
+          "delta": -16
+        },
+        "added_missing": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 143.43",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 131.61,
+        "to": 135.67,
+        "pct": 3.08
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 0,
+          "to": 1
+        }
+      },
+      "highlights": [
+        "Demoted ARM \u2192 WATCH",
+        "R:R 5.08 \u2192 1.22"
+      ]
+    },
+    "REGN": {
+      "status": "changed",
+      "verdict": {
+        "from": "take",
+        "to": "watch",
+        "transition": "demotion"
+      },
+      "conviction": {
+        "from": 96,
+        "to": 72,
+        "delta": -24
+      },
+      "rank_score": {
+        "from": 18.7,
+        "to": 12.61,
+        "delta": -6.09
+      },
+      "quality": {
+        "grade": {
+          "from": "B",
+          "to": "C"
+        },
+        "trap_risk": {
+          "from": 36,
+          "to": 62,
+          "delta": 26
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 735.285,
+          "to": 726.215,
+          "delta": -9.07,
+          "pct": -1.23
+        },
+        "stop": {
+          "from": 723.7963,
+          "to": 708.822,
+          "delta": -14.9743,
+          "pct": -2.04
+        },
+        "moved": true
+      },
+      "flags_added": [
+        "take_small_block"
+      ],
+      "confirmation": {
+        "resolved": [
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "added_missing": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 811.48",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 735.285,
+        "to": 726.215,
+        "pct": -1.23
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 7,
+          "to": 3
+        }
+      },
+      "highlights": [
+        "Demoted TAKE \u2192 WATCH",
+        "Trap risk 36 \u2192 62",
+        "Confirmation advanced \u2014 volume \u22651.2\u00d7 on the confirmation bar satisfied"
+      ]
+    },
+    "RMD": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "take",
+        "transition": "promotion"
+      },
+      "rank_score": {
+        "from": 7.36,
+        "to": 34.93,
+        "delta": 27.57
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "A"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 0,
+          "delta": -53
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 218.96,
+          "to": 222.89,
+          "delta": 3.93,
+          "pct": 1.79
+        },
+        "target": {
+          "from": 231.7851,
+          "to": 243.6369,
+          "delta": 11.8518,
+          "pct": 5.41
+        },
+        "rr": {
+          "from": 3.96,
+          "to": 2.89,
+          "delta": -1.07
+        },
+        "moved": true
+      },
+      "flags_cleared": [
+        "htf_agree",
+        "take_small_block"
+      ],
+      "confirmation": {
+        "still_missing": [
+          "reclaim the last lower-high 234.11",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 218.96,
+        "to": 222.89,
+        "pct": 1.79
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 8,
+          "to": 9
+        }
+      },
+      "highlights": [
+        "Promoted WATCH \u2192 TAKE",
+        "R:R 3.96 \u2192 2.89"
+      ]
+    },
+    "STE": {
+      "status": "changed",
+      "conviction": {
+        "from": 61,
+        "to": 41,
+        "delta": -20
+      },
+      "rank_score": {
+        "from": 13.23,
+        "to": 5.23,
+        "delta": -8.0
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 36,
+          "delta": -17
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 208.59,
+          "to": 211.18,
+          "delta": 2.59,
+          "pct": 1.24
+        },
+        "stop": {
+          "from": 205.7881,
+          "to": 208.2824,
+          "delta": 2.4943,
+          "pct": 1.2
+        },
+        "rr": {
+          "from": 3.56,
+          "to": 2.55,
+          "delta": -1.01
+        },
+        "moved": true
+      },
+      "confirmation": {
+        "score": {
+          "from": 46,
+          "to": 31,
+          "delta": -15
+        },
+        "added_missing": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 240.31",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 208.59,
+        "to": 211.18,
+        "pct": 1.24
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 8,
+          "to": 9
+        }
+      },
+      "highlights": [
+        "R:R 3.56 \u2192 2.55"
+      ]
+    },
+    "SYK": {
+      "status": "changed",
+      "verdict": {
+        "from": "avoid",
+        "to": "arm",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 52,
+        "to": 37,
+        "delta": -15
+      },
+      "rank_score": {
+        "from": 3.4,
+        "to": 0.37,
+        "delta": -3.03
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "B"
+        },
+        "trap_risk": {
+          "from": 60,
+          "to": 0,
+          "delta": -60
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 275.47,
+          "to": 285.34,
+          "delta": 9.87,
+          "pct": 3.58
+        },
+        "stop": {
+          "from": 265.565,
+          "to": 294.4494,
+          "delta": 28.8844,
+          "pct": 10.49
+        },
+        "target": {
+          "from": 290.47,
+          "to": 281.03,
+          "delta": -9.44,
+          "pct": -3.43
+        },
+        "rr": {
+          "from": 1.51,
+          "to": 0.47,
+          "delta": -1.04
+        },
+        "moved": true
+      },
+      "thesis_expired": {
+        "from": false,
+        "to": true
+      },
+      "confirmation": {
+        "score": {
+          "from": 31,
+          "to": 15,
+          "delta": -16
+        },
+        "resolved": [
+          "reclaim the last lower-high 290.47"
+        ],
+        "added_missing": [
+          "reclaim the last higher-low 269.55",
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last higher-low 269.55",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 275.47,
+        "to": 285.34,
+        "pct": 3.58
+      },
+      "derived": {
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0,
+        "age_bars": {
+          "from": 9,
+          "to": 10
+        }
+      },
+      "highlights": [
+        "Promoted AVOID \u2192 ARM",
+        "Confirmation advanced \u2014 reclaim the last lower-high 290.47 satisfied",
+        "R:R 1.51 \u2192 0.47",
+        "Thesis expired"
+      ]
+    },
+    "UHS": {
+      "status": "changed",
+      "conviction": {
+        "from": 69,
+        "to": 76,
+        "delta": 7
+      },
+      "quality": {
+        "trap_risk": {
+          "from": 85,
+          "to": 69,
+          "delta": -16
+        }
+      },
+      "plan": {
+        "rr": {
+          "from": 1.28,
+          "to": 0.96,
+          "delta": -0.32
+        },
+        "moved": false
+      },
+      "confirmation": {
+        "score": {
+          "from": 31,
+          "to": 46,
+          "delta": 15
+        },
+        "resolved": [
+          "rejection / reclaim candle in your direction"
+        ],
+        "still_missing": [
+          "reclaim the last higher-low 166.97",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 175.74,
+        "to": 176.04,
+        "pct": 0.17
+      },
+      "derived": {
+        "toward_target_pct": -0.0,
+        "toward_stop_pct": 0.0,
+        "age_bars": {
+          "from": 1,
+          "to": 2
+        }
+      },
+      "highlights": [
+        "Confirmation advanced \u2014 rejection / reclaim candle in your direction satisfied",
+        "R:R 1.28 \u2192 0.96"
+      ]
+    },
+    "VRTX": {
+      "status": "changed",
+      "rank_score": {
+        "from": 18.7,
+        "to": 9.35,
+        "delta": -9.35
+      },
+      "confirmation": {
+        "resolved": [
+          "reclaim the last lower-high 559.22"
+        ],
+        "added_missing": [
+          "reclaim the last lower-high 529.82"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 529.82",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 504.69,
+        "to": 503.56,
+        "pct": -0.22
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 0,
+          "to": 1
+        }
+      },
+      "highlights": [
+        "Confirmation advanced \u2014 reclaim the last lower-high 559.22 satisfied"
+      ]
+    },
+    "WST": {
+      "status": "changed",
+      "verdict": {
+        "from": "avoid",
+        "to": "watch",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 52,
+        "to": 92,
+        "delta": 40
+      },
+      "rank_score": {
+        "from": 3.4,
+        "to": 23.8,
+        "delta": 20.4
+      },
+      "quality": {
+        "grade": {
+          "from": "D",
+          "to": "A"
+        },
+        "trap_risk": {
+          "from": 69,
+          "to": 0,
+          "delta": -69
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 365.52,
+          "to": 376.77,
+          "delta": 11.25,
+          "pct": 3.08
+        },
+        "stop": {
+          "from": 371.4344,
+          "to": 360.0431,
+          "delta": -11.3913,
+          "pct": -3.12
+        },
+        "target": {
+          "from": 349.705,
+          "to": 397.631,
+          "delta": 47.926,
+          "pct": 13.11
+        },
+        "rr": {
+          "from": 2.67,
+          "to": 1.25,
+          "delta": -1.42
+        },
+        "moved": true
+      },
+      "confirmation": {
+        "score": {
+          "from": 31,
+          "to": 15,
+          "delta": -16
+        },
+        "resolved": [
+          "reclaim the last higher-low 332.15",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "added_missing": [
+          "pull back to support 349.7",
+          "reclaim the last lower-high 381.68",
+          "rejection / reclaim candle in your direction"
+        ],
+        "state": {
+          "from": "forming",
+          "to": "absent"
+        },
+        "still_missing": [
+          "pull back to support 349.7",
+          "reclaim the last lower-high 381.68",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 365.52,
+        "to": 376.77,
+        "pct": 3.08
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 9,
+          "to": 0
+        }
+      },
+      "highlights": [
+        "Promoted AVOID \u2192 WATCH",
+        "Confirmation advanced \u2014 reclaim the last higher-low 332.15 satisfied",
+        "R:R 2.67 \u2192 1.25"
+      ]
+    },
+    "ZTS": {
+      "status": "changed",
+      "rank_score": {
+        "from": 21.14,
+        "to": 1.13,
+        "delta": -20.01
+      },
+      "quality": {
+        "grade": {
+          "from": "D",
+          "to": "A"
+        },
+        "trap_risk": {
+          "from": 82,
+          "to": 0,
+          "delta": -82
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 69.69,
+          "to": 71.42,
+          "delta": 1.73,
+          "pct": 2.48
+        },
+        "stop": {
+          "from": 72.8718,
+          "to": 68.6721,
+          "delta": -4.1997,
+          "pct": -6.03
+        },
+        "target": {
+          "from": 64.3229,
+          "to": 71.9266,
+          "delta": 7.6037,
+          "pct": 10.91
+        },
+        "rr": {
+          "from": 1.69,
+          "to": 0.18,
+          "delta": -1.51
+        },
+        "moved": true
+      },
+      "thesis_expired": {
+        "from": false,
+        "to": true
+      },
+      "flags_cleared": [
+        "htf_agree"
+      ],
+      "confirmation": {
+        "score": {
+          "from": 15,
+          "to": 31,
+          "delta": 16
+        },
+        "resolved": [
+          "pull back to resistance 77.97",
+          "reclaim the last higher-low 71.02"
+        ],
+        "added_missing": [
+          "reclaim the last lower-high 77.92",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "state": {
+          "from": "absent",
+          "to": "forming"
+        },
+        "still_missing": [
+          "reclaim the last lower-high 77.92",
+          "rejection / reclaim candle in your direction",
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ]
+      },
+      "price": {
+        "from": 69.69,
+        "to": 71.42,
+        "pct": 2.48
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0,
+        "age_bars": {
+          "from": 1,
+          "to": 9
+        }
+      },
+      "highlights": [
+        "Confirmation advanced \u2014 pull back to resistance 77.97 satisfied",
+        "R:R 1.69 \u2192 0.18",
+        "Thesis expired"
+      ]
+    }
+  },
+  "summary": {
+    "candidates_from": 34,
+    "candidates_to": 33,
+    "new": 5,
+    "dropped": 6,
+    "persisted": 28,
+    "changed": 28,
+    "unchanged": 0,
+    "promotions": 10,
+    "demotions": 7,
+    "new_takes": [
+      "CNC",
+      "IDXX",
+      "IQV",
+      "MCK",
+      "MDT",
+      "RMD"
+    ],
+    "lost_takes": [
+      "ABT",
+      "MRK",
+      "REGN"
+    ],
+    "by_verdict_from": {
+      "take": 3,
+      "watch": 16,
+      "arm": 11,
+      "avoid": 4
+    },
+    "by_verdict_to": {
+      "take": 5,
+      "take_small": 1,
+      "arm": 11,
+      "watch": 14,
+      "avoid": 2
+    },
+    "material": true
+  },
+  "highlights": [
+    {
+      "rank": 1,
+      "kind": "new_take",
+      "symbol": "CNC",
+      "text": "CNC became TAKE \u2014 the actionable event"
+    },
+    {
+      "rank": 2,
+      "kind": "new_take",
+      "symbol": "IDXX",
+      "text": "IDXX became TAKE \u2014 the actionable event"
+    },
+    {
+      "rank": 3,
+      "kind": "new_take",
+      "symbol": "IQV",
+      "text": "IQV became TAKE \u2014 the actionable event"
+    },
+    {
+      "rank": 4,
+      "kind": "new_take",
+      "symbol": "MCK",
+      "text": "MCK became TAKE \u2014 the actionable event"
+    },
+    {
+      "rank": 5,
+      "kind": "new_take",
+      "symbol": "MDT",
+      "text": "MDT became TAKE \u2014 the actionable event"
+    },
+    {
+      "rank": 6,
+      "kind": "new_take",
+      "symbol": "RMD",
+      "text": "RMD became TAKE \u2014 the actionable event"
+    },
+    {
+      "rank": 7,
+      "kind": "lost_take",
+      "symbol": "ABT",
+      "text": "ABT lost its TAKE"
+    },
+    {
+      "rank": 8,
+      "kind": "lost_take",
+      "symbol": "MRK",
+      "text": "MRK lost its TAKE"
+    },
+    {
+      "rank": 9,
+      "kind": "lost_take",
+      "symbol": "REGN",
+      "text": "REGN lost its TAKE"
+    },
+    {
+      "rank": 10,
+      "kind": "promotion",
+      "symbol": "EW",
+      "text": "EW promoted WATCH \u2192 ARM"
+    },
+    {
+      "rank": 11,
+      "kind": "promotion",
+      "symbol": "HUM",
+      "text": "HUM promoted WATCH \u2192 ARM"
+    },
+    {
+      "rank": 12,
+      "kind": "promotion",
+      "symbol": "JNJ",
+      "text": "JNJ promoted AVOID \u2192 ARM"
+    },
+    {
+      "rank": 13,
+      "kind": "promotion",
+      "symbol": "SYK",
+      "text": "SYK promoted AVOID \u2192 ARM"
+    },
+    {
+      "rank": 14,
+      "kind": "promotion",
+      "symbol": "WST",
+      "text": "WST promoted AVOID \u2192 WATCH"
+    },
+    {
+      "rank": 15,
+      "kind": "demotion",
+      "symbol": "BMY",
+      "text": "BMY demoted WATCH \u2192 AVOID"
+    }
+  ]
+}
