@@ -1,7 +1,7 @@
 {
   "schema_version": 4,
-  "report_version": "20261006T002908Z",
-  "generated_at": "2026-10-06T00:29:08.102928+00:00",
+  "report_version": "20261006T122907Z",
+  "generated_at": "2026-10-06T12:29:07.640748+00:00",
   "schedule": {
     "id": 15,
     "name": "Others",
@@ -23,7 +23,7 @@
     "1Week"
   ],
   "data_health": {
-    "checked_at": "2026-10-06T00:29:00.055516+00:00",
+    "checked_at": "2026-10-06T12:29:00.050525+00:00",
     "timeframes": [
       "1Hour",
       "1Day",
@@ -222,7 +222,7 @@
         "indexes_down": 0,
         "offensive_leading": true
       },
-      "computed_at": "2026-10-06T00:29:05.600305+00:00"
+      "computed_at": "2026-10-06T12:29:05.423852+00:00"
     },
     "breadth": {
       "available": true,
@@ -235,7 +235,7 @@
       "new_high_20d": 1,
       "new_low_20d": 2,
       "breadth_score": 34,
-      "computed_at": "2026-10-06T00:27:34.529412+00:00"
+      "computed_at": "2026-10-06T12:27:32.146889+00:00"
     }
   },
   "candidates": [
@@ -519,7 +519,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-10-06T00:29:01.460808+00:00",
+          "computed_at": "2026-10-06T12:29:01.378864+00:00",
           "wall_atr": 4.386
         },
         "position_gate": {
@@ -883,7 +883,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-10-06T00:29:01.808542+00:00",
+          "computed_at": "2026-10-06T12:29:01.696455+00:00",
           "wall_atr": 5.845
         },
         "position_gate": {
@@ -1255,7 +1255,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-10-06T00:29:06.454789+00:00",
+          "computed_at": "2026-10-06T12:29:06.212563+00:00",
           "wall_atr": 4.386
         },
         "provenance": {
@@ -1269,7 +1269,7 @@
           "feature_set_version": "fs-1",
           "model_version": "xgb-20260729-044256",
           "engine_version": "1.0.0",
-          "computed_at": "2026-10-06T00:29:06.778283+00:00"
+          "computed_at": "2026-10-06T12:29:06.506575+00:00"
         },
         "integrity": {
           "verdict": "READY",
@@ -1570,16 +1570,24 @@
             "symbol": "COIN",
             "timeframe": "1Day",
             "trading_readiness": "READY",
-            "confidence_score": 100.0,
+            "confidence_score": 99.0,
             "critical_count": 0,
             "warning_count": 0,
-            "info_count": 0,
+            "info_count": 1,
             "bar_count": 300,
             "last_bar_ts": "2026-10-05T04:00:00+00:00",
             "current_price": 188.19,
-            "validated_at": "2026-10-06T00:29:06.794790+00:00",
-            "validation_ms": 16.49,
-            "issues": []
+            "validated_at": "2026-10-06T12:29:06.522309+00:00",
+            "validation_ms": 15.71,
+            "issues": [
+              {
+                "code": "OHLCV_008",
+                "severity": "INFO",
+                "message": "Most recent bar is 32h old",
+                "detail": "Last bar: 2026-10-05T04:00:00+00:00",
+                "indicator": ""
+              }
+            ]
           }
         },
         "position_gate": {
@@ -1677,9 +1685,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-10-06T00:29:06.308369+00:00"
+        "checked_at": "2026-10-06T12:29:06.083961+00:00"
       },
-      "computed_at": "2026-10-06T00:29:06.806843+00:00"
+      "computed_at": "2026-10-06T12:29:06.534815+00:00"
     },
     "SOFI": {
       "symbol": "SOFI",
@@ -2017,7 +2025,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-10-06T00:29:07.361960+00:00",
+          "computed_at": "2026-10-06T12:29:06.980160+00:00",
           "wall_atr": 5.845
         },
         "provenance": {
@@ -2031,7 +2039,7 @@
           "feature_set_version": "fs-1",
           "model_version": "xgb-20260729-044256",
           "engine_version": "1.0.0",
-          "computed_at": "2026-10-06T00:29:07.714587+00:00"
+          "computed_at": "2026-10-06T12:29:07.289895+00:00"
         },
         "integrity": {
           "verdict": "READY",
@@ -2323,16 +2331,23 @@
             "symbol": "SOFI",
             "timeframe": "1Day",
             "trading_readiness": "READY",
-            "confidence_score": 99.0,
+            "confidence_score": 98.0,
             "critical_count": 0,
             "warning_count": 0,
-            "info_count": 1,
+            "info_count": 2,
             "bar_count": 300,
             "last_bar_ts": "2026-10-05T04:00:00+00:00",
             "current_price": 15.905,
-            "validated_at": "2026-10-06T00:29:07.739153+00:00",
-            "validation_ms": 24.55,
+            "validated_at": "2026-10-06T12:29:07.305587+00:00",
+            "validation_ms": 15.68,
             "issues": [
+              {
+                "code": "OHLCV_008",
+                "severity": "INFO",
+                "message": "Most recent bar is 32h old",
+                "detail": "Last bar: 2026-10-05T04:00:00+00:00",
+                "indicator": ""
+              },
               {
                 "code": "CON_002",
                 "severity": "INFO",
@@ -2443,9 +2458,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-10-06T00:29:07.231433+00:00"
+        "checked_at": "2026-10-06T12:29:06.856038+00:00"
       },
-      "computed_at": "2026-10-06T00:29:07.751460+00:00"
+      "computed_at": "2026-10-06T12:29:07.315707+00:00"
     }
   },
   "integrity": {
@@ -2503,7 +2518,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-10-06T00:29:07.100251+00:00"
+        "computed_at": "2026-10-06T12:29:06.732487+00:00"
       },
       "price_volume": {
         "available": true,
@@ -2794,7 +2809,7 @@
           "available": 3,
           "agreement": 66.7
         },
-        "computed_at": "2026-10-06T00:29:07.966884+00:00"
+        "computed_at": "2026-10-06T12:29:07.512264+00:00"
       },
       "price_volume": {
         "available": true,
