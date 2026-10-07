@@ -538,13 +538,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 9,
     "watchlist_name": "Energy",
-    "updated_at": "2026-10-07T12:19:22.408137+00:00",
+    "updated_at": "2026-10-07T22:19:30.436886+00:00",
     "version_count": 15,
-    "latest_version": "20261007T121922Z",
-    "latest_generated_at": "2026-10-07T12:19:22.408137+00:00",
-    "latest_candidate_count": 16,
+    "latest_version": "20261007T221930Z",
+    "latest_generated_at": "2026-10-07T22:19:30.436886+00:00",
+    "latest_candidate_count": 14,
     "ai_versions": [],
     "diff_versions": [
+      "20261007T221930Z",
       "20261007T121922Z",
       "20261007T001922Z",
       "20261006T221928Z",
@@ -685,6 +686,11 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260719T224532Z"
     ],
     "outcome_versions": [
+      "20261007T001922Z",
+      "20261006T221928Z",
+      "20261006T121919Z",
+      "20261006T001920Z",
+      "20261005T221928Z",
       "20261005T121925Z",
       "20261003T001922Z",
       "20261002T221928Z",
@@ -1874,14 +1880,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-07T12:19:22.408137+00:00",
+    "updated_at": "2026-10-07T22:19:30.436886+00:00",
     "report_count": 15,
     "latest": {
       "scheduleId": "010-energy",
-      "version": "20261007T121922Z",
-      "generated_at": "2026-10-07T12:19:22.408137+00:00",
+      "version": "20261007T221930Z",
+      "generated_at": "2026-10-07T22:19:30.436886+00:00",
       "persona": "swing",
-      "candidate_count": 16,
+      "candidate_count": 14,
       "hasAi": false
     }
   },
