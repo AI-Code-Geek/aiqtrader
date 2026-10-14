@@ -811,13 +811,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 7,
     "watchlist_name": "Industrials",
-    "updated_at": "2026-10-13T22:21:56.554319+00:00",
+    "updated_at": "2026-10-14T00:21:52.515780+00:00",
     "version_count": 15,
-    "latest_version": "20261013T222156Z",
-    "latest_generated_at": "2026-10-13T22:21:56.554319+00:00",
+    "latest_version": "20261014T002152Z",
+    "latest_generated_at": "2026-10-14T00:21:52.515780+00:00",
     "latest_candidate_count": 31,
     "ai_versions": [],
     "diff_versions": [
+      "20261014T002152Z",
       "20261013T222156Z",
       "20261013T122141Z",
       "20261013T002145Z",
@@ -1083,13 +1084,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 8,
     "watchlist_name": "Utilities",
-    "updated_at": "2026-10-13T22:23:33.574365+00:00",
+    "updated_at": "2026-10-14T00:23:28.245081+00:00",
     "version_count": 15,
-    "latest_version": "20261013T222333Z",
-    "latest_generated_at": "2026-10-13T22:23:33.574365+00:00",
+    "latest_version": "20261014T002328Z",
+    "latest_generated_at": "2026-10-14T00:23:28.245081+00:00",
     "latest_candidate_count": 20,
     "ai_versions": [],
     "diff_versions": [
+      "20261014T002328Z",
       "20261013T222333Z",
       "20261013T122323Z",
       "20261013T002324Z",
@@ -2007,12 +2009,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-13T22:21:56.554319+00:00",
+    "updated_at": "2026-10-14T00:21:52.515780+00:00",
     "report_count": 15,
     "latest": {
       "scheduleId": "011-industrials",
-      "version": "20261013T222156Z",
-      "generated_at": "2026-10-13T22:21:56.554319+00:00",
+      "version": "20261014T002152Z",
+      "generated_at": "2026-10-14T00:21:52.515780+00:00",
       "persona": "swing",
       "candidate_count": 31,
       "hasAi": false
@@ -2028,12 +2030,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-13T22:23:33.574365+00:00",
+    "updated_at": "2026-10-14T00:23:28.245081+00:00",
     "report_count": 15,
     "latest": {
       "scheduleId": "012-utilities",
-      "version": "20261013T222333Z",
-      "generated_at": "2026-10-13T22:23:33.574365+00:00",
+      "version": "20261014T002328Z",
+      "generated_at": "2026-10-14T00:23:28.245081+00:00",
       "persona": "swing",
       "candidate_count": 20,
       "hasAi": false
