@@ -11,13 +11,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 4,
     "watchlist_name": "Information technology",
-    "updated_at": "2026-10-15T01:59:31.626411+00:00",
+    "updated_at": "2026-10-15T12:16:21.289683+00:00",
     "version_count": 13,
-    "latest_version": "20261015T015931Z",
-    "latest_generated_at": "2026-10-15T01:59:31.626411+00:00",
+    "latest_version": "20261015T121621Z",
+    "latest_generated_at": "2026-10-15T12:16:21.289683+00:00",
     "latest_candidate_count": 63,
     "ai_versions": [],
     "diff_versions": [
+      "20261015T121621Z",
       "20261015T015931Z",
       "20261014T001636Z",
       "20261013T221646Z",
@@ -328,13 +329,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 5,
     "watchlist_name": "Financials",
-    "updated_at": "2026-10-15T02:00:41.312501+00:00",
+    "updated_at": "2026-10-15T12:17:43.677798+00:00",
     "version_count": 13,
-    "latest_version": "20261015T020041Z",
-    "latest_generated_at": "2026-10-15T02:00:41.312501+00:00",
+    "latest_version": "20261015T121743Z",
+    "latest_generated_at": "2026-10-15T12:17:43.677798+00:00",
     "latest_candidate_count": 37,
     "ai_versions": [],
     "diff_versions": [
+      "20261015T121743Z",
       "20261015T020041Z",
       "20261014T001744Z",
       "20261013T221751Z",
@@ -1979,12 +1981,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-15T01:59:31.626411+00:00",
+    "updated_at": "2026-10-15T12:16:21.289683+00:00",
     "report_count": 13,
     "latest": {
       "scheduleId": "008-information-technology",
-      "version": "20261015T015931Z",
-      "generated_at": "2026-10-15T01:59:31.626411+00:00",
+      "version": "20261015T121621Z",
+      "generated_at": "2026-10-15T12:16:21.289683+00:00",
       "persona": "swing",
       "candidate_count": 63,
       "hasAi": false
@@ -2000,12 +2002,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-15T02:00:41.312501+00:00",
+    "updated_at": "2026-10-15T12:17:43.677798+00:00",
     "report_count": 13,
     "latest": {
       "scheduleId": "009-financials",
-      "version": "20261015T020041Z",
-      "generated_at": "2026-10-15T02:00:41.312501+00:00",
+      "version": "20261015T121743Z",
+      "generated_at": "2026-10-15T12:17:43.677798+00:00",
       "persona": "swing",
       "candidate_count": 37,
       "hasAi": false
