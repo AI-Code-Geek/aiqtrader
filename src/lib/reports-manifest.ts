@@ -1350,13 +1350,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 6,
     "watchlist_name": "Health Care",
-    "updated_at": "2026-10-14T00:25:45.177299+00:00",
-    "version_count": 12,
-    "latest_version": "20261014T002545Z",
-    "latest_generated_at": "2026-10-14T00:25:45.177299+00:00",
-    "latest_candidate_count": 34,
+    "updated_at": "2026-10-15T02:04:40.758123+00:00",
+    "version_count": 13,
+    "latest_version": "20261015T020440Z",
+    "latest_generated_at": "2026-10-15T02:04:40.758123+00:00",
+    "latest_candidate_count": 38,
     "ai_versions": [],
     "diff_versions": [
+      "20261015T020440Z",
       "20261014T002545Z",
       "20261013T222550Z",
       "20261013T122540Z",
@@ -1511,6 +1512,9 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260719T224937Z"
     ],
     "outcome_versions": [
+      "20261014T002545Z",
+      "20261013T222550Z",
+      "20261013T122540Z",
       "20261013T002542Z",
       "20261012T222549Z",
       "20261009T122542Z",
@@ -1630,13 +1634,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 10,
     "watchlist_name": "AI Infrastructure Leaders",
-    "updated_at": "2026-10-14T00:28:16.251877+00:00",
-    "version_count": 12,
-    "latest_version": "20261014T002816Z",
-    "latest_generated_at": "2026-10-14T00:28:16.251877+00:00",
-    "latest_candidate_count": 49,
+    "updated_at": "2026-10-15T02:06:01.745876+00:00",
+    "version_count": 13,
+    "latest_version": "20261015T020601Z",
+    "latest_generated_at": "2026-10-15T02:06:01.745876+00:00",
+    "latest_candidate_count": 52,
     "ai_versions": [],
     "diff_versions": [
+      "20261015T020601Z",
       "20261014T002816Z",
       "20261013T222827Z",
       "20261013T122810Z",
@@ -1746,8 +1751,13 @@ export const SCHEDULES: ScheduleMeta[] = [
       "20260813T040636Z"
     ],
     "outcome_versions": [
+      "20261014T002816Z",
+      "20261013T222827Z",
+      "20261013T122810Z",
       "20261013T002816Z",
       "20261012T222822Z",
+      "20261012T122809Z",
+      "20261010T002808Z",
       "20261009T122814Z",
       "20261009T002815Z",
       "20261008T222820Z",
@@ -2010,14 +2020,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-14T00:25:45.177299+00:00",
-    "report_count": 12,
+    "updated_at": "2026-10-15T02:04:40.758123+00:00",
+    "report_count": 13,
     "latest": {
       "scheduleId": "013-health-care",
-      "version": "20261014T002545Z",
-      "generated_at": "2026-10-14T00:25:45.177299+00:00",
+      "version": "20261015T020440Z",
+      "generated_at": "2026-10-15T02:04:40.758123+00:00",
       "persona": "swing",
-      "candidate_count": 34,
+      "candidate_count": 38,
       "hasAi": false
     }
   },
@@ -2094,14 +2104,14 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-14T00:28:16.251877+00:00",
-    "report_count": 12,
+    "updated_at": "2026-10-15T02:06:01.745876+00:00",
+    "report_count": 13,
     "latest": {
       "scheduleId": "014-ai-infrastructure-leaders",
-      "version": "20261014T002816Z",
-      "generated_at": "2026-10-14T00:28:16.251877+00:00",
+      "version": "20261015T020601Z",
+      "generated_at": "2026-10-15T02:06:01.745876+00:00",
       "persona": "swing",
-      "candidate_count": 49,
+      "candidate_count": 52,
       "hasAi": false
     }
   },
