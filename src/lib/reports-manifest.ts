@@ -1657,13 +1657,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 10,
     "watchlist_name": "AI Infrastructure Leaders",
-    "updated_at": "2026-10-15T22:28:19.586325+00:00",
+    "updated_at": "2026-10-16T00:28:11.228516+00:00",
     "version_count": 13,
-    "latest_version": "20261015T222819Z",
-    "latest_generated_at": "2026-10-15T22:28:19.586325+00:00",
+    "latest_version": "20261016T002811Z",
+    "latest_generated_at": "2026-10-16T00:28:11.228516+00:00",
     "latest_candidate_count": 50,
     "ai_versions": [],
     "diff_versions": [
+      "20261016T002811Z",
       "20261015T222819Z",
       "20261015T122811Z",
       "20261015T020601Z",
@@ -1869,13 +1870,14 @@ export const SCHEDULES: ScheduleMeta[] = [
     "persona": "swing",
     "watchlist_id": 11,
     "watchlist_name": "Others",
-    "updated_at": "2026-10-15T22:29:14.354553+00:00",
+    "updated_at": "2026-10-16T00:29:07.698784+00:00",
     "version_count": 13,
-    "latest_version": "20261015T222914Z",
-    "latest_generated_at": "2026-10-15T22:29:14.354553+00:00",
+    "latest_version": "20261016T002907Z",
+    "latest_generated_at": "2026-10-16T00:29:07.698784+00:00",
     "latest_candidate_count": 2,
     "ai_versions": [],
     "diff_versions": [
+      "20261016T002907Z",
       "20261015T222914Z",
       "20261015T122907Z",
       "20261015T020632Z",
@@ -2134,12 +2136,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-15T22:28:19.586325+00:00",
+    "updated_at": "2026-10-16T00:28:11.228516+00:00",
     "report_count": 13,
     "latest": {
       "scheduleId": "014-ai-infrastructure-leaders",
-      "version": "20261015T222819Z",
-      "generated_at": "2026-10-15T22:28:19.586325+00:00",
+      "version": "20261016T002811Z",
+      "generated_at": "2026-10-16T00:28:11.228516+00:00",
       "persona": "swing",
       "candidate_count": 50,
       "hasAi": false
@@ -2155,12 +2157,12 @@ export const WATCHLISTS: WatchlistMeta[] = [
     "personas": [
       "swing"
     ],
-    "updated_at": "2026-10-15T22:29:14.354553+00:00",
+    "updated_at": "2026-10-16T00:29:07.698784+00:00",
     "report_count": 13,
     "latest": {
       "scheduleId": "015-others",
-      "version": "20261015T222914Z",
-      "generated_at": "2026-10-15T22:29:14.354553+00:00",
+      "version": "20261016T002907Z",
+      "generated_at": "2026-10-16T00:29:07.698784+00:00",
       "persona": "swing",
       "candidate_count": 2,
       "hasAi": false
