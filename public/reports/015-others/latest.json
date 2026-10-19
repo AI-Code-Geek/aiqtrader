@@ -1,7 +1,7 @@
 {
   "schema_version": 4,
-  "report_version": "20261017T002906Z",
-  "generated_at": "2026-10-17T00:29:06.860549+00:00",
+  "report_version": "20261019T122906Z",
+  "generated_at": "2026-10-19T12:29:06.485988+00:00",
   "schedule": {
     "id": 15,
     "name": "Others",
@@ -23,7 +23,7 @@
     "1Week"
   ],
   "data_health": {
-    "checked_at": "2026-10-17T00:29:00.032539+00:00",
+    "checked_at": "2026-10-19T12:29:00.052415+00:00",
     "timeframes": [
       "1Hour",
       "1Day",
@@ -222,7 +222,7 @@
         "indexes_down": 0,
         "offensive_leading": false
       },
-      "computed_at": "2026-10-17T00:29:05.356063+00:00"
+      "computed_at": "2026-10-19T12:29:05.096571+00:00"
     },
     "breadth": {
       "available": true,
@@ -235,7 +235,7 @@
       "new_high_20d": 7,
       "new_low_20d": 1,
       "breadth_score": 42,
-      "computed_at": "2026-10-17T00:27:27.720434+00:00"
+      "computed_at": "2026-10-19T12:27:27.318650+00:00"
     }
   },
   "candidates": [
@@ -345,10 +345,10 @@
             "note": "Market vol calm (VIXY 17.7, 13th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Saturday",
-            "dow": 5,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 39.6,
@@ -557,7 +557,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-10-17T00:29:01.573195+00:00",
+          "computed_at": "2026-10-19T12:29:01.439442+00:00",
           "wall_atr": null
         },
         "position_gate": {
@@ -750,10 +750,10 @@
             "note": "Market vol calm (VIXY 17.7, 13th pct) \u2014 stops can tighten."
           },
           "cycle": {
-            "day": "Saturday",
-            "dow": 5,
-            "phase": "mixed",
-            "note": "Mid-week \u2014 no strong day-of-week bias."
+            "day": "Monday",
+            "dow": 0,
+            "phase": "retail",
+            "note": "Retail-crowded (Mon gap-chase / Fri OPEX & momentum) \u2014 fade whipsaws; favor taking profits."
           }
         },
         "rank_score": 39.6,
@@ -962,7 +962,7 @@
           "tf": "1Week",
           "engine": "v2",
           "cache_hit": false,
-          "computed_at": "2026-10-17T00:29:06.206740+00:00",
+          "computed_at": "2026-10-19T12:29:05.872400+00:00",
           "wall_atr": null
         },
         "provenance": {
@@ -976,7 +976,7 @@
           "feature_set_version": "fs-1",
           "model_version": "xgb-20260729-044256",
           "engine_version": "1.0.0",
-          "computed_at": "2026-10-17T00:29:06.505323+00:00"
+          "computed_at": "2026-10-19T12:29:06.152540+00:00"
         },
         "integrity": {
           "verdict": "READY",
@@ -1349,16 +1349,23 @@
             "symbol": "SOFI",
             "timeframe": "1Day",
             "trading_readiness": "READY",
-            "confidence_score": 99.0,
+            "confidence_score": 94.0,
             "critical_count": 0,
-            "warning_count": 0,
+            "warning_count": 1,
             "info_count": 1,
             "bar_count": 300,
             "last_bar_ts": "2026-10-16T04:00:00+00:00",
             "current_price": 14.56,
-            "validated_at": "2026-10-17T00:29:06.521191+00:00",
-            "validation_ms": 15.85,
+            "validated_at": "2026-10-19T12:29:06.168028+00:00",
+            "validation_ms": 15.47,
             "issues": [
+              {
+                "code": "OHLCV_008",
+                "severity": "WARNING",
+                "message": "Most recent bar is 80h old \u2014 data may be stale",
+                "detail": "Last bar: 2026-10-16T04:00:00+00:00",
+                "indicator": ""
+              },
               {
                 "code": "CON_002",
                 "severity": "INFO",
@@ -1479,9 +1486,9 @@
         },
         "unfresh": {},
         "synced": {},
-        "checked_at": "2026-10-17T00:29:06.067891+00:00"
+        "checked_at": "2026-10-19T12:29:05.744865+00:00"
       },
-      "computed_at": "2026-10-17T00:29:06.533985+00:00"
+      "computed_at": "2026-10-19T12:29:06.174545+00:00"
     }
   },
   "integrity": {
@@ -1498,14 +1505,14 @@
         "summary": {
           "1Hour": {
             "available": true,
-            "score": 0.0,
-            "bias": "strong_bearish",
+            "score": 33.3,
+            "bias": "bearish",
             "direction": "bear",
             "trend_alignment": "bearish",
-            "momentum_bias": "bearish",
-            "rsi": 43.02,
-            "macd_hist": 0.0102,
-            "price": 14.48
+            "momentum_bias": "neutral",
+            "rsi": 45.21,
+            "macd_hist": 0.0153,
+            "price": 14.56
           },
           "1Day": {
             "available": true,
@@ -1539,7 +1546,7 @@
           "available": 3,
           "agreement": 100.0
         },
-        "computed_at": "2026-10-17T00:29:06.730800+00:00"
+        "computed_at": "2026-10-19T12:29:06.369770+00:00"
       },
       "price_volume": {
         "available": true,
@@ -3415,10 +3422,10 @@
         {
           "ts": "2026-10-16T19:00:00+00:00",
           "o": 14.42,
-          "h": 14.515,
+          "h": 14.56,
           "l": 14.335,
-          "c": 14.48,
-          "v": 366234
+          "c": 14.56,
+          "v": 660354
         }
       ],
       "1Day": [
