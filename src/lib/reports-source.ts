@@ -306,6 +306,26 @@ export async function getWatchlistOutcomes(
 }
 
 /**
+ * Trim the History timeline to the newest day's runs (US/Eastern calendar date of `generated_at`),
+ * plus only the report cards for those runs. Same rationale as `sliceReportForDashboard`: serializing
+ * every retained diff pushed the information-technology history page's prerender past Cloudflare
+ * Workers' 25 MiB per-asset limit (Workers Builds failing since 2026-10-22). `getSymbolJourney` still
+ * replays the full diff chain — it only emits one symbol's small nodes.
+ */
+export function sliceHistoryToLatestDay(
+	diffs: ReportDiff[],
+	outcomes: Record<string, ReportOutcome>,
+): { diffs: ReportDiff[]; outcomes: Record<string, ReportOutcome> } {
+	if (diffs.length === 0) return { diffs, outcomes: {} };
+	const day = (iso: string) => new Date(iso).toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+	const newest = day(diffs[0].generated_at); // diffs are newest-first
+	const kept = diffs.filter((d) => day(d.generated_at) === newest);
+	const keptOutcomes: Record<string, ReportOutcome> = {};
+	for (const d of kept) if (outcomes[d.report_version]) keptOutcomes[d.report_version] = outcomes[d.report_version];
+	return { diffs: kept, outcomes: keptOutcomes };
+}
+
+/**
  * One symbol's verdict path across every run (P9-05, oldest-first). Reconstructs ABSOLUTE state from
  * the diff chain: "new"/baseline seeds the verdict, "changed" updates it, "unchanged" carries it
  * forward, "dropped" ends the run. Diffs already encode the engine's transitions — we only replay them,

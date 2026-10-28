@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getWatchlist, getWatchlistDiffs, getWatchlistOutcomes, listWatchlists } from "@/lib/reports-source";
+import { getWatchlist, getWatchlistDiffs, getWatchlistOutcomes, listWatchlists, sliceHistoryToLatestDay } from "@/lib/reports-source";
 import { TopNav } from "@/components/TopNav";
 import { PersonaTabs } from "@/components/PersonaTabs";
 import { HistoryClient } from "@/components/HistoryClient";
@@ -22,10 +22,12 @@ export default async function HistoryPage({
 	const { watchlistId, persona } = await params;
 	const w = getWatchlist(watchlistId);
 	if (!w) notFound();
-	const [{ scheduleId, diffs }, outcomes] = await Promise.all([
+	const [{ scheduleId, diffs: allDiffs }, allOutcomes] = await Promise.all([
 		getWatchlistDiffs(watchlistId, persona),
 		getWatchlistOutcomes(watchlistId, persona),
 	]);
+	// Latest day only — the full timeline overflows Cloudflare's 25 MiB per-asset limit.
+	const { diffs, outcomes } = sliceHistoryToLatestDay(allDiffs, allOutcomes);
 	return (
 		<>
 			<TopNav active="history" watchlistId={watchlistId} persona={persona} subtitle={`${persona} · history`} />
