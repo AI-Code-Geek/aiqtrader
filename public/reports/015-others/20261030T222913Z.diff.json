@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "kind": "report_diff",
+  "report_version": "20261030T222913Z",
+  "previous_version": "20261030T122908Z",
+  "generated_at": "2026-10-30T22:29:13.799844+00:00",
+  "previous_generated_at": "2026-10-30T12:29:08.016061+00:00",
+  "gap_hours": 10.0,
+  "baseline": false,
+  "schedule_id": 15,
+  "watchlist_id": 11,
+  "persona": "swing",
+  "thresholds": {
+    "conviction": 5,
+    "rank_score": 3.0,
+    "confirmation": 10,
+    "trap_risk": 10,
+    "rr": 0.3,
+    "level_atr_mult": 0.25,
+    "level_pct_floor": 1.0
+  },
+  "universe": {
+    "added": [],
+    "removed": [],
+    "count_from": 5,
+    "count_to": 5,
+    "changed": false
+  },
+  "symbols": {
+    "COIN": {
+      "status": "dropped",
+      "reason": "no_longer_qualifies",
+      "last": {
+        "verdict": "arm",
+        "conviction": 55,
+        "age_bars": 0
+      }
+    },
+    "SOFI": {
+      "status": "changed",
+      "verdict": {
+        "from": "watch",
+        "to": "take",
+        "transition": "promotion"
+      },
+      "conviction": {
+        "from": 86,
+        "to": 92,
+        "delta": 6
+      },
+      "rank_score": {
+        "from": 4.85,
+        "to": 8.97,
+        "delta": 4.12
+      },
+      "quality": {
+        "grade": {
+          "from": "C",
+          "to": "A"
+        },
+        "trap_risk": {
+          "from": 53,
+          "to": 22,
+          "delta": -31
+        }
+      },
+      "plan": {
+        "entry": {
+          "from": 17.61,
+          "to": 16.76,
+          "delta": -0.85,
+          "pct": -4.83
+        },
+        "target": {
+          "from": 19.4214,
+          "to": 17.95,
+          "delta": -1.4714,
+          "pct": -8.36
+        },
+        "rr": {
+          "from": 1.57,
+          "to": 2.95,
+          "delta": 1.38
+        },
+        "moved": true
+      },
+      "thesis_expired": {
+        "from": false,
+        "to": true
+      },
+      "confirmation": {
+        "score": {
+          "from": 15,
+          "to": 31,
+          "delta": 16
+        },
+        "resolved": [
+          "volume \u22651.2\u00d7 on the confirmation bar"
+        ],
+        "still_missing": [
+          "reclaim the last lower-high 17.95",
+          "rejection / reclaim candle in your direction"
+        ]
+      },
+      "price": {
+        "from": 17.61,
+        "to": 16.76,
+        "pct": -4.83
+      },
+      "derived": {
+        "toward_target_pct": 0.0,
+        "toward_stop_pct": -0.0
+      },
+      "highlights": [
+        "Promoted WATCH \u2192 TAKE",
+        "Confirmation advanced \u2014 volume \u22651.2\u00d7 on the confirmation bar satisfied",
+        "R:R 1.57 \u2192 2.95",
+        "Thesis expired"
+      ]
+    }
+  },
+  "summary": {
+    "candidates_from": 2,
+    "candidates_to": 1,
+    "new": 0,
+    "dropped": 1,
+    "persisted": 1,
+    "changed": 1,
+    "unchanged": 0,
+    "promotions": 1,
+    "demotions": 0,
+    "new_takes": [
+      "SOFI"
+    ],
+    "lost_takes": [],
+    "by_verdict_from": {
+      "watch": 1,
+      "arm": 1
+    },
+    "by_verdict_to": {
+      "take": 1
+    },
+    "material": true
+  },
+  "highlights": [
+    {
+      "rank": 1,
+      "kind": "new_take",
+      "symbol": "SOFI",
+      "text": "SOFI became TAKE \u2014 the actionable event"
+    },
+    {
+      "rank": 2,
+      "kind": "risk",
+      "symbol": "SOFI",
+      "text": "SOFI \u2014 thesis expired"
+    },
+    {
+      "rank": 3,
+      "kind": "confirmation",
+      "symbol": "SOFI",
+      "text": "SOFI \u2014 confirmation advanced (volume \u22651.2\u00d7 on the confirmation bar)"
+    },
+    {
+      "rank": 4,
+      "kind": "dropped",
+      "symbol": "COIN",
+      "text": "COIN \u2014 dropped (no_longer_qualifies)"
+    }
+  ]
+}
